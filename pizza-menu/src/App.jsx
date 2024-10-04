@@ -1,16 +1,14 @@
 import './App.css'
 import Footer from './components/footer.component'
 import Header from './components/header.component'
-import Pizza from './components/pizza.component'
+import Menu from './components/menu.component'
 
 function App() {
   return (
     <div>
       <Header />
 
-      <Pizza />
-      <Pizza />
-      <Pizza />
+      <Menu />
 
       <Footer />
     </div>
