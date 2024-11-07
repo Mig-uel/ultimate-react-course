@@ -10,12 +10,6 @@ function App() {
 
   const isOpen = hour >= openHour && hour <= closeHour
 
-  console.log(isOpen)
-
-  // if (hour >= openHour && hour <= closeHour) {
-  //   alert('We are currently open!')
-  // } else alert('We are currently closed!')
-
   return (
     <div>
       <Header />
