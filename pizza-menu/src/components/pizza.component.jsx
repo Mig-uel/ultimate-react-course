@@ -1,9 +1,13 @@
 const Pizza = ({ name, ingredients, photo, price }) => {
   return (
-    <div>
+    <div className='pizza'>
       <img src={photo} alt={name} />
-      <h3>{name}</h3>
-      <p>{ingredients}</p>
+
+      <div>
+        <h3>{name}</h3>
+        <p>{ingredients}</p>
+        <span>{price}</span>
+      </div>
     </div>
   )
 }
