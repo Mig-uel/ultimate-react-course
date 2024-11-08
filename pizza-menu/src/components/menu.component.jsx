@@ -7,11 +7,17 @@ const Menu = () => {
       <h2>Our Menu</h2>
 
       {pizzaData.length ? (
-        <ul className='pizzas'>
-          {pizzaData.map((pizza) => (
-            <Pizza {...pizza} key={pizza.name} />
-          ))}
-        </ul>
+        <>
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from. All
+            from our stone oven, all organic, all delicious.
+          </p>
+          <ul className='pizzas'>
+            {pizzaData.map((pizza) => (
+              <Pizza {...pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </>
       ) : (
         <p>NO PIZZAS AVAILABLE AT THE MOMENT...</p>
       )}
