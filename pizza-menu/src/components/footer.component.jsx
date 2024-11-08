@@ -11,11 +11,18 @@ const Footer = () => {
     <footer className='footer'>
       {isOpen ? (
         <div className='order'>
-          <p>SHOP IS OPEN</p>
           <button className='btn'>ORDER ONLINE</button>
         </div>
       ) : (
-        <p>SHOP IS CLOSED</p>
+        <div className='order'>
+          <button
+            className='btn'
+            disabled={isOpen}
+            style={{ cursor: 'not-allowed', backgroundColor: 'lightgray' }}
+          >
+            ORDER ONLINE
+          </button>
+        </div>
       )}
     </footer>
   )
