@@ -1,6 +1,6 @@
 const Pizza = ({ name, ingredients, photo, price, soldOut }) => {
   return (
-    <li className='pizza'>
+    <li className={`pizza ${soldOut ? 'sold-out' : ''}`}>
       <img src={photo} alt={name} />
 
       <div>
