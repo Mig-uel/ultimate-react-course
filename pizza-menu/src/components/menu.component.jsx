@@ -6,11 +6,15 @@ const Menu = () => {
     <main className='menu'>
       <h2>Our Menu</h2>
 
-      <ul className='pizzas'>
-        {pizzaData.map((pizza) => (
-          <Pizza {...pizza} key={pizza.name} />
-        ))}
-      </ul>
+      {pizzaData.length ? (
+        <ul className='pizzas'>
+          {pizzaData.map((pizza) => (
+            <Pizza {...pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        <p>NO PIZZAS AVAILABLE AT THE MOMENT...</p>
+      )}
     </main>
   )
 }
