@@ -7,6 +7,12 @@ const messages = [
 function App() {
   const step = 1
 
+  const handleClick = (action) => {
+    if (action === 'previous') {
+    } else {
+    }
+  }
+
   return (
     <div className='steps'>
       <div className='numbers'>
@@ -25,6 +31,7 @@ function App() {
             backgroundColor: '#7950F2',
             color: 'white',
           }}
+          onClick={() => handleClick('previous')}
         >
           Previous
         </button>
@@ -33,6 +40,7 @@ function App() {
             backgroundColor: '#7950F2',
             color: 'white',
           }}
+          onClick={() => handleClick('next')}
         >
           Next
         </button>
