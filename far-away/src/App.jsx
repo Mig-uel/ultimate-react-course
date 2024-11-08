@@ -16,11 +16,11 @@ function App() {
     else setStep((prev) => (prev + 1 < 4 ? prev + 1 : prev))
   }
 
-  const handleOpenClick = () => setIsOpen((prev) => !prev)
+  const handleMenuClick = () => setIsOpen((prev) => !prev)
 
   return (
     <>
-      <button className='close' onClick={handleOpenClick}>
+      <button className='close' onClick={handleMenuClick}>
         &times;
       </button>
 
