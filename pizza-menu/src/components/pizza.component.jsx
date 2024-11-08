@@ -1,6 +1,9 @@
-const Pizza = ({ name, ingredients, photo, price }) => {
+const Pizza = ({ name, ingredients, photo, price, soldOut }) => {
   return (
-    <li className='pizza'>
+    <li
+      className='pizza'
+      style={{ textDecoration: `${soldOut ? 'line-through' : ''}` }}
+    >
       <img src={photo} alt={name} />
 
       <div>
