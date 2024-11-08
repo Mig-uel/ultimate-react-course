@@ -1,6 +1,6 @@
 const Pizza = ({ name, ingredients, photo, price }) => {
   return (
-    <div className='pizza'>
+    <li className='pizza'>
       <img src={photo} alt={name} />
 
       <div>
@@ -8,7 +8,7 @@ const Pizza = ({ name, ingredients, photo, price }) => {
         <p>{ingredients}</p>
         <span>{price}</span>
       </div>
-    </div>
+    </li>
   )
 }
 export default Pizza
