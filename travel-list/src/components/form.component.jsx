@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
-const Form = () => {
+const Form = ({ setItems }) => {
   const [qty, setQty] = useState(1)
   const [description, setDescription] = useState('')
 
@@ -16,7 +17,9 @@ const Form = () => {
       id: Date.now(),
     }
 
-    console.log(newItem)
+    setItems((prevItemList) => {
+      return [...prevItemList, newItem]
+    })
 
     setQty(1)
     setDescription('')
@@ -45,3 +48,6 @@ const Form = () => {
   )
 }
 export default Form
+Form.propTypes = {
+  setItems: PropTypes.func,
+}
