@@ -14,7 +14,7 @@ function App() {
   return (
     <div className='app'>
       <Logo />
-      <Form />
+      <Form setItems={setItems} />
       <PackingList items={items} />
       <Stats />
     </div>
