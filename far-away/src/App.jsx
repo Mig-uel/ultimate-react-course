@@ -19,7 +19,7 @@ function App() {
   const handleOpenClick = () => setIsOpen((prev) => !prev)
 
   return (
-    <div>
+    <>
       <button className='close' onClick={handleOpenClick}>
         &times;
       </button>
@@ -58,7 +58,7 @@ function App() {
           </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
 
