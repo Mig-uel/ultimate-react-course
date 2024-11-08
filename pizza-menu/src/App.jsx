@@ -10,7 +10,7 @@ function App() {
   const isOpen = hour >= openHour && hour <= closeHour
 
   return (
-    <div>
+    <div className='container'>
       <Header />
 
       <Menu />
