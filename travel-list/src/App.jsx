@@ -11,12 +11,22 @@ function App() {
     { id: 3, description: 'Charger', qty: 1, packed: true },
   ])
 
+  const itemLength = items.length
+  const percentage = Math.round(
+    (items.filter((item) => item.packed === true).length / itemLength) * 100
+  )
+  const numOfItemsPacked = items.filter((item) => item.packed === true).length
+
   return (
     <div className='app'>
       <Logo />
       <Form setItems={setItems} />
       <PackingList items={items} setItems={setItems} />
-      <Stats />
+      <Stats
+        itemLength={itemLength}
+        percentage={percentage}
+        numOfItemsPacked={numOfItemsPacked}
+      />
     </div>
   )
 }
