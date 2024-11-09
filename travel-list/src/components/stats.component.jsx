@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types'
 
 const Stats = ({ itemLength, percentage, numOfItemsPacked }) => {
+  if (!itemLength)
+    return (
+      <p className='stats'>
+        <em>Start adding some items to your packing list 🚀</em>
+      </p>
+    )
+
   return (
     <footer className='stats'>
       <em>
