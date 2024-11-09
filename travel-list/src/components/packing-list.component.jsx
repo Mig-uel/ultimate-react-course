@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Item from './item.component'
 import PropTypes from 'prop-types'
 
-const PackingList = ({ items, setItems }) => {
+const PackingList = ({ items, setItems, handleClear }) => {
   const [sortBy, setSortBy] = useState('input')
 
   let sortedItems
@@ -32,6 +32,8 @@ const PackingList = ({ items, setItems }) => {
           <option value='description'>Sort by Description</option>
           <option value='packed'>Sort by Packed Status</option>
         </select>
+
+        <button onClick={handleClear}>Clear List</button>
       </div>
     </div>
   )
@@ -41,4 +43,5 @@ export default PackingList
 PackingList.propTypes = {
   items: PropTypes.array,
   setItems: PropTypes.func,
+  handleClear: PropTypes.func,
 }
