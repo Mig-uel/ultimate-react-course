@@ -17,11 +17,17 @@ function App() {
   )
   const numOfItemsPacked = items.filter((item) => item.packed === true).length
 
+  const handleClear = () => setItems([])
+
   return (
     <div className='app'>
       <Logo />
       <Form setItems={setItems} />
-      <PackingList items={items} setItems={setItems} />
+      <PackingList
+        items={items}
+        setItems={setItems}
+        handleClear={handleClear}
+      />
       <Stats
         itemLength={itemLength}
         percentage={percentage}
