@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
 
 const Item = ({ id, description, packed, qty, setItems }) => {
-  const [isPacked, setIsPacked] = useState(packed)
+  const handleCheck = (id) =>
+    setItems((prev) => {
+      return prev.map((item) => {
+        if (item.id === id) return { ...item, packed: !item.packed }
 
-  const handleCheck = () => setIsPacked((prev) => !prev)
+        return item
+      })
+    })
 
   const handleDelete = (id) => {
     setItems((prev) => prev.filter((item) => item.id !== id))
@@ -12,11 +16,15 @@ const Item = ({ id, description, packed, qty, setItems }) => {
 
   return (
     <li>
-      <input type='checkbox' checked={isPacked} onChange={handleCheck} />
+      <input
+        type='checkbox'
+        defaultChecked={packed}
+        onChange={() => handleCheck(id)}
+      />
 
       <span
         style={
-          isPacked
+          packed
             ? {
                 textDecoration: 'line-through',
               }
