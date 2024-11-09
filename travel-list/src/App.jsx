@@ -17,7 +17,10 @@ function App() {
   )
   const numOfItemsPacked = items.filter((item) => item.packed === true).length
 
-  const handleClear = () => setItems([])
+  const handleClear = () => {
+    if (confirm('Are you sure you want to clear the list?')) setItems([])
+    return
+  }
 
   return (
     <div className='app'>
