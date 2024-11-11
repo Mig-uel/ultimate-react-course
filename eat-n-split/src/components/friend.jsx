@@ -17,6 +17,8 @@ const Friend = ({ name, image, balance }) => {
           You owe {name} ${Math.abs(balance)}
         </p>
       )}
+
+      <button className='button'>Select</button>
     </li>
   )
 }
