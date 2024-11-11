@@ -25,15 +25,14 @@ function App() {
     },
   ])
 
-  // add friends handler
-  const addFriendHandler = (friend) => {
-    setFriends((prev) => [...prev, friend])
-    setIsAddFriendOpen((prev) => !prev)
-  }
-
   // Add friend menu
   const [isAddFriendOpen, setIsAddFriendOpen] = useState(false)
   const addFriendMenuHandler = () => setIsAddFriendOpen((prev) => !prev)
+  // add friends handler
+  const addFriendHandler = (friend) => {
+    setFriends((prev) => [...prev, friend])
+    addFriendMenuHandler()
+  }
 
   return (
     <div className='app'>
