@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import FriendsList from './components/friends-list'
+import AddFriendForm from './components/add-friend-form'
+import Button from './components/button'
 
 function App() {
   const [friends, setFriends] = useState([
@@ -22,10 +24,29 @@ function App() {
       balance: 0,
     },
   ])
+
+  // add friends handler
+  const addFriendHandler = (friend) => {
+    setFriends((prev) => [...prev, friend])
+    setIsAddFriendOpen((prev) => !prev)
+  }
+
+  // Add friend menu
+  const [isAddFriendOpen, setIsAddFriendOpen] = useState(false)
+  const addFriendMenuHandler = () => setIsAddFriendOpen((prev) => !prev)
+
   return (
     <div className='app'>
       <div className='sidebar'>
         <FriendsList friends={friends} />
+
+        {isAddFriendOpen && (
+          <AddFriendForm addFriendHandler={addFriendHandler} />
+        )}
+
+        <Button onClick={addFriendMenuHandler}>
+          {isAddFriendOpen ? 'Close' : 'Add Friend'}
+        </Button>
       </div>
     </div>
   )
