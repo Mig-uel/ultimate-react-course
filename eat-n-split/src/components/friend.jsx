@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Button from './button'
 
 const Friend = ({ name, image, balance }) => {
   return (
@@ -18,7 +19,7 @@ const Friend = ({ name, image, balance }) => {
         </p>
       )}
 
-      <button className='button'>Select</button>
+      <Button>Select</Button>
     </li>
   )
 }
