@@ -2,6 +2,7 @@ import { useState } from 'react'
 import FriendsList from './components/friends-list'
 import AddFriendForm from './components/add-friend-form'
 import Button from './components/button'
+import SplitBillForm from './components/split-bill-form'
 
 function App() {
   const [friends, setFriends] = useState([
@@ -47,6 +48,8 @@ function App() {
           {isAddFriendOpen ? 'Close' : 'Add Friend'}
         </Button>
       </div>
+
+      <SplitBillForm />
     </div>
   )
 }
