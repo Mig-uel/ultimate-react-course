@@ -26,7 +26,6 @@ const Friend = ({ name, image, balance }) => {
 export default Friend
 Friend.propTypes = {
   name: PropTypes.string,
-  id: PropTypes.number,
   image: PropTypes.string,
   balance: PropTypes.number,
 }
