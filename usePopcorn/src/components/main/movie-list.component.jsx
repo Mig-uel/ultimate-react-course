@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { tempMovieData } from '../../db'
+import Movie from './movie.component'
 
 const MovieList = () => {
   const [movies, setMovies] = useState(tempMovieData)
@@ -7,16 +8,8 @@ const MovieList = () => {
   return (
     <ul className='list'>
       {movies?.map((movie) => (
-        <li key={movie.imdbID}>
-          <img src={movie.Poster} alt={`${movie.Title} poster`} />
-          <h3>{movie.Title}</h3>
-          <div>
-            <p>
-              <span>🗓</span>
-              <span>{movie.Year}</span>
-            </p>
-          </div>
-        </li>
+        // MOVIE
+        <Movie key={movie.imdbID} movie={movie} />
       ))}
     </ul>
   )
