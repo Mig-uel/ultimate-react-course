@@ -1,19 +1,5 @@
-import Logo from './logo.component'
-import NumResults from './num-results.component'
-import Search from './search.component'
-
-const Nav = ({ movies }) => {
-  return (
-    <nav className='nav-bar'>
-      {/* LOGO */}
-      <Logo />
-
-      {/* SEARCH BAR */}
-      <Search />
-
-      {/* NUM RESULTS */}
-      <NumResults movies={movies} />
-    </nav>
-  )
+// COMPONENT COMPOSITION
+const Nav = ({ children }) => {
+  return <nav className='nav-bar'>{children}</nav>
 }
 export default Nav
