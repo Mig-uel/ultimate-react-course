@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import MovieList from './movie-list.component'
 
-const ResultsBox = () => {
+const ResultsBox = ({ movies }) => {
   const [isOpen1, setIsOpen1] = useState(true)
 
   return (
@@ -14,7 +14,7 @@ const ResultsBox = () => {
       </button>
 
       {/* MOVIE LIST */}
-      {isOpen1 && <MovieList />}
+      {isOpen1 && <MovieList movies={movies} />}
     </div>
   )
 }
