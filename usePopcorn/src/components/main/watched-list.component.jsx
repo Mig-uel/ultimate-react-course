@@ -44,6 +44,7 @@ const WatchedList = () => {
             </div>
           </div>
 
+          {/* MOVIE LIST */}
           <ul className='list'>
             {watched.map((movie) => (
               <li key={movie.imdbID}>
