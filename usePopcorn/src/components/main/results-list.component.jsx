@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { tempMovieData } from '../../db'
+import MovieList from './movie-list.component'
 
 const ResultsList = () => {
-  const [movies, setMovies] = useState(tempMovieData)
   const [isOpen1, setIsOpen1] = useState(true)
 
   return (
@@ -13,22 +12,9 @@ const ResultsList = () => {
       >
         {isOpen1 ? '–' : '+'}
       </button>
-      {isOpen1 && (
-        <ul className='list'>
-          {movies?.map((movie) => (
-            <li key={movie.imdbID}>
-              <img src={movie.Poster} alt={`${movie.Title} poster`} />
-              <h3>{movie.Title}</h3>
-              <div>
-                <p>
-                  <span>🗓</span>
-                  <span>{movie.Year}</span>
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+
+      {/* MOVIE LIST */}
+      {isOpen1 && <MovieList />}
     </div>
   )
 }
