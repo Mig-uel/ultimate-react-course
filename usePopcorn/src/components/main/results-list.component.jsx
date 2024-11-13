@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { tempMovieData } from '../../db'
 
 const ResultsList = () => {
+  const [movies, setMovies] = useState(tempMovieData)
   const [isOpen1, setIsOpen1] = useState(true)
 
   return (
