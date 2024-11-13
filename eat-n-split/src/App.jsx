@@ -30,7 +30,10 @@ function App() {
 
   // ADD FRIEND MENU
   const [isAddFriendOpen, setIsAddFriendOpen] = useState(false)
-  const addFriendMenuHandler = () => setIsAddFriendOpen((prev) => !prev)
+  const addFriendMenuHandler = () => {
+    setIsAddFriendOpen((prev) => !prev)
+    setSelectedFriend(null)
+  }
   // ADD FRIENDS HANDLER
   const addFriendHandler = (friend) => {
     setFriends((prev) => [...prev, friend])
