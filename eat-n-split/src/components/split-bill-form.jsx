@@ -1,9 +1,14 @@
+import PropTypes from 'prop-types'
 import Button from './button'
 
-const SplitBillForm = () => {
+const SplitBillForm = ({ selectedFriend }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+
   return (
-    <form className='form-split-bill'>
-      <h2>Split a bill with X</h2>
+    <form className='form-split-bill' onSubmit={handleSubmit}>
+      <h2>Split a bill with {selectedFriend.name}</h2>
 
       <label>💸 Bill Value</label>
       <input type='text' />
@@ -17,7 +22,7 @@ const SplitBillForm = () => {
       <label>💸 Who&apos;s paying?</label>
       <select>
         <option value='user'>You</option>
-        <option value='friend'>Friend</option>
+        <option value='friend'>{selectedFriend.name}</option>
       </select>
 
       <Button>Split Bill</Button>
@@ -25,3 +30,6 @@ const SplitBillForm = () => {
   )
 }
 export default SplitBillForm
+SplitBillForm.propTypes = {
+  selectedFriend: PropTypes.object,
+}
