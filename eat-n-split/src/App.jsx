@@ -26,19 +26,26 @@ function App() {
     },
   ])
 
-  // Add friend menu
+  const [selectedFriend, setSelectedFriend] = useState(null)
+
+  // ADD FRIEND MENU
   const [isAddFriendOpen, setIsAddFriendOpen] = useState(false)
   const addFriendMenuHandler = () => setIsAddFriendOpen((prev) => !prev)
-  // add friends handler
+  // ADD FRIENDS HANDLER
   const addFriendHandler = (friend) => {
     setFriends((prev) => [...prev, friend])
     addFriendMenuHandler()
   }
 
+  // SELECTED FRIEND
+  const handleSelectedFriend = (id) => {
+    setSelectedFriend(...friends.filter((friend) => friend.id === id))
+  }
+
   return (
     <div className='app'>
       <div className='sidebar'>
-        <FriendsList friends={friends} />
+        <FriendsList friends={friends} onSelect={handleSelectedFriend} />
 
         {isAddFriendOpen && (
           <AddFriendForm addFriendHandler={addFriendHandler} />
@@ -49,7 +56,7 @@ function App() {
         </Button>
       </div>
 
-      <SplitBillForm />
+      {selectedFriend && <SplitBillForm selectedFriend={selectedFriend} />}
     </div>
   )
 }
