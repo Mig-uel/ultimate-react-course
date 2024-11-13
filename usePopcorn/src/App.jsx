@@ -15,10 +15,8 @@ export default function App() {
 
   return (
     <>
+      {/* NAV */}
       <Nav>
-        {/* LOGO */}
-        <Logo />
-
         {/* SEARCH BAR */}
         <Search />
 
@@ -26,6 +24,7 @@ export default function App() {
         <NumResults movies={movies} />
       </Nav>
 
+      {/* MAIN */}
       <Main movies={movies} />
     </>
   )
