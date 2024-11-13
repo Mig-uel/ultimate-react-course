@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
 import Button from './button'
 
-const Friend = ({ id, name, image, balance, onSelect }) => {
+const Friend = ({ id, name, image, balance, onSelect, selectedFriend }) => {
+  const isSelected = id === selectedFriend?.id
+
   return (
-    <li>
+    <li className={isSelected ? 'selected' : ''}>
       <img src={image} alt={name} />
       <h3>{name}</h3>
 
@@ -19,7 +21,9 @@ const Friend = ({ id, name, image, balance, onSelect }) => {
         </p>
       )}
 
-      <Button onClick={() => onSelect(id)}>Select</Button>
+      <Button onClick={() => onSelect(id)}>
+        {isSelected ? 'Close' : 'Select'}
+      </Button>
     </li>
   )
 }
@@ -30,4 +34,5 @@ Friend.propTypes = {
   image: PropTypes.string,
   balance: PropTypes.number,
   onSelect: PropTypes.func,
+  selectedFriend: PropTypes.object,
 }
