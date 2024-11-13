@@ -1,14 +1,14 @@
-import ResultsList from './results-list.component'
-import WatchedList from './watched-list.component'
+import ResultsBox from './results-box.component'
+import WatchedBox from './watched-box.component'
 
 const Main = () => {
   return (
     <main className='main'>
-      {/* SEARCH RESULTS */}
-      <ResultsList />
+      {/* SEARCH RESULTS BOX */}
+      <ResultsBox />
 
-      {/* WATCHED LIST */}
-      <WatchedList />
+      {/* WATCHED BOX */}
+      <WatchedBox />
     </main>
   )
 }
