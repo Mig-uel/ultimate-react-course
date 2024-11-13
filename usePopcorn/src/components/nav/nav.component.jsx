@@ -2,7 +2,7 @@ import Logo from './logo.component'
 import NumResults from './num-results.component'
 import Search from './search.component'
 
-const Nav = () => {
+const Nav = ({ movies }) => {
   return (
     <nav className='nav-bar'>
       {/* LOGO */}
@@ -12,7 +12,7 @@ const Nav = () => {
       <Search />
 
       {/* NUM RESULTS */}
-      <NumResults />
+      <NumResults movies={movies} />
     </nav>
   )
 }
