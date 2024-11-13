@@ -3,12 +3,13 @@ import { tempMovieData } from './db'
 
 // NAV COMPONENTS
 import Nav from './components/nav/nav.component'
-import Logo from './components/nav/logo.component'
 import Search from './components/nav/search.component'
 import NumResults from './components/nav/num-results.component'
 
 // MAIN COMPONENTS
 import Main from './components/main/main.component'
+import ResultsBox from './components/main/results-box.component'
+import WatchedBox from './components/main/watched-box.component'
 
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData)
@@ -25,7 +26,13 @@ export default function App() {
       </Nav>
 
       {/* MAIN */}
-      <Main movies={movies} />
+      <Main>
+        {/* SEARCH RESULTS BOX */}
+        <ResultsBox movies={movies} />
+
+        {/* WATCHED BOX */}
+        <WatchedBox />
+      </Main>
     </>
   )
 }
