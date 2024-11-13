@@ -12,7 +12,7 @@ const AddFriendForm = ({ addFriendHandler }) => {
     if (!name || !image) return
 
     const friend = {
-      id: crypto.randomUUID(),
+      id: Date.now(),
       name,
       image,
       balance: 0,
