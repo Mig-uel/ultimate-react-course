@@ -1,11 +1,11 @@
 import ResultsBox from './results-box.component'
 import WatchedBox from './watched-box.component'
 
-const Main = () => {
+const Main = ({ movies }) => {
   return (
     <main className='main'>
       {/* SEARCH RESULTS BOX */}
-      <ResultsBox />
+      <ResultsBox movies={movies} />
 
       {/* WATCHED BOX */}
       <WatchedBox />
