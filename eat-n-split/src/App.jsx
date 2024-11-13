@@ -39,13 +39,20 @@ function App() {
 
   // SELECTED FRIEND
   const handleSelectedFriend = (id) => {
-    setSelectedFriend(...friends.filter((friend) => friend.id === id))
+    setSelectedFriend((prev) =>
+      prev?.id === id ? null : friends.find((friend) => friend.id === id)
+    )
+    setIsAddFriendOpen(false)
   }
 
   return (
     <div className='app'>
       <div className='sidebar'>
-        <FriendsList friends={friends} onSelect={handleSelectedFriend} />
+        <FriendsList
+          friends={friends}
+          onSelect={handleSelectedFriend}
+          selectedFriend={selectedFriend}
+        />
 
         {isAddFriendOpen && (
           <AddFriendForm addFriendHandler={addFriendHandler} />
