@@ -10,6 +10,7 @@ import NumResults from './components/nav/num-results.component'
 import Main from './components/main/main.component'
 import ResultsBox from './components/main/results-box.component'
 import WatchedBox from './components/main/watched-box.component'
+import MovieList from './components/main/movie-list.component'
 
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData)
@@ -28,7 +29,9 @@ export default function App() {
       {/* MAIN */}
       <Main>
         {/* SEARCH RESULTS BOX */}
-        <ResultsBox movies={movies} />
+        <ResultsBox>
+          <MovieList movies={movies} />
+        </ResultsBox>
 
         {/* WATCHED BOX */}
         <WatchedBox />
