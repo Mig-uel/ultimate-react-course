@@ -1,10 +1,6 @@
-import { useState } from 'react'
-import { tempMovieData } from '../../db'
 import Movie from './movie.component'
 
-const MovieList = () => {
-  const [movies, setMovies] = useState(tempMovieData)
-
+const MovieList = ({ movies }) => {
   return (
     <ul className='list'>
       {movies?.map((movie) => (
