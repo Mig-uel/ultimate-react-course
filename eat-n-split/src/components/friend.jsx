@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import Button from './button'
 
-const Friend = ({ name, image, balance }) => {
+const Friend = ({ id, name, image, balance, onSelect }) => {
   return (
     <li>
       <img src={image} alt={name} />
@@ -19,13 +19,15 @@ const Friend = ({ name, image, balance }) => {
         </p>
       )}
 
-      <Button>Select</Button>
+      <Button onClick={() => onSelect(id)}>Select</Button>
     </li>
   )
 }
 export default Friend
 Friend.propTypes = {
+  id: PropTypes.number,
   name: PropTypes.string,
   image: PropTypes.string,
   balance: PropTypes.number,
+  onSelect: PropTypes.func,
 }
