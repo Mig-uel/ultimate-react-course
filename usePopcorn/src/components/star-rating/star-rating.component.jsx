@@ -63,11 +63,15 @@ const StarRating = ({
   className = '',
   messages = [],
   defaultRating = 0,
+  onSetRating,
 }) => {
   const [rating, setRating] = useState(defaultRating)
   const [hoverRating, setHoverRating] = useState(0)
 
-  const handleRating = (rating) => setRating(rating)
+  const handleRating = (rating) => {
+    setRating(rating)
+    onSetRating(rating)
+  }
 
   const textStyle = {
     lineHeight: '1',
