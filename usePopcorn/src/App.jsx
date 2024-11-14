@@ -38,11 +38,13 @@ export default function App() {
 
         {/* WATCHED BOX */}
         <Box>
-          {/* WATCHED SUMMARY */}
-          <WatchedSummary watched={watched} />
+          <>
+            {/* WATCHED SUMMARY */}
+            <WatchedSummary watched={watched} />
 
-          {/* WATCHED MOVIE LIST */}
-          <WatchedMovieList watched={watched} />
+            {/* WATCHED MOVIE LIST */}
+            <WatchedMovieList watched={watched} />
+          </>
         </Box>
       </Main>
     </>
