@@ -24,9 +24,15 @@ const starStyle = {
   cursor: 'pointer',
 }
 
-const Star = ({ onRate, full }) => {
+const Star = ({ onRate, full, onHoverIn, onHoverOut }) => {
   return (
-    <span role='button' style={starStyle} onClick={onRate}>
+    <span
+      role='button'
+      style={starStyle}
+      onClick={onRate}
+      onMouseEnter={onHoverIn}
+      onMouseLeave={onHoverOut}
+    >
       {full ? (
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -57,6 +63,7 @@ const Star = ({ onRate, full }) => {
 
 const StarRating = ({ maxRating = 5 }) => {
   const [rating, setRating] = useState(0)
+  const [hoverRating, setHoverRating] = useState(0)
 
   const handleRating = (rating) => setRating(rating)
 
@@ -67,11 +74,13 @@ const StarRating = ({ maxRating = 5 }) => {
           <Star
             key={index + 1}
             onRate={() => handleRating(index + 1)}
-            full={index + 1 <= rating}
+            full={hoverRating ? index + 1 <= hoverRating : index + 1 <= rating}
+            onHoverIn={() => setHoverRating(index + 1)}
+            onHoverOut={() => setHoverRating(0)}
           />
         ))}
       </div>
-      <p style={textStyle}>{rating || ''}</p>
+      <p style={textStyle}>{hoverRating || rating || ''}</p>
     </div>
   )
 }
