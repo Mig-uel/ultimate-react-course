@@ -1,6 +1,7 @@
 // Array.from accepts a .map like callback function and would return a new array based on what that map function returned
 
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const containerStyle = {
   display: 'flex',
