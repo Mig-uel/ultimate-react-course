@@ -15,9 +15,12 @@ import ResultsMovieList from '@/components/main/results-movie-list.component'
 import WatchedSummary from '@/components/main/watched-summary.component'
 import WatchedMovieList from '@/components/main/watched-movie-list.component'
 
+// TYPES
+import { MovieData, WatchedData } from '@/types/types'
+
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData)
-  const [watched, setWatched] = useState(tempWatchedData)
+  const [movies, setMovies] = useState<MovieData[]>(tempMovieData)
+  const [watched, setWatched] = useState<WatchedData[]>(tempWatchedData)
 
   return (
     <>
