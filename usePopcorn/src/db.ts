@@ -1,4 +1,6 @@
-export const tempMovieData = [
+import { MovieData, WatchedData } from '@/types/types'
+
+export const tempMovieData: MovieData[] = [
   {
     imdbID: 'tt1375666',
     Title: 'Inception',
@@ -22,7 +24,7 @@ export const tempMovieData = [
   },
 ]
 
-export const tempWatchedData = [
+export const tempWatchedData: WatchedData[] = [
   {
     imdbID: 'tt1375666',
     Title: 'Inception',
