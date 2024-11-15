@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 // COMPONENT COMPOSITION
-const Box = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(true)
+const Box = ({ children }: { children: React.ReactNode }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(true)
 
   return (
     <div className='box'>

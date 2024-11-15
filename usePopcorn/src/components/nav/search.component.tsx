@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 const Search = () => {
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState<string>('')
 
   return (
     <input
