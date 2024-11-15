@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { tempMovieData, tempWatchedData } from './db'
+import { tempMovieData, tempWatchedData } from '@/db'
 
 // BOX
 import Box from '@/components/box.component'
