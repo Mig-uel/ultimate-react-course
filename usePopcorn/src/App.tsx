@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { tempMovieData, tempWatchedData } from './db'
 
-import Box from './components/box.component'
+// BOX
+import Box from '@/components/box.component'
 
 // NAV COMPONENTS
 import Nav from '@/components/nav/nav.component'
