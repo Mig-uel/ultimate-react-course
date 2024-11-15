@@ -1,7 +1,6 @@
 // Array.from accepts a .map like callback function and would return a new array based on what that map function returned
 
 import { useState } from 'react'
-import PropTypes from 'prop-types'
 
 const containerStyle = {
   display: 'flex',
@@ -13,7 +12,21 @@ const starContainerStyle = {
   display: 'flex',
 }
 
-const Star = ({ onRate, full, onHoverIn, onHoverOut, color, size }) => {
+const Star = ({
+  onRate,
+  full,
+  onHoverIn,
+  onHoverOut,
+  color,
+  size,
+}: {
+  onRate: () => void
+  full: boolean
+  onHoverIn: () => void
+  onHoverOut: () => void
+  color: string
+  size: number
+}) => {
   const starStyle = {
     width: `${size}px`,
     height: `${size}px`,
@@ -65,11 +78,19 @@ const StarRating = ({
   messages = [],
   defaultRating = 0,
   onSetRating,
+}: {
+  maxRating?: number
+  color?: string
+  size?: number
+  className?: string
+  messages?: string[]
+  defaultRating?: number
+  onSetRating: (rating: number) => void
 }) => {
   const [rating, setRating] = useState(defaultRating)
   const [hoverRating, setHoverRating] = useState(0)
 
-  const handleRating = (rating) => {
+  const handleRating = (rating: number) => {
     setRating(rating)
     onSetRating(rating)
   }
