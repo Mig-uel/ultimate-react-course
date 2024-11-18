@@ -27,10 +27,14 @@ export default function App() {
   const [watched, setWatched] = useState<WatchedData[]>([])
 
   useEffect(() => {
-    fetch(`${OMDb_URI}&s=interstellar`)
-      .then((res) => res.json())
-      .then((data) => setMovies(data.Search))
-      .catch((e) => console.log(e))
+    async function fetchMovies() {
+      const res = await fetch(`${OMDb_URI}&s=interstellar`)
+      const data = await res.json()
+
+      setMovies(data.Search)
+    }
+
+    fetchMovies()
   }, [])
 
   return (
