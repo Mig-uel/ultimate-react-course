@@ -1,8 +1,12 @@
 import { useState } from 'react'
 
-const Search = () => {
-  const [query, setQuery] = useState<string>('')
-
+const Search = ({
+  query,
+  setQuery,
+}: {
+  query: string
+  setQuery: React.Dispatch<React.SetStateAction<string>>
+}) => {
   return (
     <input
       className='search'

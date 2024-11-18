@@ -33,6 +33,8 @@ export default function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
 
+  const [query, setQuery] = useState<string>('')
+
   useEffect(() => {
     let controller: AbortController
 
@@ -70,7 +72,7 @@ export default function App() {
       {/* NAV */}
       <Nav>
         {/* SEARCH BAR */}
-        <Search />
+        <Search query={query} setQuery={setQuery} />
 
         {/* NUM RESULTS */}
         <NumResults movies={movies} />
