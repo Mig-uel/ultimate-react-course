@@ -37,8 +37,6 @@ export default function App() {
 
   useEffect(() => {
     async function fetchMovies() {
-      if (query.length < 3) return
-
       setError('')
       setIsLoading(true)
 
@@ -57,6 +55,12 @@ export default function App() {
       } finally {
         setIsLoading(false)
       }
+    }
+
+    if (query.length < 3) {
+      setMovies([])
+      setError('')
+      return
     }
 
     fetchMovies()
