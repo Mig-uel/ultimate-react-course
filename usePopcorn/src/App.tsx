@@ -27,7 +27,7 @@ export default function App() {
   const [watched, setWatched] = useState<WatchedData[]>([])
 
   useEffect(() => {
-    let controller
+    let controller: AbortController
 
     async function fetchMovies() {
       controller = new AbortController()
@@ -41,6 +41,7 @@ export default function App() {
       setMovies(data.Search)
     }
 
+    setTimeout(() => controller.abort(), 5000)
     fetchMovies()
   }, [])
 
