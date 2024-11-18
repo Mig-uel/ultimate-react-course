@@ -15,6 +15,9 @@ import ResultsMovieList from '@/components/main/results-movie-list.component'
 import WatchedSummary from '@/components/main/watched-summary.component'
 import WatchedMovieList from '@/components/main/watched-movie-list.component'
 
+// LOADING COMPONENT
+import Loader from './components/loader.component'
+
 // TYPES
 import { MovieData, WatchedData } from '@/types/types'
 
@@ -23,6 +26,7 @@ const OMDb_URI = `http://www.omdbapi.com/?apikey=${
 }`
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [movies, setMovies] = useState<MovieData[]>([])
   const [watched, setWatched] = useState<WatchedData[]>([])
 
@@ -30,6 +34,8 @@ export default function App() {
     let controller: AbortController
 
     async function fetchMovies() {
+      setIsLoading(true)
+
       controller = new AbortController()
       const signal = controller.signal
 
@@ -39,6 +45,7 @@ export default function App() {
       const data = await res.json()
 
       setMovies(data.Search)
+      setIsLoading(false)
     }
 
     setTimeout(() => controller.abort(), 5000)
@@ -60,7 +67,7 @@ export default function App() {
       <Main>
         {/* SEARCH RESULTS BOX */}
         <Box>
-          <ResultsMovieList movies={movies} />
+          {isLoading ? <Loader /> : <ResultsMovieList movies={movies} />}
         </Box>
 
         {/* WATCHED BOX */}
