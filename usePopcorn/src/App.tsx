@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { tempMovieData, tempWatchedData } from '@/db'
 
 // BOX
@@ -18,13 +18,20 @@ import WatchedMovieList from '@/components/main/watched-movie-list.component'
 // TYPES
 import { MovieData, WatchedData } from '@/types/types'
 
-const OMBD_URI = `http://www.omdbapi.com/?apikey=${
-  import.meta.env.VITE_OMBD_KEY
+const OMDb_URI = `http://www.omdbapi.com/?apikey=${
+  import.meta.env.VITE_OMDB_KEY
 }`
 
 export default function App() {
   const [movies, setMovies] = useState<MovieData[]>([])
   const [watched, setWatched] = useState<WatchedData[]>([])
+
+  useEffect(() => {
+    fetch(`${OMDb_URI}&s=interstellar`)
+      .then((res) => res.json())
+      .then((data) => setMovies(data.Search))
+      .catch((e) => console.log(e))
+  }, [])
 
   return (
     <>
