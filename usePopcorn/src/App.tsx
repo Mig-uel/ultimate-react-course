@@ -33,12 +33,13 @@ export default function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
 
-  const [query, setQuery] = useState<string>('')
+  const [query, setQuery] = useState<string>('interstellar')
 
   useEffect(() => {
     async function fetchMovies() {
       if (query.length < 3) return
 
+      setError('')
       setIsLoading(true)
 
       try {
