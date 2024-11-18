@@ -51,10 +51,13 @@ export default function App() {
 
         const data = await res.json()
 
+        if (data.Response === 'False') throw new Error(data.Error)
+
         setMovies(data.Search)
-        setIsLoading(false)
       } catch (error) {
         if (error instanceof Error) setError(error.message)
+      } finally {
+        setIsLoading(false)
       }
     }
 
