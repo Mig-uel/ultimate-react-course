@@ -18,9 +18,13 @@ import WatchedMovieList from '@/components/main/watched-movie-list.component'
 // TYPES
 import { MovieData, WatchedData } from '@/types/types'
 
+const OMBD_URI = `http://www.omdbapi.com/?apikey=${
+  import.meta.env.VITE_OMBD_KEY
+}`
+
 export default function App() {
-  const [movies, setMovies] = useState<MovieData[]>(tempMovieData)
-  const [watched, setWatched] = useState<WatchedData[]>(tempWatchedData)
+  const [movies, setMovies] = useState<MovieData[]>([])
+  const [watched, setWatched] = useState<WatchedData[]>([])
 
   return (
     <>
