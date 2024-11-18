@@ -15,8 +15,9 @@ import ResultsMovieList from '@/components/main/results-movie-list.component'
 import WatchedSummary from '@/components/main/watched-summary.component'
 import WatchedMovieList from '@/components/main/watched-movie-list.component'
 
-// LOADING COMPONENT
+// UI COMPONENTS
 import Loader from './components/loader.component'
+import ErrorMessage from './components/error.component'
 
 // TYPES
 import { MovieData, WatchedData } from '@/types/types'
@@ -26,9 +27,11 @@ const OMDb_URI = `http://www.omdbapi.com/?apikey=${
 }`
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [movies, setMovies] = useState<MovieData[]>([])
   const [watched, setWatched] = useState<WatchedData[]>([])
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
     let controller: AbortController
@@ -39,13 +42,20 @@ export default function App() {
       controller = new AbortController()
       const signal = controller.signal
 
-      const res = await fetch(`${OMDb_URI}&s=interstellar`, {
-        signal,
-      })
-      const data = await res.json()
+      try {
+        const res = await fetch(`${OMDb_URI}&s=interstellar`, {
+          signal,
+        })
 
-      setMovies(data.Search)
-      setIsLoading(false)
+        if (!res.ok) throw new Error('Something went wrong!')
+
+        const data = await res.json()
+
+        setMovies(data.Search)
+        setIsLoading(false)
+      } catch (error) {
+        if (error instanceof Error) setError(error.message)
+      }
     }
 
     setTimeout(() => controller.abort(), 5000)
@@ -67,7 +77,11 @@ export default function App() {
       <Main>
         {/* SEARCH RESULTS BOX */}
         <Box>
-          {isLoading ? <Loader /> : <ResultsMovieList movies={movies} />}
+          {isLoading && <Loader />}
+
+          {!isLoading && !error && <ResultsMovieList movies={movies} />}
+
+          {error && <ErrorMessage message={error} />}
         </Box>
 
         {/* WATCHED BOX */}
