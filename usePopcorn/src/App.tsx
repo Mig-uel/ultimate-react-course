@@ -27,8 +27,15 @@ export default function App() {
   const [watched, setWatched] = useState<WatchedData[]>([])
 
   useEffect(() => {
+    let controller
+
     async function fetchMovies() {
-      const res = await fetch(`${OMDb_URI}&s=interstellar`)
+      controller = new AbortController()
+      const signal = controller.signal
+
+      const res = await fetch(`${OMDb_URI}&s=interstellar`, {
+        signal,
+      })
       const data = await res.json()
 
       setMovies(data.Search)
