@@ -36,18 +36,11 @@ export default function App() {
   const [query, setQuery] = useState<string>('')
 
   useEffect(() => {
-    let controller: AbortController
-
     async function fetchMovies() {
       setIsLoading(true)
 
-      controller = new AbortController()
-      const signal = controller.signal
-
       try {
-        const res = await fetch(`${OMDb_URI}&s=interstellar`, {
-          signal,
-        })
+        const res = await fetch(`${OMDb_URI}&s=${query}`)
 
         if (!res.ok) throw new Error('Something went wrong!')
 
@@ -63,9 +56,8 @@ export default function App() {
       }
     }
 
-    setTimeout(() => controller.abort(), 5000)
     fetchMovies()
-  }, [])
+  }, [query])
 
   return (
     <>
