@@ -1,7 +1,9 @@
 import { WatchedData } from '@/types/types'
 
 const average = (arr: number[]) =>
-  arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0)
+  arr.reduce((acc, cur, i, arr) => {
+    return acc + cur / arr.length
+  }, 0)
 
 const WatchedSummary = ({ watched }: { watched: WatchedData[] }) => {
   const avgImdbRating = parseFloat(
@@ -10,7 +12,15 @@ const WatchedSummary = ({ watched }: { watched: WatchedData[] }) => {
   const avgUserRating = parseFloat(
     average(watched.map((movie) => movie.userRating)).toFixed(2)
   )
-  const avgRuntime = Math.round(average(watched.map((movie) => movie.runtime)))
+  const avgRuntime = Math.round(
+    average(
+      watched.map((movie) => {
+        if (isNaN(movie.runtime)) return 0
+
+        return movie.runtime
+      })
+    )
+  )
 
   return (
     <div className='summary'>
