@@ -1,4 +1,12 @@
-const WatchedMovie = ({ movie }) => {
+import type { WatchedData } from '@/types/types'
+
+const WatchedMovie = ({
+  movie,
+  handleDeleteWatchedMovie,
+}: {
+  movie: WatchedData
+  handleDeleteWatchedMovie: (id: string) => void
+}) => {
   return (
     <li>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
@@ -16,6 +24,13 @@ const WatchedMovie = ({ movie }) => {
           <span>⏳</span>
           <span>{movie.runtime} min</span>
         </p>
+
+        <button
+          className='btn-delete'
+          onClick={() => handleDeleteWatchedMovie(movie.imdbID)}
+        >
+          &times;
+        </button>
       </div>
     </li>
   )
