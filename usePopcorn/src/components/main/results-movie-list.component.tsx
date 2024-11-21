@@ -1,12 +1,22 @@
 import Movie from './movie.component'
 import { MovieData } from '@/types/types'
 
-const ResultsMovieList = ({ movies }: { movies: MovieData[] }) => {
+const ResultsMovieList = ({
+  movies,
+  handleSelectMovie,
+}: {
+  movies: MovieData[]
+  handleSelectMovie: (id: string) => void
+}) => {
   return (
-    <ul className='list'>
+    <ul className='list list-movies'>
       {movies?.map((movie) => (
         // MOVIE
-        <Movie key={movie.imdbID} movie={movie} />
+        <Movie
+          key={movie.imdbID}
+          movie={movie}
+          handleSelectMovie={handleSelectMovie}
+        />
       ))}
     </ul>
   )
