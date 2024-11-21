@@ -22,7 +22,7 @@ const WatchedMovie = ({
         </p>
         <p>
           <span>⏳</span>
-          <span>{movie.runtime} min</span>
+          <span>{isNaN(movie.runtime) ? 'N/A' : `${movie.runtime} min`}</span>
         </p>
 
         <button
