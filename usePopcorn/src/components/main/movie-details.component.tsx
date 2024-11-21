@@ -44,6 +44,21 @@ const MovieDetails = ({
     handleCloseSelectedMovie()
   }
 
+  // escape key closes movie details
+  useEffect(() => {
+    const callback = (e: KeyboardEvent) => {
+      if (e.code === 'Escape') {
+        handleCloseSelectedMovie()
+      }
+    }
+
+    document.addEventListener('keydown', callback)
+
+    return () => {
+      document.removeEventListener('keydown', callback)
+    }
+  }, [handleCloseSelectedMovie])
+
   useEffect(() => {
     const getSelectedMovieDetails = async () => {
       setIsLoading(true)
