@@ -1,7 +1,8 @@
-import { ExtendedMovieData, WatchedData } from '@/types/types'
 import { useEffect, useState } from 'react'
 import StarRating from '../star-rating/star-rating.component'
 import Loader from '../loader.component'
+
+import type { ExtendedMovieData, WatchedData } from '@/types/types'
 
 const OMDb_URI = `http://www.omdbapi.com/?apikey=${
   import.meta.env.VITE_OMDB_KEY
@@ -23,6 +24,8 @@ const MovieDetails = ({
 
   // HANDLE ADD TO WATCHED
   const handleAdd = () => {
+    if (!userRating) return
+
     const movie: WatchedData = {
       imdbID: selectedMovieDetails?.imdbID as string,
       imdbRating: Number(selectedMovieDetails?.imdbRating),
