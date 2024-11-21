@@ -12,15 +12,19 @@ const MovieDetails = ({
   selectedId,
   handleCloseSelectedMovie,
   handleAddWatchedMovie,
+  watched,
 }: {
   selectedId: string
   handleCloseSelectedMovie: () => void
   handleAddWatchedMovie: (movie: WatchedData) => void
+  watched: WatchedData[]
 }) => {
   const [userRating, setUserRating] = useState<number>(0)
   const [isLoading, setIsLoading] = useState(false)
   const [selectedMovieDetails, setSelectedMovieDetails] =
     useState<ExtendedMovieData | null>(null)
+
+  const isWatched = watched.find((movie) => movie.imdbID === selectedId)
 
   // HANDLE ADD TO WATCHED
   const handleAdd = () => {
@@ -84,16 +88,23 @@ const MovieDetails = ({
 
           <section>
             <div className='rating'>
-              <StarRating
-                maxRating={10}
-                size={24}
-                onSetRating={setUserRating}
-              />
+              {isWatched ? (
+                <p>You rated this movie {isWatched.userRating} ⭐</p>
+              ) : (
+                <>
+                  <StarRating
+                    maxRating={10}
+                    size={24}
+                    onSetRating={setUserRating}
+                  />
 
-              <button className='btn-add' onClick={handleAdd}>
-                &#43; Add to List
-              </button>
+                  <button className='btn-add' onClick={handleAdd}>
+                    &#43; Add to List
+                  </button>
+                </>
+              )}
             </div>
+
             <p>
               <em>{selectedMovieDetails?.Plot}</em>
             </p>
