@@ -1,4 +1,4 @@
-import { ExtendedMovieData } from '@/types/types'
+import { ExtendedMovieData, WatchedData } from '@/types/types'
 import { useEffect, useState } from 'react'
 import StarRating from '../star-rating/star-rating.component'
 import Loader from '../loader.component'
@@ -10,13 +10,32 @@ const OMDb_URI = `http://www.omdbapi.com/?apikey=${
 const MovieDetails = ({
   selectedId,
   handleCloseSelectedMovie,
+  handleAddWatchedMovie,
 }: {
   selectedId: string
   handleCloseSelectedMovie: () => void
+  handleAddWatchedMovie: (movie: WatchedData) => void
 }) => {
+  const [userRating, setUserRating] = useState<number>(0)
   const [isLoading, setIsLoading] = useState(false)
   const [selectedMovieDetails, setSelectedMovieDetails] =
     useState<ExtendedMovieData | null>(null)
+
+  // HANDLE ADD TO WATCHED
+  const handleAdd = () => {
+    const movie: WatchedData = {
+      imdbID: selectedMovieDetails?.imdbID as string,
+      imdbRating: Number(selectedMovieDetails?.imdbRating),
+      Poster: selectedMovieDetails?.Poster as string,
+      runtime: Number(selectedMovieDetails?.Runtime.split(' ')[0]),
+      Title: selectedMovieDetails?.Title as string,
+      userRating,
+      Year: selectedMovieDetails?.Released as string,
+    }
+
+    handleAddWatchedMovie(movie)
+    handleCloseSelectedMovie()
+  }
 
   useEffect(() => {
     const getSelectedMovieDetails = async () => {
@@ -62,7 +81,15 @@ const MovieDetails = ({
 
           <section>
             <div className='rating'>
-              <StarRating maxRating={10} size={24} />
+              <StarRating
+                maxRating={10}
+                size={24}
+                onSetRating={setUserRating}
+              />
+
+              <button className='btn-add' onClick={handleAdd}>
+                &#43; Add to List
+              </button>
             </div>
             <p>
               <em>{selectedMovieDetails?.Plot}</em>
