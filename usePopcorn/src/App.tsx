@@ -20,7 +20,7 @@ import ErrorMessage from './components/error.component'
 import MovieDetails from './components/main/movie-details.component'
 
 // TYPES
-import { MovieData, WatchedData } from '@/types/types'
+import type { ExtendedMovieData, MovieData, WatchedData } from '@/types/types'
 
 const OMDb_URI = `http://www.omdbapi.com/?apikey=${
   import.meta.env.VITE_OMDB_KEY
@@ -43,6 +43,10 @@ export default function App() {
 
   // CLOSE SELECTED MOVIE
   const handleCloseSelectedMovie = () => setSelectedId(null)
+
+  // HANDLE ADD WATCHED MOVIE
+  const handleAddWatchedMovie = (movie: WatchedData) =>
+    setWatched((prev) => [...prev, movie])
 
   useEffect(() => {
     async function fetchMovies() {
@@ -108,6 +112,7 @@ export default function App() {
             <MovieDetails
               selectedId={selectedId}
               handleCloseSelectedMovie={handleCloseSelectedMovie}
+              handleAddWatchedMovie={handleAddWatchedMovie}
             />
           ) : (
             <>
