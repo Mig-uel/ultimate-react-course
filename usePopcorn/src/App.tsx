@@ -20,7 +20,7 @@ import ErrorMessage from './components/error.component'
 import MovieDetails from './components/main/movie-details.component'
 
 // TYPES
-import type { ExtendedMovieData, MovieData, WatchedData } from '@/types/types'
+import type { MovieData, WatchedData } from '@/types/types'
 
 const OMDb_URI = `http://www.omdbapi.com/?apikey=${
   import.meta.env.VITE_OMDB_KEY
@@ -53,22 +53,33 @@ export default function App() {
     setWatched((prev) => prev.filter((movie) => movie.imdbID !== id))
 
   useEffect(() => {
+    const controller = new AbortController()
+
     async function fetchMovies() {
       setError('')
       setIsLoading(true)
 
       try {
-        const res = await fetch(`${OMDb_URI}&s=${query}`)
+        const res = await fetch(`${OMDb_URI}&s=${query}`, {
+          signal: controller.signal,
+        })
 
         if (!res.ok) throw new Error('Something went wrong!')
 
         const data = await res.json()
 
-        if (data.Response === 'False') throw new Error(data.Error)
+        if (data.Response === 'False') {
+          throw new Error(data.Error)
+        }
 
         setMovies(data.Search)
+        setError('')
       } catch (error) {
-        if (error instanceof Error) setError(error.message)
+        if (error instanceof Error) {
+          if (error.name === 'AbortError') return
+
+          setError(error.message)
+        }
       } finally {
         setIsLoading(false)
       }
@@ -81,6 +92,10 @@ export default function App() {
     }
 
     fetchMovies()
+
+    return () => {
+      controller.abort()
+    }
   }, [query])
 
   return (
