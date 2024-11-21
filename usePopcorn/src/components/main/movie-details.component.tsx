@@ -60,6 +60,11 @@ const MovieDetails = ({
   useEffect(() => {
     if (selectedMovieDetails)
       document.title = `Movie | ${selectedMovieDetails.Title}`
+
+    // clean up function
+    return () => {
+      document.title = 'usePopcorn'
+    }
   }, [selectedMovieDetails])
 
   return (
