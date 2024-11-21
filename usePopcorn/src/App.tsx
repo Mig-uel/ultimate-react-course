@@ -91,6 +91,7 @@ export default function App() {
       return
     }
 
+    handleCloseSelectedMovie()
     fetchMovies()
 
     return () => {
