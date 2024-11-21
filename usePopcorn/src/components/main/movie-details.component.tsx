@@ -79,7 +79,6 @@ const MovieDetails = ({
     // clean up function (closure)
     return () => {
       document.title = 'usePopcorn'
-      console.log(`clean up effect for movie: ${selectedMovieDetails?.Title}`)
     }
   }, [selectedMovieDetails])
 
