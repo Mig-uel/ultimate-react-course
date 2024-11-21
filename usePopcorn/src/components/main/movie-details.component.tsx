@@ -57,6 +57,11 @@ const MovieDetails = ({
     getSelectedMovieDetails()
   }, [selectedId])
 
+  useEffect(() => {
+    if (selectedMovieDetails)
+      document.title = `Movie | ${selectedMovieDetails.Title}`
+  }, [selectedMovieDetails])
+
   return (
     <div className='details'>
       {isLoading ? (
