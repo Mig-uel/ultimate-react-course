@@ -6,8 +6,12 @@ class App extends Component {
   }
 
   handleClick(action) {
-    if (action === '-') this.setState((state) => (state.count -= 1))
-    else this.setState((state) => (state.count += 1))
+    console.log(this)
+    if (action === '-')
+      this.setState((state) => ({
+        count: state.count - 1,
+      }))
+    else this.setState((state) => ({ count: state.count + 1 }))
   }
 
   render() {
