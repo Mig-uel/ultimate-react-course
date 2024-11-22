@@ -23,13 +23,13 @@ import MovieDetails from './components/main/movie-details.component'
 import { useMovies } from './hooks/useMovies'
 
 // TYPES
-import type { WatchedData } from '@/types/types'
+import type { MovieData, WatchedData } from '@/types/types'
 
 // MAIN APP
 export default function App() {
   const [query, setQuery] = useState<string>('interstellar')
   const [selectedId, setSelectedId] = useState<string | null>(null)
-  const { error, isLoading, movies } = useMovies(query)
+  const { error, isLoading, movies } = useMovies<MovieData[]>(query)
 
   const [watched, setWatched] = useState<WatchedData[]>(() => {
     const storedValue = JSON.parse(
