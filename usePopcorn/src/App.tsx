@@ -19,15 +19,21 @@ import Loader from './components/loader.component'
 import ErrorMessage from './components/error.component'
 import MovieDetails from './components/main/movie-details.component'
 
+// CUSTOM HOOKS
+import { useMovies } from './hooks/useMovies'
+
 // TYPES
-import type { MovieData, WatchedData } from '@/types/types'
+import type { WatchedData } from '@/types/types'
 
-const OMDb_URI = `http://www.omdbapi.com/?apikey=${
-  import.meta.env.VITE_OMDB_KEY
-}`
-
+// MAIN APP
 export default function App() {
-  const [movies, setMovies] = useState<MovieData[]>([])
+  const [query, setQuery] = useState<string>('interstellar')
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const { error, isLoading, movies } = useMovies(
+    query,
+    handleCloseSelectedMovie
+  )
+
   const [watched, setWatched] = useState<WatchedData[]>(() => {
     const storedValue = JSON.parse(
       localStorage.getItem('watched')!
@@ -36,19 +42,14 @@ export default function App() {
     return storedValue || []
   })
 
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string>('')
-
-  const [query, setQuery] = useState<string>('interstellar')
-
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-
   // SELECT MOVIE HANDLER
   const handleSelectMovie = (id: string) =>
     setSelectedId((prevId) => (prevId === id ? null : id))
 
   // CLOSE SELECTED MOVIE
-  const handleCloseSelectedMovie = () => setSelectedId(null)
+  function handleCloseSelectedMovie() {
+    return setSelectedId(null)
+  }
 
   // HANDLE ADD WATCHED MOVIE
   const handleAddWatchedMovie = (movie: WatchedData) => {
@@ -63,53 +64,6 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('watched', JSON.stringify(watched))
   }, [watched])
-
-  useEffect(() => {
-    const controller = new AbortController()
-
-    async function fetchMovies() {
-      setError('')
-      setIsLoading(true)
-
-      try {
-        const res = await fetch(`${OMDb_URI}&s=${query}`, {
-          signal: controller.signal,
-        })
-
-        if (!res.ok) throw new Error('Something went wrong!')
-
-        const data = await res.json()
-
-        if (data.Response === 'False') {
-          throw new Error(data.Error)
-        }
-
-        setMovies(data.Search)
-        setError('')
-      } catch (error) {
-        if (error instanceof Error) {
-          if (error.name === 'AbortError') return
-
-          setError(error.message)
-        }
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    if (query.length < 3) {
-      setMovies([])
-      setError('')
-      return
-    }
-
-    handleCloseSelectedMovie()
-    fetchMovies()
-
-    return () => {
-      controller.abort()
-    }
-  }, [query])
 
   return (
     <>
