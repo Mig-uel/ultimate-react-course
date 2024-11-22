@@ -45,8 +45,11 @@ export default function App() {
   const handleCloseSelectedMovie = () => setSelectedId(null)
 
   // HANDLE ADD WATCHED MOVIE
-  const handleAddWatchedMovie = (movie: WatchedData) =>
+  const handleAddWatchedMovie = (movie: WatchedData) => {
     setWatched((prev) => [...prev, movie])
+
+    localStorage.setItem('watched', JSON.stringify([...watched, movie]))
+  }
 
   // HANDLE DELETE WATCHED MOVIE
   const handleDeleteWatchedMovie = (id: string) =>
