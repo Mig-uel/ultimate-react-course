@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
-import type { MovieData } from '@/types/types'
 
 const OMDb_URI = `http://www.omdbapi.com/?apikey=${
   import.meta.env.VITE_OMDB_KEY
 }`
 
-export function useMovies(query: string) {
-  const [movies, setMovies] = useState<MovieData[]>([])
+export function useMovies<T>(query: string): {
+  movies: T
+  isLoading: boolean
+  error: string
+} {
+  const [movies, setMovies] = useState<T>([] as T)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
 
@@ -30,7 +33,7 @@ export function useMovies(query: string) {
           throw new Error(data.Error)
         }
 
-        setMovies(data.Search)
+        setMovies(data.Search as T)
         setError('')
       } catch (error) {
         if (error instanceof Error) {
@@ -44,7 +47,7 @@ export function useMovies(query: string) {
     }
 
     if (query.length < 3) {
-      setMovies([])
+      setMovies([] as T)
       setError('')
       return
     }
