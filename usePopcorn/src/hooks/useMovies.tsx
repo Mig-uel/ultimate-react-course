@@ -5,14 +5,12 @@ const OMDb_URI = `http://www.omdbapi.com/?apikey=${
   import.meta.env.VITE_OMDB_KEY
 }`
 
-export const useMovies = (query: string, cb?: () => void) => {
+export const useMovies = (query: string) => {
   const [movies, setMovies] = useState<MovieData[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
 
   useEffect(() => {
-    cb?.()
-
     const controller = new AbortController()
 
     async function fetchMovies() {

@@ -29,10 +29,7 @@ import type { WatchedData } from '@/types/types'
 export default function App() {
   const [query, setQuery] = useState<string>('interstellar')
   const [selectedId, setSelectedId] = useState<string | null>(null)
-  const { error, isLoading, movies } = useMovies(
-    query,
-    handleCloseSelectedMovie
-  )
+  const { error, isLoading, movies } = useMovies(query)
 
   const [watched, setWatched] = useState<WatchedData[]>(() => {
     const storedValue = JSON.parse(
