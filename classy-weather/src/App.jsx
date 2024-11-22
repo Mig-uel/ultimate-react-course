@@ -6,7 +6,6 @@ class App extends Component {
   }
 
   handleClick(action) {
-    console.log(this)
     if (action === '-')
       this.setState((state) => ({
         count: state.count - 1,
