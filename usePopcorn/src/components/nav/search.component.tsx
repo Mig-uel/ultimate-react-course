@@ -1,5 +1,5 @@
 import { useKey } from '@/hooks/useKey'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 const Search = ({
   query,
