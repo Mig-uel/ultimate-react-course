@@ -24,12 +24,6 @@ const MovieDetails = ({
   const [selectedMovieDetails, setSelectedMovieDetails] =
     useState<ExtendedMovieData | null>(null)
 
-  const countRef = useRef(0)
-  useEffect(() => {
-    if (userRating) countRef.current += 1
-    console.log(countRef)
-  }, [userRating])
-
   const isWatched = watched.find((movie) => movie.imdbID === selectedId)
 
   // HANDLE ADD TO WATCHED
