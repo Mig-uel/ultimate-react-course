@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import StarRating from '../star-rating/star-rating.component'
 import Loader from '../loader.component'
 
@@ -23,6 +23,12 @@ const MovieDetails = ({
   const [isLoading, setIsLoading] = useState(false)
   const [selectedMovieDetails, setSelectedMovieDetails] =
     useState<ExtendedMovieData | null>(null)
+
+  const countRef = useRef(0)
+  useEffect(() => {
+    if (userRating) countRef.current += 1
+    console.log(countRef)
+  }, [userRating])
 
   const isWatched = watched.find((movie) => movie.imdbID === selectedId)
 
