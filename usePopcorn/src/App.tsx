@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 // BOX
 import Box from '@/components/box.component'
@@ -24,6 +24,7 @@ import { useMovies } from './hooks/useMovies'
 
 // TYPES
 import type { MovieData, WatchedData } from '@/types/types'
+import { useLocalStorageState } from './hooks/useLocalStorageState'
 
 // MAIN APP
 export default function App() {
@@ -31,13 +32,10 @@ export default function App() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const { error, isLoading, movies } = useMovies<MovieData[]>(query)
 
-  const [watched, setWatched] = useState<WatchedData[]>(() => {
-    const storedValue = JSON.parse(
-      localStorage.getItem('watched')!
-    ) as WatchedData[]
-
-    return storedValue || []
-  })
+  const [watched, setWatched] = useLocalStorageState<WatchedData[]>(
+    [],
+    'watched'
+  )
 
   // SELECT MOVIE HANDLER
   const handleSelectMovie = (id: string) =>
@@ -56,11 +54,6 @@ export default function App() {
   // HANDLE DELETE WATCHED MOVIE
   const handleDeleteWatchedMovie = (id: string) =>
     setWatched((prev) => prev.filter((movie) => movie.imdbID !== id))
-
-  // update local storage after watched state has been updated
-  useEffect(() => {
-    localStorage.setItem('watched', JSON.stringify(watched))
-  }, [watched])
 
   return (
     <>
