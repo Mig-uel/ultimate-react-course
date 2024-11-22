@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import StarRating from '../star-rating/star-rating.component'
 import Loader from '../loader.component'
 
 import type { ExtendedMovieData, WatchedData } from '@/types/types'
+import { useKey } from '@/hooks/useKey'
 
 const OMDb_URI = `http://www.omdbapi.com/?apikey=${
   import.meta.env.VITE_OMDB_KEY
@@ -44,20 +45,7 @@ const MovieDetails = ({
     handleCloseSelectedMovie()
   }
 
-  // escape key closes movie details
-  useEffect(() => {
-    const callback = (e: KeyboardEvent) => {
-      if (e.code === 'Escape') {
-        handleCloseSelectedMovie()
-      }
-    }
-
-    document.addEventListener('keydown', callback)
-
-    return () => {
-      document.removeEventListener('keydown', callback)
-    }
-  }, [handleCloseSelectedMovie])
+  useKey('Escape', handleCloseSelectedMovie)
 
   useEffect(() => {
     const getSelectedMovieDetails = async () => {
