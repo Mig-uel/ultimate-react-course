@@ -28,7 +28,13 @@ const OMDb_URI = `http://www.omdbapi.com/?apikey=${
 
 export default function App() {
   const [movies, setMovies] = useState<MovieData[]>([])
-  const [watched, setWatched] = useState<WatchedData[]>([])
+  const [watched, setWatched] = useState<WatchedData[]>(() => {
+    const storedValue = JSON.parse(
+      localStorage.getItem('watched')!
+    ) as WatchedData[]
+
+    return storedValue || []
+  })
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
@@ -47,13 +53,16 @@ export default function App() {
   // HANDLE ADD WATCHED MOVIE
   const handleAddWatchedMovie = (movie: WatchedData) => {
     setWatched((prev) => [...prev, movie])
-
-    localStorage.setItem('watched', JSON.stringify([...watched, movie]))
   }
 
   // HANDLE DELETE WATCHED MOVIE
   const handleDeleteWatchedMovie = (id: string) =>
     setWatched((prev) => prev.filter((movie) => movie.imdbID !== id))
+
+  // update local storage after watched state has been updated
+  useEffect(() => {
+    localStorage.setItem('watched', JSON.stringify(watched))
+  }, [watched])
 
   useEffect(() => {
     const controller = new AbortController()
