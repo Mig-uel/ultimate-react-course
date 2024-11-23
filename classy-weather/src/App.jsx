@@ -5,6 +5,8 @@ class App extends Component {
   state = {
     location: '',
     isLoading: false,
+    displayLocation: '',
+    weather: {},
   }
 
   handleChange = (e) => {
@@ -15,7 +17,7 @@ class App extends Component {
 
   fetchWeather = async () => {
     if (!this.state.location) return
-    
+
     try {
       this.setState({ isLoading: true })
       // 1) Getting location (geocoding)
@@ -29,14 +31,16 @@ class App extends Component {
 
       const { latitude, longitude, timezone, name, country_code } =
         geoData.results.at(0)
-      console.log(`${name} ${convertToFlag(country_code)}`)
+      this.setState({
+        displayLocation: `${name} ${convertToFlag(country_code)}`,
+      })
 
       // 2) Getting actual weather
       const weatherRes = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min`
       )
       const weatherData = await weatherRes.json()
-      console.log(weatherData.daily)
+      this.setState({ weather: weatherData.daily })
     } catch (err) {
       console.error(err)
     } finally {
