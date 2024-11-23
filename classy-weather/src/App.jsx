@@ -2,23 +2,33 @@ import { Component } from 'react'
 
 class App extends Component {
   state = {
-    count: 0,
+    location: '',
   }
 
-  handleClick(action) {
-    if (action === '-')
-      this.setState((state) => ({
-        count: state.count - 1,
-      }))
-    else this.setState((state) => ({ count: state.count + 1 }))
+  handleChange = (e) => {
+    this.setState((state) => ({
+      ...state,
+      location: e.target.value,
+    }))
   }
+
+  fetchWeather = () => {}
 
   render() {
     return (
-      <div>
-        <button onClick={() => this.handleClick('-')}>-</button>
-        <span>{this.state.count}</span>
-        <button onClick={() => this.handleClick('+')}>+</button>
+      <div className='app'>
+        <h1>Classy Weather</h1>
+
+        <div>
+          <input
+            type='text'
+            placeholder='Search for location...'
+            value={this.state.location}
+            onChange={this.handleChange}
+          />
+        </div>
+
+        <button onClick={this.fetchWeather}>Get Weather</button>
       </div>
     )
   }
