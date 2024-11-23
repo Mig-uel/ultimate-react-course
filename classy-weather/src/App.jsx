@@ -14,6 +14,8 @@ class App extends Component {
   }
 
   fetchWeather = async () => {
+    if (!this.state.location) return
+    
     try {
       this.setState({ isLoading: true })
       // 1) Getting location (geocoding)
@@ -36,7 +38,7 @@ class App extends Component {
       const weatherData = await weatherRes.json()
       console.log(weatherData.daily)
     } catch (err) {
-      console.err(err)
+      console.error(err)
     } finally {
       this.setState({ isLoading: false })
     }
@@ -57,6 +59,8 @@ class App extends Component {
         </div>
 
         <button onClick={this.fetchWeather}>Get Weather</button>
+
+        {this.state.isLoading && <p className='loader'>Loading...</p>}
       </div>
     )
   }
