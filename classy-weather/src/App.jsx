@@ -4,7 +4,7 @@ import { convertToFlag } from './utils'
 class App extends Component {
   state = {
     location: '',
-    loading: false,
+    isLoading: false,
   }
 
   handleChange = (e) => {
@@ -37,6 +37,8 @@ class App extends Component {
       console.log(weatherData.daily)
     } catch (err) {
       console.err(err)
+    } finally {
+      this.setState({ isLoading: false })
     }
   }
 
