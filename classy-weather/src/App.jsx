@@ -1,22 +1,24 @@
 import { Component } from 'react'
+import { convertToFlag } from './utils'
 
 class App extends Component {
   state = {
     location: '',
+    loading: false,
   }
 
   handleChange = (e) => {
-    this.setState((state) => ({
-      ...state,
+    this.setState({
       location: e.target.value,
-    }))
+    })
   }
 
   fetchWeather = async () => {
     try {
+      this.setState({ isLoading: true })
       // 1) Getting location (geocoding)
       const geoRes = await fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${location}`
+        `https://geocoding-api.open-meteo.com/v1/search?name=${this.state.location}`
       )
       const geoData = await geoRes.json()
       console.log(geoData)
