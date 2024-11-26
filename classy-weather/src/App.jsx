@@ -1,4 +1,6 @@
 import { Component } from 'react'
+import { Weather } from './components/weather.component'
+
 import { convertToFlag } from './utils'
 
 class App extends Component {
@@ -25,7 +27,7 @@ class App extends Component {
         `https://geocoding-api.open-meteo.com/v1/search?name=${this.state.location}`
       )
       const geoData = await geoRes.json()
-      console.log(geoData)
+      // console.log(geoData)
 
       if (!geoData.results) throw new Error('Location not found')
 
@@ -53,18 +55,29 @@ class App extends Component {
       <div className='app'>
         <h1>Classy Weather</h1>
 
-        <div>
-          <input
-            type='text'
-            placeholder='Search for location...'
-            value={this.state.location}
-            onChange={this.handleChange}
-          />
-        </div>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div>
+            <input
+              type='text'
+              placeholder='Search for location...'
+              value={this.state.location}
+              onChange={this.handleChange}
+            />
+          </div>
 
-        <button onClick={this.fetchWeather}>Get Weather</button>
+          <button className='btn' type='submit' onClick={this.fetchWeather}>
+            Get Weather
+          </button>
+        </form>
 
         {this.state.isLoading && <p className='loader'>Loading...</p>}
+
+        {this.state.weather.weathercode && (
+          <Weather
+            weather={this.state.weather}
+            location={this.state.displayLocation}
+          />
+        )}
       </div>
     )
   }
