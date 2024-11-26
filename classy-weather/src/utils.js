@@ -27,5 +27,5 @@ export function convertToFlag(countryCode) {
 export function formatDay(dateStr) {
   return new Intl.DateTimeFormat('en', {
     weekday: 'short',
-  }).format(new Date(dateStr))
+  }).format(new Date(`${dateStr}T00:00:00`))
 }
