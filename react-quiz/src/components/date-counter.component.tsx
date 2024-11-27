@@ -1,7 +1,7 @@
 import { useReducer, useState } from 'react'
 
 type State = number
-type Type = 'inc' | 'dec' | 'reset'
+type Type = 'inc' | 'dec' | 'reset' | 'setCount'
 type Action = {
   type: Type
   payload?: number
@@ -16,6 +16,8 @@ const reducer = (state: State, { type, payload }: Action): State => {
       return state - payload!
     case 'reset':
       return 0
+    case 'setCount':
+      return payload!
     default: {
       const never: never = type
 
@@ -39,7 +41,7 @@ function DateCounter() {
   }
 
   const defineCount = function (e: React.ChangeEvent<HTMLInputElement>) {
-    // dispatch(Number(e.target.value))
+    dispatch({ type: 'setCount', payload: Number(e.target.value) })
   }
 
   const defineStep = function (e: React.ChangeEvent<HTMLInputElement>) {
