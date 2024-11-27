@@ -5,6 +5,7 @@ import Main from './components/main.component'
 import Loader from './components/loader.component'
 import ErrorMessage from './components/error-message.component'
 import StartScreen from './components/start-screen.component'
+import ActiveQuestion from './components/active-question.component'
 
 import type { Action, Question, State } from './types'
 
@@ -68,6 +69,8 @@ function App() {
         {status === 'loading' && <Loader />}
         {status === 'error' && error && <ErrorMessage />}
         {status === 'ready' && <StartScreen numOfQuestions={numOfQuestions} />}
+
+        {status === 'active' && <ActiveQuestion />}
       </Main>
     </div>
   )
