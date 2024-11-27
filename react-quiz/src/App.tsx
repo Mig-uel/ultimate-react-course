@@ -61,7 +61,10 @@ function App() {
     <div className='app'>
       <Header />
 
-      <Main>{status === 'loading' && <Loader />}</Main>
+      <Main>
+        {status === 'loading' && <Loader />}
+        {status === 'error' && <ErrorMessage />}
+      </Main>
     </div>
   )
 }
