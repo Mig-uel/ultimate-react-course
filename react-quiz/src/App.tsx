@@ -25,6 +25,8 @@ const reducer = (state: State, { type, payload }: Action): State => {
       }
     case 'dataFailed':
       return { ...state, status: 'error', error: payload as string }
+    case 'start':
+      return { ...state, status: 'active' }
     default: {
       const never: never = type
       throw new Error(`INVALID ACTION TYPE: ${never}`)
