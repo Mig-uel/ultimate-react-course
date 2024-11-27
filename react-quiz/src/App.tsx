@@ -37,6 +37,8 @@ function App() {
     initialState
   )
 
+  const numOfQuestions = questions.length
+
   useEffect(() => {
     async function fetchQuestions() {
       try {
@@ -65,7 +67,7 @@ function App() {
       <Main>
         {status === 'loading' && <Loader />}
         {status === 'error' && error && <ErrorMessage />}
-        {status === 'ready' && <StartScreen />}
+        {status === 'ready' && <StartScreen numOfQuestions={numOfQuestions} />}
       </Main>
     </div>
   )
