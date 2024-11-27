@@ -8,13 +8,14 @@ import type { Action, Question, State } from './types'
 const initialState: State = {
   questions: [],
   status: 'loading',
+  error: null,
 }
-const reducer = (state: State, { type, payload }: Action<Question>): State => {
+const reducer = (state: State, { type, payload }: Action): State => {
   switch (type) {
     case 'dataReceived':
-      return { ...state, questions: payload!, status: 'ready' }
+      return { ...state, questions: payload as Question[], status: 'ready' }
     case 'dataFailed':
-      return { ...state, status: 'error' }
+      return { ...state, status: 'error', error: payload as string }
     default: {
       const never: never = type
       throw new Error(`INVALID ACTION TYPE: ${never}`)
@@ -38,7 +39,7 @@ function App() {
         if (error instanceof Error) {
           console.log(error.message)
 
-          dispatch({ type: 'dataFailed' })
+          dispatch({ type: 'dataFailed', payload: error.message })
         }
       }
     }
