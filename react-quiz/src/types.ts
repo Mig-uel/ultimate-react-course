@@ -12,7 +12,7 @@ type Type = 'dataReceived'
 
 export type Action = {
   type: Type
-  payload?: Question[] | undefined
+  payload?: Question[] | []
 }
 
 type Status = 'loading' | 'error' | 'ready' | 'active' | 'finished'
