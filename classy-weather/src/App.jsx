@@ -10,6 +10,7 @@ class App extends Component {
     isLoading: false,
     displayLocation: '',
     weather: {},
+    error: '',
   }
 
   handleChange = (e) => {
@@ -20,7 +21,10 @@ class App extends Component {
 
   fetchWeather = async () => {
     try {
-      if (!this.state.location || this.state.location.length < 3) return
+      if (this.state.location.length < 2) {
+        this.setState({ weather: {} })
+        return
+      }
 
       this.setState({ isLoading: true })
       // 1) Getting location (geocoding)
@@ -52,12 +56,16 @@ class App extends Component {
   }
 
   // alt to useEffect with empty [] dependency
-  componentDidMount() {}
+  componentDidMount() {
+    this.setState({ location: localStorage.getItem('location') || '' })
+  }
 
   // useEffect with [] dependency
   componentDidUpdate(prevProps, prevState) {
     if (this.state.location !== prevState.location) {
       this.fetchWeather()
+
+      localStorage.setItem('location', this.state.location)
     }
   }
 
@@ -67,9 +75,10 @@ class App extends Component {
         <h1>Classy Weather</h1>
 
         <form onSubmit={(e) => e.preventDefault()}>
-          <div>
-            <Input location={this.location} handleChange={this.handleChange} />
-          </div>
+          <Input
+            location={this.state.location}
+            handleChange={this.handleChange}
+          />
         </form>
 
         {this.state.isLoading && <p className='loader'>Loading...</p>}
