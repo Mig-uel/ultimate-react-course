@@ -1,4 +1,12 @@
-const StartScreen = ({ numOfQuestions }: { numOfQuestions: number }) => {
+import type { Action } from '../types'
+
+const StartScreen = ({
+  numOfQuestions,
+  dispatch,
+}: {
+  numOfQuestions: number
+  dispatch: React.Dispatch<Action>
+}) => {
   return (
     <div className='start'>
       <h2>Welcome to The React Quiz!</h2>

@@ -70,7 +70,9 @@ function App() {
       <Main>
         {status === 'loading' && <Loader />}
         {status === 'error' && error && <ErrorMessage />}
-        {status === 'ready' && <StartScreen numOfQuestions={numOfQuestions} />}
+        {status === 'ready' && (
+          <StartScreen numOfQuestions={numOfQuestions} dispatch={dispatch} />
+        )}
 
         {status === 'active' && <ActiveQuestion />}
       </Main>
