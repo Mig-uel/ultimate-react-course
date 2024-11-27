@@ -10,9 +10,9 @@ export type Question = {
 
 type Type = 'dataReceived' | 'dataFailed'
 
-export type Action<T = []> = {
+export type Action = {
   type: Type
-  payload?: T[]
+  payload?: Question[] | string
 }
 
 type Status = 'loading' | 'error' | 'ready' | 'active' | 'finished'
@@ -20,4 +20,5 @@ type Status = 'loading' | 'error' | 'ready' | 'active' | 'finished'
 export type State = {
   questions: Question[]
   status: Status
+  error: string | null
 }
