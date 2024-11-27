@@ -19,9 +19,9 @@ class App extends Component {
   }
 
   fetchWeather = async () => {
-    if (!this.state.location) return
-
     try {
+      if (!this.state.location || this.state.location.length < 3) return
+
       this.setState({ isLoading: true })
       // 1) Getting location (geocoding)
       const geoRes = await fetch(
@@ -51,6 +51,16 @@ class App extends Component {
     }
   }
 
+  // alt to useEffect with empty [] dependency
+  componentDidMount() {}
+
+  // useEffect with [] dependency
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.location !== prevState.location) {
+      this.fetchWeather()
+    }
+  }
+
   render() {
     return (
       <div className='app'>
@@ -60,15 +70,11 @@ class App extends Component {
           <div>
             <Input location={this.location} handleChange={this.handleChange} />
           </div>
-
-          <button className='btn' type='submit' onClick={this.fetchWeather}>
-            Get Weather
-          </button>
         </form>
 
         {this.state.isLoading && <p className='loader'>Loading...</p>}
 
-        {this.state.weather.weathercode && (
+        {this.state.weather?.weathercode && (
           <Weather
             weather={this.state.weather}
             location={this.state.displayLocation}
