@@ -21,4 +21,5 @@ export type State = {
   questions: Question[]
   status: Status
   error: string | null
+  index: number
 }

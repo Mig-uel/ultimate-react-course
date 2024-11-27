@@ -13,6 +13,7 @@ const initialState: State = {
   questions: [],
   status: 'loading',
   error: null,
+  index: 0,
 }
 const reducer = (state: State, { type, payload }: Action): State => {
   switch (type) {
