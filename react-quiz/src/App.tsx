@@ -4,6 +4,7 @@ import Header from './components/header.component'
 import Main from './components/main.component'
 
 import type { Action, Question, State } from './types'
+import Loader from './components/loader.component'
 
 const initialState: State = {
   questions: [],
@@ -13,7 +14,12 @@ const initialState: State = {
 const reducer = (state: State, { type, payload }: Action): State => {
   switch (type) {
     case 'dataReceived':
-      return { ...state, questions: payload as Question[], status: 'ready' }
+      return {
+        ...state,
+        questions: payload as Question[],
+        status: 'ready',
+        error: null,
+      }
     case 'dataFailed':
       return { ...state, status: 'error', error: payload as string }
     default: {
@@ -24,7 +30,10 @@ const reducer = (state: State, { type, payload }: Action): State => {
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [{ error, questions, status }, dispatch] = useReducer(
+    reducer,
+    initialState
+  )
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -51,10 +60,7 @@ function App() {
     <div className='app'>
       <Header />
 
-      <Main>
-        <p>1/15</p>
-        <p>Question?</p>
-      </Main>
+      <Main>{status === 'loading' && <Loader />}</Main>
     </div>
   )
 }
