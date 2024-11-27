@@ -11,9 +11,9 @@ const initialState: State = 0
 const reducer = (state: State, { type, payload }: Action): State => {
   switch (type) {
     case 'inc':
-      return state + payload!
+      return (state += 1)
     case 'dec':
-      return state - payload!
+      return (state -= 1)
     case 'reset':
       return 0
     case 'setCount':
@@ -36,8 +36,8 @@ function DateCounter() {
 
   // handle inc/dec
   const handleCounterActions = (action: string) => {
-    if (action === '+') dispatch({ type: 'inc', payload: 1 })
-    else if (action === '-') dispatch({ type: 'dec', payload: -1 })
+    if (action === '+') dispatch({ type: 'inc' })
+    else if (action === '-') dispatch({ type: 'dec' })
   }
 
   const defineCount = function (e: React.ChangeEvent<HTMLInputElement>) {
