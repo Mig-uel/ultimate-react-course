@@ -24,10 +24,12 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
-    async function fetchQuestions<T = []>() {
+    async function fetchQuestions<T extends Question>() {
       try {
         const res = await fetch('http://localhost:3001/questions')
-        const data: T = await res.json()
+        const data = (await res.json()) as T[]
+
+        if (!data.length) throw new Error('Cannot fetch data')
 
         dispatch({ type: 'dataReceived', payload: data })
       } catch (error) {
@@ -35,7 +37,7 @@ function App() {
       }
     }
 
-    fetchQuestions<Question[]>()
+    fetchQuestions<Question>()
   }, [])
 
   return (
