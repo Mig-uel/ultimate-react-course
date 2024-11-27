@@ -10,6 +10,11 @@ type Action = {
   payload?: number
 }
 
+const initialState: State = {
+  count: 0,
+  step: 1,
+}
+
 const reducer = (state: State, { type, payload }: Action): State => {
   switch (type) {
     case 'inc':
@@ -17,7 +22,7 @@ const reducer = (state: State, { type, payload }: Action): State => {
     case 'dec':
       return { ...state, count: state.count - state.step }
     case 'reset':
-      return { ...state, count: 0 }
+      return { count: 0, step: 1 }
     case 'setCount':
       return { ...state, count: payload! }
     case 'setStep':
@@ -31,10 +36,6 @@ const reducer = (state: State, { type, payload }: Action): State => {
 }
 
 function DateCounter() {
-  const initialState: State = {
-    count: 0,
-    step: 1,
-  }
   const [state, dispatch] = useReducer(reducer, initialState)
 
   // This mutates the date object.
