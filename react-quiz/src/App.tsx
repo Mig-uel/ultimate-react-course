@@ -2,9 +2,10 @@ import { useEffect, useReducer } from 'react'
 
 import Header from './components/header.component'
 import Main from './components/main.component'
+import Loader from './components/loader.component'
+import ErrorMessage from './components/error-message.component'
 
 import type { Action, Question, State } from './types'
-import Loader from './components/loader.component'
 
 const initialState: State = {
   questions: [],
