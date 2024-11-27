@@ -4,6 +4,9 @@ import { Day } from './day.component'
 import PropTypes from 'prop-types'
 
 export class Weather extends Component {
+  // to clean up
+  componentWillUnmount() {}
+
   render() {
     const {
       temperature_2m_max: max,
