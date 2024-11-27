@@ -1,5 +1,11 @@
+import DateCounter from './components/date-counter.component'
+
 function App() {
-  return <></>
+  return (
+    <div>
+      <DateCounter />
+    </div>
+  )
 }
 
 export default App
