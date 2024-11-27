@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { Weather } from './components/weather.component'
 
 import { convertToFlag } from './utils'
+import { Input } from './components/input.components'
 
 class App extends Component {
   state = {
@@ -57,12 +58,7 @@ class App extends Component {
 
         <form onSubmit={(e) => e.preventDefault()}>
           <div>
-            <input
-              type='text'
-              placeholder='Search for location...'
-              value={this.state.location}
-              onChange={this.handleChange}
-            />
+            <Input location={this.location} handleChange={this.handleChange} />
           </div>
 
           <button className='btn' type='submit' onClick={this.fetchWeather}>
