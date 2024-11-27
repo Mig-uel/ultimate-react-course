@@ -22,7 +22,7 @@ const reducer = (state: State, { type, payload }: Action): State => {
     case 'dec':
       return { ...state, count: state.count - state.step }
     case 'reset':
-      return { count: 0, step: 1 }
+      return initialState
     case 'setCount':
       return { ...state, count: payload! }
     case 'setStep':
