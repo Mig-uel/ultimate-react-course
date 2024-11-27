@@ -4,6 +4,7 @@ import Header from './components/header.component'
 import Main from './components/main.component'
 import Loader from './components/loader.component'
 import ErrorMessage from './components/error-message.component'
+import StartScreen from './components/start-screen.component'
 
 import type { Action, Question, State } from './types'
 
@@ -63,7 +64,8 @@ function App() {
 
       <Main>
         {status === 'loading' && <Loader />}
-        {status === 'error' && <ErrorMessage />}
+        {status === 'error' && error && <ErrorMessage />}
+        {status === 'ready' && <StartScreen />}
       </Main>
     </div>
   )
