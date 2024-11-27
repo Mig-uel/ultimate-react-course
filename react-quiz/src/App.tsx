@@ -1,19 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, useReducer } from 'react'
+
 import Header from './components/header.component'
 import Main from './components/main.component'
 
-type Options = string[]
-type Question = {
-  question: string
-  options: Options[]
-  correctOption: number
-  points: number
-  id: string
-}
+import type { Question } from './types'
 
 function App() {
-
-  
+  const [state, dispatch] = useReducer()
 
   useEffect(() => {
     async function fetchQuestions<T = []>() {
