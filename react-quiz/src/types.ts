@@ -1,4 +1,4 @@
-export type Options = string[]
+type Options = string[]
 
 export type Question = {
   question: string
@@ -6,4 +6,18 @@ export type Question = {
   correctOption: number
   points: number
   id: string
+}
+
+type Type = 'dataReceived'
+
+export type Action = {
+  type: Type
+  payload?: Question[] | undefined
+}
+
+type Status = 'loading' | 'error' | 'ready' | 'active' | 'finished'
+
+export type State = {
+  questions: Question[]
+  status: Status
 }
