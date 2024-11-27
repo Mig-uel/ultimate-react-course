@@ -43,7 +43,7 @@ function App() {
       }
     }
 
-    fetchQuestions<Question[]>()
+    fetchQuestions()
   }, [])
 
   return (
