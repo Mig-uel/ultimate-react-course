@@ -3,18 +3,33 @@ import { useEffect, useReducer } from 'react'
 import Header from './components/header.component'
 import Main from './components/main.component'
 
-import type { Question } from './types'
+import type { Action, Question, State } from './types'
+
+const initialState: State = {
+  questions: [],
+  status: 'loading',
+}
+const reducer = (state: State, { type, payload }: Action): State => {
+  switch (type) {
+    case 'dataReceived':
+      return { ...state, questions: payload!, status: 'ready' }
+    default: {
+      const never: never = type
+      throw new Error(`INVALID ACTION TYPE: ${never}`)
+    }
+  }
+}
 
 function App() {
-  const [state, dispatch] = useReducer()
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
     async function fetchQuestions<T = []>() {
       try {
         const res = await fetch('http://localhost:3001/questions')
-        const data = (await res.json()) as T
+        const data: T = await res.json()
 
-        console.log(data)
+        dispatch({ type: 'dataReceived', payload: data })
       } catch (error) {
         console.log(error)
       }
