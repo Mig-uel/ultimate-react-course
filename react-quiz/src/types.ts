@@ -2,17 +2,17 @@ type Options = string[]
 
 export type Question = {
   question: string
-  options: Options[]
+  options: Options
   correctOption: number
   points: number
   id: string
 }
 
-type Type = 'dataReceived'
+type Type = 'dataReceived' | 'dataFailed'
 
-export type Action = {
+export type Action<T = []> = {
   type: Type
-  payload?: Question[] | []
+  payload?: T[]
 }
 
 type Status = 'loading' | 'error' | 'ready' | 'active' | 'finished'
