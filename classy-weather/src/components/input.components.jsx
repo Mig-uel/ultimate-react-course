@@ -6,14 +6,13 @@ export class Input extends Component {
     const { location, handleChange } = this.props
 
     return (
-      <div>
+      <div className='input-group'>
         <input
           type='text'
           placeholder='Search for location...'
           value={location}
           onChange={handleChange}
         />
-        <div className='clear'>&times;</div>
       </div>
     )
   }
