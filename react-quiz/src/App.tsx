@@ -73,7 +73,9 @@ function App() {
           </>
         )}
 
-        {status === 'finished' && <FinalScreen />}
+        {status === 'finished' && (
+          <FinalScreen maxPoints={maxPoints} points={points} />
+        )}
       </Main>
     </div>
   )
