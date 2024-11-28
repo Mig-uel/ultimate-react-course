@@ -38,7 +38,7 @@ const reducer = (state: State, { type, payload }: Action): State => {
         answer: payload as number,
         points:
           payload === currentQuestion.correctOption
-            ? (state.points += currentQuestion.points)
+            ? state.points + currentQuestion.points
             : state.points,
       }
     }
