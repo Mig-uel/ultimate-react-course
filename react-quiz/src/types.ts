@@ -23,4 +23,5 @@ export type State = {
   error: string | null
   index: number
   answer: number | null
+  points: number
 }
