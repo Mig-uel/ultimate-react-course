@@ -9,9 +9,6 @@ const Options = ({
   dispatch: React.Dispatch<Action>
   answer: number | null
 }) => {
-  console.log(question)
-  console.log(answer)
-
   const isAnswered = answer !== null
 
   return (
