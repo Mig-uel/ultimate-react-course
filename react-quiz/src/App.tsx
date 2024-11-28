@@ -20,7 +20,16 @@ import type { Question } from './types'
 
 function App() {
   const [
-    { error, questions, status, index, answer, points, highscore },
+    {
+      error,
+      questions,
+      status,
+      index,
+      answer,
+      points,
+      highscore,
+      secondsRemaining,
+    },
     dispatch,
   ] = useReducer(reducer, initialState)
 
@@ -74,7 +83,7 @@ function App() {
               answer={answer}
             />
             <Footer>
-              <Timer />
+              <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
               <NextButton
                 dispatch={dispatch}
                 answer={answer}
