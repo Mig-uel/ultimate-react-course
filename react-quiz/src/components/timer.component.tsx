@@ -6,7 +6,7 @@ const Timer = ({
   secondsRemaining,
 }: {
   dispatch: React.Dispatch<Action>
-  secondsRemaining: number
+  secondsRemaining: number | null
 }) => {
   useEffect(() => {
     const id = setInterval(() => {
