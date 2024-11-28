@@ -16,6 +16,7 @@ type Type =
   | 'nextQuestion'
   | 'finish'
   | 'reset'
+  | 'tick'
 
 export type Action = {
   type: Type
@@ -32,4 +33,5 @@ export type State = {
   answer: number | null
   points: number
   highscore: number
+  secondsRemaining: number
 }
