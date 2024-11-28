@@ -30,8 +30,18 @@ const reducer = (state: State, { type, payload }: Action): State => {
       return { ...state, status: 'error', error: payload as string }
     case 'start':
       return { ...state, status: 'active' }
-    case 'newAnswer':
-      return { ...state, answer: payload as number }
+    case 'newAnswer': {
+      const currentQuestion = state.questions[state.index]
+
+      return {
+        ...state,
+        answer: payload as number,
+        points:
+          payload === currentQuestion.correctOption
+            ? (state.points += currentQuestion.points)
+            : state.points,
+      }
+    }
     default: {
       const never: never = type
       throw new Error(`INVALID ACTION TYPE: ${never}`)
