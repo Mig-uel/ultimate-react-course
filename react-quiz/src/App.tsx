@@ -85,6 +85,7 @@ function App() {
             maxPoints={maxPoints}
             points={points}
             highscore={highscore}
+            dispatch={dispatch}
           />
         )}
       </Main>
