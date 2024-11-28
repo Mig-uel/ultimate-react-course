@@ -12,7 +12,7 @@ type Type = 'dataReceived' | 'dataFailed' | 'start' | 'newAnswer'
 
 export type Action = {
   type: Type
-  payload?: Question[] | string
+  payload?: Question[] | string | number
 }
 
 type Status = 'loading' | 'error' | 'ready' | 'active' | 'finished'
