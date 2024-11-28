@@ -1,12 +1,16 @@
 import { useEffect, useReducer } from 'react'
 
-import Header from './components/header.component'
-import Main from './components/main.component'
-import Loader from './components/loader.component'
-import ErrorMessage from './components/error-message.component'
-import StartScreen from './components/start-screen.component'
-import ActiveQuestion from './components/active-question.component'
-import NextButton from './components/next-button.component'
+// components
+import {
+  ActiveQuestion,
+  ErrorMessage,
+  Header,
+  Loader,
+  Main,
+  NextButton,
+  ProgressBar,
+  StartScreen,
+} from './components'
 
 import { initialState, reducer } from './reducers/quizReducer'
 import type { Question } from './types'
