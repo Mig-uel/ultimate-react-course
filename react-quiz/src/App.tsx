@@ -57,10 +57,11 @@ function App() {
         {status === 'active' && (
           <>
             <ProgressBar
-              index={index + 1}
+              index={index}
               numOfQuestions={numOfQuestions}
               points={points}
               maxPoints={maxPoints}
+              answer={answer}
             />
             <ActiveQuestion
               question={questions[index]}
