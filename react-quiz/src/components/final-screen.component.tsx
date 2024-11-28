@@ -1,11 +1,15 @@
+import type { Action } from '../types'
+
 const FinalScreen = ({
   points,
   maxPoints,
   highscore,
+  dispatch,
 }: {
   points: number
   maxPoints: number
   highscore: number
+  dispatch: React.Dispatch<Action>
 }) => {
   const percentage = (points / maxPoints) * 100
 
@@ -26,6 +30,13 @@ const FinalScreen = ({
       </p>
 
       <p className='highscore'>(⭐ High Score: {highscore} points)</p>
+
+      <button
+        className='btn btn-ui'
+        onClick={() => dispatch({ type: 'reset' })}
+      >
+        Restart
+      </button>
     </>
   )
 }
