@@ -5,12 +5,14 @@ import {
   ActiveQuestion,
   ErrorMessage,
   FinalScreen,
+  Footer,
   Header,
   Loader,
   Main,
   NextButton,
   ProgressBar,
   StartScreen,
+  Timer,
 } from './components'
 
 import { initialState, reducer } from './reducers/quizReducer'
@@ -71,12 +73,15 @@ function App() {
               dispatch={dispatch}
               answer={answer}
             />
-            <NextButton
-              dispatch={dispatch}
-              answer={answer}
-              index={index}
-              numOfQuestions={numOfQuestions}
-            />
+            <Footer>
+              <Timer />
+              <NextButton
+                dispatch={dispatch}
+                answer={answer}
+                index={index}
+                numOfQuestions={numOfQuestions}
+              />
+            </Footer>
           </>
         )}
 
