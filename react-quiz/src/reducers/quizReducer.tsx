@@ -1,5 +1,7 @@
 import type { Action, Question, State } from '../types'
 
+const SECONDS_PER_QUESTION = 30
+
 export const initialState: State = {
   questions: [],
   status: 'loading',
@@ -8,7 +10,7 @@ export const initialState: State = {
   answer: null,
   points: 0,
   highscore: 0,
-  secondsRemaining: 5,
+  secondsRemaining: null,
 }
 
 export const reducer = (state: State, { type, payload }: Action): State => {
@@ -23,7 +25,11 @@ export const reducer = (state: State, { type, payload }: Action): State => {
     case 'dataFailed':
       return { ...state, status: 'error', error: payload as string }
     case 'start':
-      return { ...state, status: 'active' }
+      return {
+        ...state,
+        status: 'active',
+        secondsRemaining: state.questions.length * SECONDS_PER_QUESTION,
+      }
     case 'newAnswer': {
       const currentQuestion = state.questions[state.index]
 
@@ -56,7 +62,7 @@ export const reducer = (state: State, { type, payload }: Action): State => {
     case 'tick':
       return {
         ...state,
-        secondsRemaining: state.secondsRemaining - 1,
+        secondsRemaining: state.secondsRemaining! - 1,
         status: state.secondsRemaining === 0 ? 'finished' : state.status,
       }
     default: {
