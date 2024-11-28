@@ -57,6 +57,7 @@ function App() {
 
         {status === 'active' && (
           <>
+            <ProgressBar index={index + 1} numOfQuestions={numOfQuestions} />
             <ActiveQuestion
               question={questions[index]}
               dispatch={dispatch}
