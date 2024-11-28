@@ -36,7 +36,7 @@ const reducer = (state: State, { type, payload }: Action): State => {
 }
 
 function App() {
-  const [{ error, questions, status }, dispatch] = useReducer(
+  const [{ error, questions, status, index }, dispatch] = useReducer(
     reducer,
     initialState
   )
@@ -75,7 +75,7 @@ function App() {
           <StartScreen numOfQuestions={numOfQuestions} dispatch={dispatch} />
         )}
 
-        {status === 'active' && <ActiveQuestion />}
+        {status === 'active' && <ActiveQuestion question={questions[index]} />}
       </Main>
     </div>
   )
