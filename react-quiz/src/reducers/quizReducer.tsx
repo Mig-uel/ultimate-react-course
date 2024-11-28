@@ -8,6 +8,7 @@ export const initialState: State = {
   answer: null,
   points: 0,
   highscore: 0,
+  secondsRemaining: 5,
 }
 
 export const reducer = (state: State, { type, payload }: Action): State => {
@@ -51,6 +52,12 @@ export const reducer = (state: State, { type, payload }: Action): State => {
         questions: state.questions,
         status: 'ready',
         highscore: state.highscore,
+      }
+    case 'tick':
+      return {
+        ...state,
+        secondsRemaining: state.secondsRemaining - 1,
+        status: state.secondsRemaining === 0 ? 'finished' : state.status,
       }
     default: {
       const never: never = type
