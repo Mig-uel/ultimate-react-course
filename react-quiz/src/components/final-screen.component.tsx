@@ -8,7 +8,7 @@ const FinalScreen = ({
   const percentage = (points / maxPoints) * 100
 
   return (
-    <p>
+    <p className='result'>
       You scored:<strong>{points}</strong> out of {maxPoints} (
       {Math.ceil(percentage)}%)
     </p>
