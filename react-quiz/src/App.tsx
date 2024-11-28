@@ -17,8 +17,10 @@ import { initialState, reducer } from './reducers/quizReducer'
 import type { Question } from './types'
 
 function App() {
-  const [{ error, questions, status, index, answer, points }, dispatch] =
-    useReducer(reducer, initialState)
+  const [
+    { error, questions, status, index, answer, points, highscore },
+    dispatch,
+  ] = useReducer(reducer, initialState)
 
   const numOfQuestions = questions.length
   const maxPoints = questions.reduce((acc, curr) => acc + curr.points, 0)
@@ -79,7 +81,11 @@ function App() {
         )}
 
         {status === 'finished' && (
-          <FinalScreen maxPoints={maxPoints} points={points} />
+          <FinalScreen
+            maxPoints={maxPoints}
+            points={points}
+            highscore={highscore}
+          />
         )}
       </Main>
     </div>
