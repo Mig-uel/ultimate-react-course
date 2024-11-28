@@ -8,7 +8,12 @@ export type Question = {
   id: string
 }
 
-type Type = 'dataReceived' | 'dataFailed' | 'start' | 'newAnswer'
+type Type =
+  | 'dataReceived'
+  | 'dataFailed'
+  | 'start'
+  | 'newAnswer'
+  | 'nextQuestion'
 
 export type Action = {
   type: Type
