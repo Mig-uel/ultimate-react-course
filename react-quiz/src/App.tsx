@@ -14,6 +14,7 @@ const initialState: State = {
   status: 'loading',
   error: null,
   index: 0,
+  answer: null,
 }
 const reducer = (state: State, { type, payload }: Action): State => {
   switch (type) {
@@ -28,6 +29,8 @@ const reducer = (state: State, { type, payload }: Action): State => {
       return { ...state, status: 'error', error: payload as string }
     case 'start':
       return { ...state, status: 'active' }
+    case 'newAnswer':
+      return { ...state, answer: payload as number }
     default: {
       const never: never = type
       throw new Error(`INVALID ACTION TYPE: ${never}`)
@@ -36,7 +39,7 @@ const reducer = (state: State, { type, payload }: Action): State => {
 }
 
 function App() {
-  const [{ error, questions, status, index }, dispatch] = useReducer(
+  const [{ error, questions, status, index, answer }, dispatch] = useReducer(
     reducer,
     initialState
   )
@@ -75,7 +78,13 @@ function App() {
           <StartScreen numOfQuestions={numOfQuestions} dispatch={dispatch} />
         )}
 
-        {status === 'active' && <ActiveQuestion question={questions[index]} />}
+        {status === 'active' && (
+          <ActiveQuestion
+            question={questions[index]}
+            dispatch={dispatch}
+            answer={answer}
+          />
+        )}
       </Main>
     </div>
   )
