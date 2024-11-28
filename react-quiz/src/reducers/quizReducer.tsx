@@ -7,6 +7,7 @@ export const initialState: State = {
   index: 0,
   answer: null,
   points: 0,
+  highscore: 0,
 }
 
 export const reducer = (state: State, { type, payload }: Action): State => {
@@ -38,7 +39,12 @@ export const reducer = (state: State, { type, payload }: Action): State => {
       return { ...state, index: state.index + 1, answer: null }
     }
     case 'finish':
-      return { ...state, status: 'finished' }
+      return {
+        ...state,
+        status: 'finished',
+        highscore:
+          state.points > state.highscore ? state.points : state.highscore,
+      }
     default: {
       const never: never = type
       throw new Error(`INVALID ACTION TYPE: ${never}`)
