@@ -15,6 +15,7 @@ const initialState: State = {
   error: null,
   index: 0,
   answer: null,
+  points: 0,
 }
 const reducer = (state: State, { type, payload }: Action): State => {
   switch (type) {
