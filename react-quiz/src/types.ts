@@ -14,6 +14,7 @@ type Type =
   | 'start'
   | 'newAnswer'
   | 'nextQuestion'
+  | 'finish'
 
 export type Action = {
   type: Type
