@@ -8,7 +8,7 @@ export type Question = {
   id: string
 }
 
-type Type = 'dataReceived' | 'dataFailed' | 'start'
+type Type = 'dataReceived' | 'dataFailed' | 'start' | 'newAnswer'
 
 export type Action = {
   type: Type
@@ -22,4 +22,5 @@ export type State = {
   status: Status
   error: string | null
   index: number
+  answer: number | null
 }
