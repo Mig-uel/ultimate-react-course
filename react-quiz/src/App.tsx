@@ -4,6 +4,7 @@ import { useEffect, useReducer } from 'react'
 import {
   ActiveQuestion,
   ErrorMessage,
+  FinalScreen,
   Header,
   Loader,
   Main,
@@ -71,6 +72,8 @@ function App() {
             <NextButton dispatch={dispatch} answer={answer} />
           </>
         )}
+
+        {status === 'finished' && <FinalScreen />}
       </Main>
     </div>
   )
