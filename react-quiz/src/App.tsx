@@ -16,12 +16,11 @@ import { initialState, reducer } from './reducers/quizReducer'
 import type { Question } from './types'
 
 function App() {
-  const [{ error, questions, status, index, answer }, dispatch] = useReducer(
-    reducer,
-    initialState
-  )
+  const [{ error, questions, status, index, answer, points }, dispatch] =
+    useReducer(reducer, initialState)
 
   const numOfQuestions = questions.length
+  const maxPoints = questions.reduce((acc, curr) => acc + curr.points, 0)
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -57,7 +56,12 @@ function App() {
 
         {status === 'active' && (
           <>
-            <ProgressBar index={index + 1} numOfQuestions={numOfQuestions} />
+            <ProgressBar
+              index={index + 1}
+              numOfQuestions={numOfQuestions}
+              points={points}
+              maxPoints={maxPoints}
+            />
             <ActiveQuestion
               question={questions[index]}
               dispatch={dispatch}
