@@ -6,6 +6,7 @@ import Loader from './components/loader.component'
 import ErrorMessage from './components/error-message.component'
 import StartScreen from './components/start-screen.component'
 import ActiveQuestion from './components/active-question.component'
+import NextButton from './components/next-button.component'
 
 import type { Action, Question, State } from './types'
 
@@ -43,7 +44,7 @@ const reducer = (state: State, { type, payload }: Action): State => {
       }
     }
     case 'nextQuestion':
-      return { ...state, index: state.index + 1 }
+      return { ...state, index: state.index + 1, answer: null }
     default: {
       const never: never = type
       throw new Error(`INVALID ACTION TYPE: ${never}`)
@@ -92,11 +93,14 @@ function App() {
         )}
 
         {status === 'active' && (
-          <ActiveQuestion
-            question={questions[index]}
-            dispatch={dispatch}
-            answer={answer}
-          />
+          <>
+            <ActiveQuestion
+              question={questions[index]}
+              dispatch={dispatch}
+              answer={answer}
+            />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
         )}
       </Main>
     </div>
