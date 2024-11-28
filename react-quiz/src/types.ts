@@ -30,4 +30,5 @@ export type State = {
   index: number
   answer: number | null
   points: number
+  highscore: number
 }
