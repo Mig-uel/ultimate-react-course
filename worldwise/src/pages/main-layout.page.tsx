@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router'
 import { Nav } from '../components'
 
-const Layout = () => {
+const MainLayout = () => {
   return (
     <div>
       <Nav />
@@ -10,4 +10,4 @@ const Layout = () => {
     </div>
   )
 }
-export default Layout
+export default MainLayout
