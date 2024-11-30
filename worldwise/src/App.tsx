@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
-import { Home, PageNotFound, Pricing, Product } from './pages'
+import { Home, Login, PageNotFound, Pricing, Product } from './pages'
 import MainLayout from './pages/main-layout.page'
 import AppLayout from './pages/app-layout.component'
 
@@ -9,6 +9,7 @@ function App() {
       <Routes>
         <Route element={<MainLayout />} path='/'>
           <Route index element={<Home />} />
+          <Route element={<Login />} path='login' />
           <Route path='product' element={<Product />} />
           <Route path='pricing' element={<Pricing />} />
           <Route path='*' element={<PageNotFound />} />
