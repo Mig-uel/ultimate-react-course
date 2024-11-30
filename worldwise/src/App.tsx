@@ -1,5 +1,17 @@
+import { BrowserRouter, Route, Routes } from 'react-router'
+import { Home, PageNotFound, Pricing, Product } from './pages'
+
 function App() {
-  return <></>
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Home />} path='/' />
+        <Route path='product' element={<Product />} />
+        <Route path='pricing' element={<Pricing />} />
+        <Route path='*' element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App
