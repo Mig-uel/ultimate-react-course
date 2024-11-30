@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router'
+import styles from '../styles/nav.module.css'
 
 const Nav = () => {
   return (
-    <nav>
+    <nav className={styles.nav}>
       <ul>
         <li>
           <NavLink to='/'>Home</NavLink>
