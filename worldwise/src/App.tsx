@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
-import { CitiesList, CountriesList } from './components'
+import { CitiesList, City, CountriesList } from './components'
 import { Home, Login, PageNotFound, Pricing, Product } from './pages'
 import MainLayout from './pages/main-layout.page'
 import AppLayout from './pages/app-layout.component'
@@ -43,6 +43,7 @@ function App() {
           <Route path='*' element={<PageNotFound />} />
         </Route>
 
+        {/* APP ROUTES */}
         <Route element={<AppLayout />} path='/app'>
           <Route
             index
@@ -52,6 +53,8 @@ function App() {
             path='cities'
             element={<CitiesList cities={cities} isLoading={isLoading} />}
           />
+
+          <Route path='cities/:id' element={<City />} />
           <Route
             path='countries'
             element={<CountriesList cities={cities} isLoading={isLoading} />}
