@@ -1,3 +1,4 @@
+import { useParams } from 'react-router'
 // import styles from '../styles/city.module.css'
 
 // const formatDate = (date: string) =>
@@ -9,7 +10,9 @@
 //   }).format(new Date(date))
 
 const City = () => {
-  return <h1>City</h1>
+  const { id } = useParams()
+
+  return <h1>City: {id}</h1>
   // return (
   //   <div className={styles.city}>
   //     <div className={styles.row}>
