@@ -3,7 +3,7 @@ type Position = {
   lng: number
 }
 
-export type City = {
+export type CityItem = {
   cityName: string
   country: string
   emoji: string
