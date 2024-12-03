@@ -7,15 +7,20 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<MainLayout />} path='/'>
+        <Route path='/' element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route element={<Login />} path='login' />
+          <Route path='login' element={<Login />} />
           <Route path='product' element={<Product />} />
           <Route path='pricing' element={<Pricing />} />
           <Route path='*' element={<PageNotFound />} />
         </Route>
 
-        <Route element={<AppLayout />} path='/app' />
+        <Route element={<AppLayout />} path='/app'>
+          <Route index element={<p>List of cities</p>} />
+          <Route path='cities' element={<p>cities</p>} />
+          <Route path='countries' element={<p>countries</p>} />
+          <Route path='form' element={<p>form</p>} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )
