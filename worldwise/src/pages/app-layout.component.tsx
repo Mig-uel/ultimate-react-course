@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router'
-import { AppNav } from '../components'
+import { Map, Sidebar } from '../components'
+import styles from '../styles/app-layout.module.css'
 
 const AppLayout = () => {
   return (
-    <div>
-      <AppNav />
-
+    <div className={styles.app}>
+      <Sidebar />
+      <Map />
       <Outlet />
     </div>
   )
