@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 import { Home, Login, PageNotFound, Pricing, Product } from './pages'
 import MainLayout from './pages/main-layout.page'
 import AppLayout from './pages/app-layout.component'
+import { CitiesList } from './components'
 
 function App() {
   return (
@@ -16,8 +17,8 @@ function App() {
         </Route>
 
         <Route element={<AppLayout />} path='/app'>
-          <Route index element={<p>List of cities</p>} />
-          <Route path='cities' element={<p>cities</p>} />
+          <Route index element={<CitiesList />} />
+          <Route path='cities' element={<CitiesList />} />
           <Route path='countries' element={<p>countries</p>} />
           <Route path='form' element={<p>form</p>} />
         </Route>
