@@ -1,5 +1,5 @@
-import styles from '../styles/city.module.css'
 import type { CityItem } from '../types'
+import styles from '../styles/city-item.module.css'
 
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat('en', {
