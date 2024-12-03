@@ -6,7 +6,7 @@ const CitiesList = ({
   cities,
   isLoading,
 }: {
-  cities: types.CityItem[] | null
+  cities: types.CityItem[]
   isLoading: boolean
 }) => {
   if (isLoading) return <Spinner />
