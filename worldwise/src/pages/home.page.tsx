@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import styles from '../styles/home.module.css'
 
 const Home = () => {
@@ -14,6 +15,10 @@ const Home = () => {
           of. Never forget your wonderful experiences, and show your friends how
           you have wandered the world.
         </h2>
+
+        <Link to='/app' className='cta'>
+          Start Tracking Now
+        </Link>
       </section>
     </main>
   )
