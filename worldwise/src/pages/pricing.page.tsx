@@ -1,8 +1,11 @@
+import { Nav } from '../components'
 import styles from '../styles/product.module.css'
 
 const Pricing = () => {
   return (
     <main className={styles.product}>
+      <Nav />
+
       <section>
         <div>
           <h2>

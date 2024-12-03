@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Nav } from '../components'
 import styles from '../styles/login.module.css'
 
 export default function Login() {
@@ -8,6 +9,7 @@ export default function Login() {
 
   return (
     <main className={styles.login}>
+      <Nav />
       <form className={styles.form}>
         <div className={styles.row}>
           <label htmlFor='email'>Email address</label>

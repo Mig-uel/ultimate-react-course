@@ -1,8 +1,11 @@
+import { Nav } from '../components'
 import styles from '../styles/product.module.css'
 
 const Product = () => {
   return (
     <main className={styles.product}>
+      <Nav />
+      
       <section>
         <img
           src='img-1.jpg'
