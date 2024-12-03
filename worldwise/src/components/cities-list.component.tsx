@@ -1,20 +1,25 @@
-import { City, Spinner } from '../components'
-import type { CityItem } from '../types'
+import { CityItem, Message, Spinner } from '../components'
+import * as types from '../types'
 import styles from '../styles/cities-list.module.css'
 
 const CitiesList = ({
   cities,
   isLoading,
 }: {
-  cities: CityItem[] | null
+  cities: types.CityItem[] | null
   isLoading: boolean
 }) => {
   if (isLoading) return <Spinner />
 
+  if (!cities?.length)
+    return (
+      <Message message='Add your first city by clicking on a city on the map' />
+    )
+
   return (
     <ul className={styles.cityList}>
       {cities?.map((city) => (
-        <City {...city} key={city.id} />
+        <CityItem {...city} key={city.id} />
       ))}
     </ul>
   )
