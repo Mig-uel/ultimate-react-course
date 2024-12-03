@@ -1,9 +1,13 @@
 import { Link } from 'react-router'
+import { Nav } from '../components'
+
 import styles from '../styles/home.module.css'
 
 const Home = () => {
   return (
     <main className={styles.homepage}>
+      <Nav />
+
       <section>
         <h1>
           You travel the world.
