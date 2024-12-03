@@ -1,7 +1,6 @@
-import styles from '../styles/cities-list.module.css'
 import { City, Spinner } from '../components'
-
 import type { CityItem } from '../types'
+import styles from '../styles/cities-list.module.css'
 
 const CitiesList = ({
   cities,
