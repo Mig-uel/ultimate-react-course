@@ -9,7 +9,7 @@ import type { CityItem } from './types'
 const BASE_URL = 'http://localhost:3001/'
 
 function App() {
-  const [cities, setCities] = useState<CityItem[] | null>(null)
+  const [cities, setCities] = useState<CityItem[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
