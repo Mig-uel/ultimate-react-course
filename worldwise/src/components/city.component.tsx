@@ -1,4 +1,4 @@
-import { useParams } from 'react-router'
+import { useParams, useSearchParams } from 'react-router'
 // import styles from '../styles/city.module.css'
 
 // const formatDate = (date: string) =>
@@ -11,8 +11,18 @@ import { useParams } from 'react-router'
 
 const City = () => {
   const { id } = useParams()
+  const [searchParams, setSearchParams] = useSearchParams()
 
-  return <h1>City: {id}</h1>
+  const lat = searchParams.get('lat')!
+  const lng = searchParams.get('lng')!
+
+  return (
+    <div>
+      <h1>City: {id}</h1>
+      <p>{lat}</p>
+      <p>{lng}</p>
+    </div>
+  )
   // return (
   //   <div className={styles.city}>
   //     <div className={styles.row}>
