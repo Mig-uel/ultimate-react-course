@@ -4,12 +4,12 @@ import { CitiesList } from './components'
 import { Home, Login, PageNotFound, Pricing, Product } from './pages'
 import MainLayout from './pages/main-layout.page'
 import AppLayout from './pages/app-layout.component'
-import type { City } from './types'
+import type { CityItem } from './types'
 
 const BASE_URL = 'http://localhost:3001/'
 
 function App() {
-  const [cities, setCities] = useState<City[] | null>(null)
+  const [cities, setCities] = useState<CityItem[] | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -44,8 +44,14 @@ function App() {
         </Route>
 
         <Route element={<AppLayout />} path='/app'>
-          <Route index element={<CitiesList />} />
-          <Route path='cities' element={<CitiesList />} />
+          <Route
+            index
+            element={<CitiesList cities={cities} isLoading={isLoading} />}
+          />
+          <Route
+            path='cities'
+            element={<CitiesList cities={cities} isLoading={isLoading} />}
+          />
           <Route path='countries' element={<p>countries</p>} />
           <Route path='form' element={<p>form</p>} />
         </Route>
