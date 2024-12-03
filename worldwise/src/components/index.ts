@@ -1,6 +1,7 @@
 export { default as AppNav } from './app-nav.component'
 export { default as CitiesList } from './cities-list.component'
 export { default as CityItem } from './city-item.component'
+export { default as City } from './city.component'
 export { default as CountriesList } from './countries-list.component'
 export { default as CountryItem } from './country-item.component'
 export { default as Logo } from './logo.component'
