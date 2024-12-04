@@ -1,29 +1,21 @@
+import { useContext } from 'react'
+import PostContext from '../context/PostContext'
 import Results from './results'
 import SearchPosts from './search-post'
-import type * as types from '../types'
 
-function Header({
-  posts,
-  onClearPosts,
-  searchQuery,
-  setSearchQuery,
-}: {
-  posts: types.Post[]
-  onClearPosts: () => void
-  searchQuery: string
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>
-}) {
+function Header() {
+  // 3) CONSUMING THE CONTEXT
+  const { onClearPosts } = useContext(PostContext)
+
   return (
     <header>
       <h1>
         <span>⚛️</span>The Atomic Blog
       </h1>
       <div>
-        <Results posts={posts} />
-        <SearchPosts
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <Results />
+        <SearchPosts />
+
         <button onClick={onClearPosts}>Clear posts</button>
       </div>
     </header>
