@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import PostContext from '../context/PostContext'
+import { PostContext } from '../context/PostContext'
 import { createRandomPost } from '../utils/createRandomPost'
 
 function Archive() {
