@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import { CitiesList, City, CountriesList, Form } from './components'
 import { Home, Login, PageNotFound, Pricing, Product } from './pages'
 import MainLayout from './pages/main-layout.page'
@@ -45,10 +45,8 @@ function App() {
 
         {/* APP ROUTES */}
         <Route element={<AppLayout />} path='/app'>
-          <Route
-            index
-            element={<CitiesList cities={cities} isLoading={isLoading} />}
-          />
+          
+          <Route index element={<Navigate to='cities' replace />} />
           <Route
             path='cities'
             element={<CitiesList cities={cities} isLoading={isLoading} />}
