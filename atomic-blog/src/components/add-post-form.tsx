@@ -1,11 +1,13 @@
-import { FormEvent, useState } from 'react'
-import type * as types from '../types'
+import { useContext, useState } from 'react'
+import PostContext from '../context/PostContext'
 
-function FormAddPost({ onAddPost }: { onAddPost: (post: types.Post) => void }) {
+function FormAddPost() {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
 
-  const handleSubmit = function (e: FormEvent) {
+  const { onAddPost } = useContext(PostContext)
+
+  const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     if (!body || !title) return
