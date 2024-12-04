@@ -1,14 +1,10 @@
+import { useCitiesContext } from '../context/CitiesContext'
 import { CountryItem, Message, Spinner } from '../components'
-import * as types from '../types'
 import styles from '../styles/countries-list.module.css'
 
-const CountriesList = ({
-  cities,
-  isLoading,
-}: {
-  cities: types.CityItem[]
-  isLoading: boolean
-}) => {
+const CountriesList = () => {
+  const { cities, isLoading } = useCitiesContext()
+
   if (isLoading) return <Spinner />
 
   if (!cities?.length)
