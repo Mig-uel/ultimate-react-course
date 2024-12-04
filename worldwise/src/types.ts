@@ -12,3 +12,8 @@ export type CityItem = {
   position: Position
   id: string
 }
+
+export type CitiesContextState = {
+  cities: CityItem[]
+  isLoading: boolean
+}
