@@ -16,4 +16,6 @@ export type CityItem = {
 export type CitiesContextState = {
   cities: CityItem[]
   isLoading: boolean
+  currentCity: CityItem | null
+  getCity: (id: string) => Promise<void>
 }
