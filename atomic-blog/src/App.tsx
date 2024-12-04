@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import Header from './components/header'
-import { createRandomPost } from './utils/createRandomPost'
-import type * as types from './types'
 import Main from './components/main'
 import Archive from './components/archive'
 import Footer from './components/footer'
+import { createRandomPost } from './utils/createRandomPost'
+import type * as types from './types'
 
 function App() {
   const [posts, setPosts] = useState(() =>
