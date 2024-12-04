@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react'
-import { PostContext } from '../context/PostContext'
+import { useState } from 'react'
+import { usePostContext } from '../context/PostContext'
 
 function FormAddPost() {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
 
-  const { onAddPost } = useContext(PostContext)
+  const { onAddPost } = usePostContext()
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

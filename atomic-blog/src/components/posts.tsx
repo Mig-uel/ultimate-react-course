@@ -1,9 +1,8 @@
-import { useContext } from 'react'
+import { usePostContext } from '../context/PostContext'
 import List from './list'
-import { PostContext } from '../context/PostContext'
 
 function Posts() {
-  const { posts } = useContext(PostContext)
+  const { posts } = usePostContext()
 
   return (
     <section>

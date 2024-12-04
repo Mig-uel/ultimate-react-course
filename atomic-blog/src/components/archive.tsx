@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react'
-import { PostContext } from '../context/PostContext'
+import { useState } from 'react'
+import { usePostContext } from '../context/PostContext'
 import { createRandomPost } from '../utils/createRandomPost'
 
 function Archive() {
@@ -9,7 +9,8 @@ function Archive() {
     Array.from({ length: 10000 }, () => createRandomPost())
   )
   const [showArchive, setShowArchive] = useState(false)
-  const { onAddPost } = useContext(PostContext)
+
+  const { onAddPost } = usePostContext()
 
   return (
     <aside>
