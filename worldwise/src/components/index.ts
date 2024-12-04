@@ -1,4 +1,5 @@
 export { default as AppNav } from './app-nav.component'
+export { default as BackButton } from './back-button.component'
 export { default as Button } from './button.component'
 export { default as CitiesList } from './cities-list.component'
 export { default as CityItem } from './city-item.component'
