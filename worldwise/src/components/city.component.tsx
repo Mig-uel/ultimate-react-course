@@ -1,8 +1,8 @@
+import { useEffect } from 'react'
 import { useParams } from 'react-router'
 import { useCitiesContext } from '../context/CitiesContext'
-import { useEffect } from 'react'
+import { BackButton, Spinner } from '../components'
 import styles from '../styles/city.module.css'
-import Spinner from './spinner.component'
 
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat('en', {
@@ -54,6 +54,8 @@ const City = () => {
           Check out {currentCity?.cityName} on Wikipedia &rarr;
         </a>
       </div>
+
+      <BackButton />
     </div>
   )
 }
