@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import PostContext from '../context/PostContext'
 import Results from './results'
+import { PostContext } from '../context/PostContext'
 import SearchPosts from './search-post'
 
 function Header() {
