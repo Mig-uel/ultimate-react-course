@@ -10,8 +10,8 @@ import {
 } from 'react-leaflet'
 import { useCitiesContext } from '../context/CitiesContext'
 import { useGeolocation } from '../hooks/useGeoLocation'
+import { Button } from './'
 import styles from '../styles/map.module.css'
-import { Button, Spinner } from './'
 
 const Map = () => {
   const [searchParams] = useSearchParams()
