@@ -1,7 +1,10 @@
+import { useContext } from 'react'
 import List from './list'
-import type * as types from '../types'
+import PostContext from '../context/PostContext'
 
-function Posts({ posts }: { posts: types.Post[] }) {
+function Posts() {
+  const { posts } = useContext(PostContext)
+
   return (
     <section>
       <List posts={posts} />
