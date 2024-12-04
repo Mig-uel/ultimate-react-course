@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { createRandomPost } from '../utils/createRandomPost'
 import type * as types from '../types'
 
@@ -45,4 +45,13 @@ const PostProvider = ({ children }: { children: React.ReactNode }) => {
   return <PostContext.Provider value={value}>{children}</PostContext.Provider>
 }
 
-export { PostContext, PostProvider }
+const usePostContext = () => {
+  const context = useContext(PostContext)
+
+  if (!context || context === undefined)
+    throw new Error('PostContext was used outside of the post provider!')
+
+  return context
+}
+
+export { PostProvider, usePostContext }
