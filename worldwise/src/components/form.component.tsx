@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Button } from '../components'
-import styles from '../styles/form.module.css'
 import { useNavigate } from 'react-router'
+import { BackButton, Button } from '../components'
+import styles from '../styles/form.module.css'
 
 const Form = () => {
   const navigate = useNavigate()
@@ -44,9 +44,8 @@ const Form = () => {
         <Button onClick={() => navigate('')} type='primary'>
           Add
         </Button>
-        <Button onClick={() => navigate(-1)} type='back'>
-          &larr; Back
-        </Button>
+
+        <BackButton />
       </div>
     </form>
   )
