@@ -9,13 +9,19 @@ import {
   useMapEvents,
 } from 'react-leaflet'
 import { useCitiesContext } from '../context/CitiesContext'
+import { useGeolocation } from '../hooks/useGeoLocation'
 import styles from '../styles/map.module.css'
+import { Button, Spinner } from './'
 
 const Map = () => {
   const [searchParams] = useSearchParams()
   const { cities } = useCitiesContext()
-
   const [mapPosition, setMapPosition] = useState<[number, number]>([40, 0])
+  const {
+    getPosition,
+    isLoading: isLoadingPosition,
+    position: geolocation,
+  } = useGeolocation()
 
   const lat = searchParams.get('lat')!
   const lng = searchParams.get('lng')!
@@ -24,8 +30,17 @@ const Map = () => {
     if (lat && lng) setMapPosition([Number(lat), Number(lng)])
   }, [lat, lng])
 
+  useEffect(() => {
+    if (geolocation) setMapPosition([geolocation.lat, geolocation.lng])
+  }, [geolocation])
+
   return (
     <div className={styles.mapContainer}>
+      {!geolocation && (
+        <Button type='position' onClick={getPosition}>
+          {isLoadingPosition ? 'Locating...' : 'Locate Me'}
+        </Button>
+      )}
       <MapContainer
         center={mapPosition}
         zoom={13}
