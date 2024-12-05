@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { BackButton, Button, Message, Spinner } from '../components'
 import { useURLPosition } from '../hooks/useURLPosition'
@@ -30,12 +30,16 @@ const Form = () => {
           `${BASE_URL}?lat=${lat}&lon=${lng}&api_key=6750a4d79812d191058921pnr95dcdd`
         )
 
+        if (!res.ok) throw new Error('Please try again after 1 second.')
+
         const data = await res.json()
 
         if (data.error)
           throw new Error("That doesn't seem to be a city. Try again.")
 
-        setCityName(data.address.city || data.address.suburb || '')
+        setCityName(
+          data.address.city || data.address.county || data.address.suburb || ''
+        )
         setCountry(data.address.country)
         setEmoji(convertToEmoji(data.address.country_code))
       } catch (error) {
@@ -51,8 +55,12 @@ const Form = () => {
   if (isLoadingGeocoding) return <Spinner />
   if (error) return <Message message={error} />
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+  }
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.row}>
         <label htmlFor='cityName'>City name</label>
         <input
