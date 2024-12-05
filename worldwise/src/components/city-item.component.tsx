@@ -3,7 +3,7 @@ import { useCitiesContext } from '../context/CitiesContext'
 import * as types from '../types'
 import styles from '../styles/city-item.module.css'
 
-const formatDate = (date: string) =>
+const formatDate = (date: Date) =>
   new Intl.DateTimeFormat('en', {
     day: 'numeric',
     month: 'long',
@@ -12,7 +12,15 @@ const formatDate = (date: string) =>
   }).format(new Date(date))
 
 const City = ({ cityName, date, emoji, id, position }: types.CityItem) => {
-  const { currentCity } = useCitiesContext()
+  const { currentCity, deleteCity } = useCitiesContext()
+
+  const handleClick = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault()
+
+    await deleteCity(id!)
+  }
 
   return (
     <li>
@@ -24,8 +32,10 @@ const City = ({ cityName, date, emoji, id, position }: types.CityItem) => {
       >
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
-        <time className={styles.date}>({formatDate(date || '')})</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <time className={styles.date}>({formatDate(date)})</time>
+        <button className={styles.deleteBtn} onClick={handleClick}>
+          &times;
+        </button>
       </Link>
     </li>
   )
