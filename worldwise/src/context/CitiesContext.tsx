@@ -9,6 +9,7 @@ const CitiesContext = createContext<CitiesContextState>({
   currentCity: null,
   getCity: async () => {},
   addCity: async () => {},
+  deleteCity: async () => {},
 })
 
 const CitiesProvider = ({ children }: { children: React.ReactNode }) => {
@@ -72,12 +73,29 @@ const CitiesProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
+  const deleteCity = async (id: string) => {
+    try {
+      setIsLoading(true)
+
+      await fetch(`${BASE_URL}/cities/${id}`, {
+        method: 'DELETE',
+      })
+
+      setCities((prev) => prev.filter((city) => city.id !== id))
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   const value = {
     cities,
     isLoading,
     currentCity,
     getCity,
     addCity,
+    deleteCity,
   }
 
   return (
