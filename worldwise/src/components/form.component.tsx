@@ -1,14 +1,55 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { BackButton, Button } from '../components'
+import { BackButton, Button, Message, Spinner } from '../components'
+import { useURLPosition } from '../hooks/useURLPosition'
 import styles from '../styles/form.module.css'
+import { convertToEmoji } from '../utils/convertToEmoji'
+
+const BASE_URL = 'https://geocode.maps.co/reverse'
 
 const Form = () => {
   const navigate = useNavigate()
+  const [lat, lng] = useURLPosition()
   const [cityName, setCityName] = useState('')
-  // const [country, setCountry] = useState('')
+  const [country, setCountry] = useState('')
   const [date, setDate] = useState(new Date())
   const [notes, setNotes] = useState('')
+  const [emoji, setEmoji] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const [isLoadingGeocoding, setIsLoadingGeoCoding] = useState(false)
+
+  useEffect(() => {
+    if (!lat || !lng) navigate('/app')
+
+    const fetchCityData = async () => {
+      try {
+        setError(null)
+        setIsLoadingGeoCoding(true)
+
+        const res = await fetch(
+          `${BASE_URL}?lat=${lat}&lon=${lng}&api_key=6750a4d79812d191058921pnr95dcdd`
+        )
+
+        const data = await res.json()
+
+        if (data.error)
+          throw new Error("That doesn't seem to be a city. Try again.")
+
+        setCityName(data.address.city || data.address.suburb || '')
+        setCountry(data.address.country)
+        setEmoji(convertToEmoji(data.address.country_code))
+      } catch (error) {
+        if (error instanceof Error) setError(error.message)
+      } finally {
+        setIsLoadingGeoCoding(false)
+      }
+    }
+
+    fetchCityData()
+  }, [lat, lng, navigate])
+
+  if (isLoadingGeocoding) return <Spinner />
+  if (error) return <Message message={error} />
 
   return (
     <form className={styles.form}>
@@ -19,7 +60,7 @@ const Form = () => {
           onChange={(e) => setCityName(e.target.value)}
           value={cityName}
         />
-        {/* <span className={styles.flag}>{emoji}</span> */}
+        <span className={styles.flag}>{emoji}</span>
       </div>
 
       <div className={styles.row}>
