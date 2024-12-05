@@ -7,10 +7,10 @@ export type CityItem = {
   cityName: string
   country: string
   emoji: string
-  date: string
+  date: Date
   notes: string
   position: Position
-  id: string
+  id?: string
 }
 
 export type CitiesContextState = {
@@ -18,4 +18,5 @@ export type CitiesContextState = {
   isLoading: boolean
   currentCity: CityItem | null
   getCity: (id: string) => Promise<void>
+  addCity: (city: CityItem) => Promise<void>
 }
