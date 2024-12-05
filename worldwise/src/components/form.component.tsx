@@ -43,7 +43,11 @@ const Form = () => {
           throw new Error("That doesn't seem to be a city. Try again.")
 
         setCityName(
-          data.address.city || data.address.county || data.address.suburb || ''
+          data.address.city ||
+            data.address.county ||
+            data.address.town ||
+            data.address.suburb ||
+            ''
         )
         setCountry(data.address.country)
         setEmoji(convertToEmoji(data.address.country_code))
