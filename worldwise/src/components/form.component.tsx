@@ -1,14 +1,18 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
+import DatePicker from 'react-datepicker'
 import { BackButton, Button, Message, Spinner } from '../components'
 import { useURLPosition } from '../hooks/useURLPosition'
-import styles from '../styles/form.module.css'
 import { convertToEmoji } from '../utils/convertToEmoji'
+import styles from '../styles/form.module.css'
+import 'react-datepicker/dist/react-datepicker.css'
+import { useCitiesContext } from '../context/CitiesContext'
 
 const BASE_URL = 'https://geocode.maps.co/reverse'
 
 const Form = () => {
   const navigate = useNavigate()
+  const { addCity, isLoading: isLoadingAddCity } = useCitiesContext()
   const [lat, lng] = useURLPosition()
   const [cityName, setCityName] = useState('')
   const [country, setCountry] = useState('')
@@ -24,6 +28,7 @@ const Form = () => {
     const fetchCityData = async () => {
       try {
         setError(null)
+        setDate(new Date())
         setIsLoadingGeoCoding(true)
 
         const res = await fetch(
@@ -55,28 +60,50 @@ const Form = () => {
   if (isLoadingGeocoding) return <Spinner />
   if (error) return <Message message={error} />
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    if (!cityName || !date) return
+
+    const city = {
+      cityName,
+      country,
+      emoji,
+      date,
+      notes,
+      position: {
+        lat,
+        lng,
+      },
+    }
+
+    await addCity(city)
+
+    navigate('/app')
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form
+      className={`${styles.form} ${isLoadingAddCity ? styles.loading : ''} `}
+      onSubmit={handleSubmit}
+    >
       <div className={styles.row}>
         <label htmlFor='cityName'>City name</label>
         <input
           id='cityName'
           onChange={(e) => setCityName(e.target.value)}
-          value={cityName}
+          value={cityName || country}
         />
         <span className={styles.flag}>{emoji}</span>
       </div>
 
       <div className={styles.row}>
         <label htmlFor='date'>When did you go to {cityName}?</label>
-        <input
+        <DatePicker
           id='date'
-          onChange={(e) => setDate(new Date(e.target.value))}
-          value={date.toLocaleDateString()}
+          onChange={(date) => setDate(date!)}
+          selected={date}
+          dateFormat='MM/dd/yyyy'
         />
       </div>
 
@@ -90,7 +117,7 @@ const Form = () => {
       </div>
 
       <div className={styles.buttons}>
-        <Button onClick={() => navigate('')} type='primary'>
+        <Button buttonType='submit' type='primary'>
           Add
         </Button>
 
