@@ -35,66 +35,6 @@
         "lng": 13.376933665713324
       },
       "id": "98443197"
-    },
-    {
-      "id": "5256",
-      "cityName": "Roberts County",
-      "country": "United States",
-      "emoji": "🇺🇸",
-      "date": "2024-12-05T21:36:39.173Z",
-      "notes": "Fatty patty",
-      "position": {
-        "lat": 45.85941212790755,
-        "lng": -96.94335937500001
-      }
-    },
-    {
-      "id": "e887",
-      "cityName": "Zaragoza",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2024-12-05T21:43:19.207Z",
-      "notes": "edibles here are trash",
-      "position": {
-        "lat": 41.64007838467894,
-        "lng": -0.8789062500000001
-      }
-    },
-    {
-      "id": "d926",
-      "cityName": "Lagoa (Nossa Senhora do Rosário)",
-      "country": "Portugal",
-      "emoji": "🇵🇹",
-      "date": "2024-12-05T21:44:24.775Z",
-      "notes": "eating cows",
-      "position": {
-        "lat": 37.73596920859053,
-        "lng": -25.598144531250004
-      }
-    },
-    {
-      "id": "94b2",
-      "cityName": "Denver",
-      "country": "United States",
-      "emoji": "🇺🇸",
-      "date": "2024-12-05T21:49:50.731Z",
-      "notes": "eating potato chips",
-      "position": {
-        "lat": 39.774769485295465,
-        "lng": -105.00732421875001
-      }
-    },
-    {
-      "id": "e896",
-      "cityName": "Portimão",
-      "country": "Portugal",
-      "emoji": "🇵🇹",
-      "date": "2024-12-05T21:56:19.143Z",
-      "notes": "test",
-      "position": {
-        "lat": 37.09900294387622,
-        "lng": -8.552856445312502
-      }
     }
   ]
 }
