@@ -4,14 +4,16 @@ const Button = ({
   children,
   onClick,
   type = 'primary',
+  buttonType = 'button',
 }: {
   children: React.ReactNode
   onClick?: () => void
   type: string
+  buttonType?: 'button' | 'submit' | 'reset'
 }) => {
   return (
     <button
-      type='button'
+      type={buttonType}
       onClick={onClick}
       className={`${styles.btn} ${styles[type]}`}
     >
