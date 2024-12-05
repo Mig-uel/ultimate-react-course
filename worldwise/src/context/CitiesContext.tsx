@@ -8,6 +8,7 @@ const CitiesContext = createContext<CitiesContextState>({
   isLoading: false,
   currentCity: null,
   getCity: async () => {},
+  addCity: async () => {},
 })
 
 const CitiesProvider = ({ children }: { children: React.ReactNode }) => {
@@ -51,11 +52,32 @@ const CitiesProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
+  const addCity = async (city: CityItem) => {
+    try {
+      setIsLoading(true)
+
+      const res = await fetch(`${BASE_URL}/cities/`, {
+        method: 'POST',
+        body: JSON.stringify(city),
+        headers: { 'Content-Type': 'application/json' },
+      })
+
+      const data = await res.json()
+
+      if (data) setCities((prev) => [...prev, data])
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   const value = {
     cities,
     isLoading,
     currentCity,
     getCity,
+    addCity,
   }
 
   return (
