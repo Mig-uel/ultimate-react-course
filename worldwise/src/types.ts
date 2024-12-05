@@ -19,4 +19,5 @@ export type CitiesContextState = {
   currentCity: CityItem | null
   getCity: (id: string) => Promise<void>
   addCity: (city: CityItem) => Promise<void>
+  deleteCity: (id: string) => Promise<void>
 }
