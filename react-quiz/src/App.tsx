@@ -1,6 +1,3 @@
-import { useEffect, useReducer } from 'react'
-
-// components
 import {
   ActiveQuestion,
   ErrorMessage,
@@ -14,48 +11,10 @@ import {
   StartScreen,
   Timer,
 } from './components'
-
-import { initialState, reducer } from './reducers/quizReducer'
-import type { Question } from './types'
+import { useQuizContext } from './context/QuizContext'
 
 function App() {
-  const [
-    {
-      error,
-      questions,
-      status,
-      index,
-      answer,
-      points,
-      highscore,
-      secondsRemaining,
-    },
-    dispatch,
-  ] = useReducer(reducer, initialState)
-
-  const numOfQuestions = questions.length
-  const maxPoints = questions.reduce((acc, curr) => acc + curr.points, 0)
-
-  useEffect(() => {
-    async function fetchQuestions() {
-      try {
-        const res = await fetch('http://localhost:3001/questions')
-        const data = (await res.json()) as Question[]
-
-        if (!res.ok) throw new Error('Cannot fetch data')
-
-        dispatch({ type: 'dataReceived', payload: data })
-      } catch (error) {
-        if (error instanceof Error) {
-          console.log(error.message)
-
-          dispatch({ type: 'dataFailed', payload: error.message })
-        }
-      }
-    }
-
-    fetchQuestions()
-  }, [])
+  const { error, status } = useQuizContext()
 
   return (
     <div className='app'>
@@ -64,44 +23,20 @@ function App() {
       <Main>
         {status === 'loading' && <Loader />}
         {status === 'error' && error && <ErrorMessage />}
-        {status === 'ready' && (
-          <StartScreen numOfQuestions={numOfQuestions} dispatch={dispatch} />
-        )}
+        {status === 'ready' && <StartScreen />}
 
         {status === 'active' && (
           <>
-            <ProgressBar
-              index={index}
-              numOfQuestions={numOfQuestions}
-              points={points}
-              maxPoints={maxPoints}
-              answer={answer}
-            />
-            <ActiveQuestion
-              question={questions[index]}
-              dispatch={dispatch}
-              answer={answer}
-            />
+            <ProgressBar />
+            <ActiveQuestion />
             <Footer>
-              <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
-              <NextButton
-                dispatch={dispatch}
-                answer={answer}
-                index={index}
-                numOfQuestions={numOfQuestions}
-              />
+              <Timer />
+              <NextButton />
             </Footer>
           </>
         )}
 
-        {status === 'finished' && (
-          <FinalScreen
-            maxPoints={maxPoints}
-            points={points}
-            highscore={highscore}
-            dispatch={dispatch}
-          />
-        )}
+        {status === 'finished' && <FinalScreen />}
       </Main>
     </div>
   )
