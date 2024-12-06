@@ -40,3 +40,28 @@ export type Action = {
   type: Type
   payload?: Payload
 }
+
+// AUTH REDUCER
+export type User = {
+  email: string
+  password: string
+  name: string
+  avatar: string
+}
+export type AuthState = {
+  user: User | null
+  isAuthenticated: boolean
+}
+export type AuthContextState = AuthState & {
+  login: (email: string, password: string) => void
+  logout: () => void
+}
+type AuthLogoutAction = {
+  type: 'logout'
+}
+type AuthLoginAction = {
+  type: 'login'
+  payload: User
+}
+
+export type AuthAction = AuthLoginAction | AuthLogoutAction
