@@ -15,7 +15,10 @@ export default function Login() {
   const handleLogin = () => login(email, password)
 
   useEffect(() => {
-    if (isAuthenticated) navigate('/app')
+    if (isAuthenticated)
+      navigate('/app', {
+        replace: true,
+      })
   }, [isAuthenticated, navigate])
 
   return (
