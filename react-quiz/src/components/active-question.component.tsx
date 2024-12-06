@@ -1,21 +1,15 @@
 import Options from './options.component'
+import { useQuizContext } from '../context/QuizContext'
 
-import type { Action, Question } from '../types'
+const ActiveQuestion = () => {
+  const { index, questions } = useQuizContext()
+  const question = questions[index]
 
-const ActiveQuestion = ({
-  question,
-  dispatch,
-  answer,
-}: {
-  question: Question
-  dispatch: React.Dispatch<Action>
-  answer: number | null
-}) => {
   return (
     <div>
       <h4>{question.question}</h4>
 
-      <Options question={question} dispatch={dispatch} answer={answer} />
+      <Options />
     </div>
   )
 }
