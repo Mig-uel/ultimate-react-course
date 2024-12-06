@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useAuthContext } from '../context/AuthContext'
-import { Button, Nav } from '../components'
+import { Button, Message, Nav } from '../components'
 import styles from '../styles/login.module.css'
 
 export default function Login() {
@@ -10,13 +10,9 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { isAuthenticated, login } = useAuthContext()
+  const { isAuthenticated, login, error } = useAuthContext()
 
-  const handleLogin = () => {
-    if (!email || !password) return
-
-    login(email, password)
-  }
+  const handleLogin = () => login(email, password)
 
   useEffect(() => {
     if (isAuthenticated) navigate('/app')
@@ -45,6 +41,8 @@ export default function Login() {
             value={password}
           />
         </div>
+
+        {error && <Message message={error} />}
 
         <div>
           <Button onClick={handleLogin}>Login</Button>
