@@ -28,12 +28,14 @@ const reducer = (state: State, { payload, type }: Action): State => {
         ...state,
         isLoading: false,
         cities: [...state.cities, payload as CityItem],
+        currentCity: payload as CityItem,
       }
     case 'city/deleted':
       return {
         ...state,
         isLoading: false,
         cities: state.cities.filter((city) => city.id !== payload),
+        currentCity: null,
       }
     case 'city/loaded':
       return { ...state, isLoading: false, currentCity: payload as CityItem }
