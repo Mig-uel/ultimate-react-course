@@ -1,21 +1,14 @@
-import type { Action } from '../types'
+import { useQuizContext } from '../context/QuizContext'
 
-const StartScreen = ({
-  numOfQuestions,
-  dispatch,
-}: {
-  numOfQuestions: number
-  dispatch: React.Dispatch<Action>
-}) => {
+const StartScreen = () => {
+  const { numOfQuestions, startQuiz } = useQuizContext()
+
   return (
     <div className='start'>
       <h2>Welcome to The React Quiz!</h2>
       <h3>{numOfQuestions} questions to test your React mastery</h3>
 
-      <button
-        className='btn btn-ui'
-        onClick={() => dispatch({ type: 'start' })}
-      >
+      <button className='btn btn-ui' onClick={startQuiz}>
         Let's Start!
       </button>
     </div>

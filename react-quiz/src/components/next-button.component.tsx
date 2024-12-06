@@ -1,34 +1,21 @@
-import type { Action } from '../types'
+import { useQuizContext } from '../context/QuizContext'
 
-const NextButton = ({
-  dispatch,
-  answer,
-  index,
-  numOfQuestions,
-}: {
-  dispatch: React.Dispatch<Action>
-  answer: number | null
-  index: number
-  numOfQuestions: number
-}) => {
+const NextButton = () => {
+  const { answer, finishQuiz, index, nextQuestion, numOfQuestions } =
+    useQuizContext()
+
   if (answer === null) return null
 
   if (index < numOfQuestions - 1)
     return (
-      <button
-        className='btn btn-ui'
-        onClick={() => dispatch({ type: 'nextQuestion' })}
-      >
+      <button className='btn btn-ui' onClick={nextQuestion}>
         Next
       </button>
     )
 
   if (index === numOfQuestions - 1)
     return (
-      <button
-        className='btn btn-ui'
-        onClick={() => dispatch({ type: 'finish' })}
-      >
+      <button className='btn btn-ui' onClick={finishQuiz}>
         Finish
       </button>
     )

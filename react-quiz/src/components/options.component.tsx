@@ -1,14 +1,9 @@
-import type { Action, Question } from '../types'
+import { useQuizContext } from '../context/QuizContext'
 
-const Options = ({
-  question,
-  dispatch,
-  answer,
-}: {
-  question: Question
-  dispatch: React.Dispatch<Action>
-  answer: number | null
-}) => {
+const Options = () => {
+  const { answer, chooseAnswer, index, questions } = useQuizContext()
+  const question = questions[index]
+
   const isAnswered = answer !== null
 
   return (
@@ -23,7 +18,7 @@ const Options = ({
                 : 'wrong'
               : ''
           }`}
-          onClick={() => dispatch({ type: 'newAnswer', payload: index })}
+          onClick={() => chooseAnswer(index)}
           disabled={isAnswered}
         >
           {option}

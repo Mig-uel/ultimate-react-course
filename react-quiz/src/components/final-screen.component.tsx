@@ -1,16 +1,8 @@
-import type { Action } from '../types'
+import { useQuizContext } from '../context/QuizContext'
 
-const FinalScreen = ({
-  points,
-  maxPoints,
-  highscore,
-  dispatch,
-}: {
-  points: number
-  maxPoints: number
-  highscore: number
-  dispatch: React.Dispatch<Action>
-}) => {
+const FinalScreen = () => {
+  const { highscore, maxPoints, points, resetQuiz } = useQuizContext()
+
   const percentage = (points / maxPoints) * 100
 
   let emoji: string = ''
@@ -31,10 +23,7 @@ const FinalScreen = ({
 
       <p className='highscore'>(⭐ High Score: {highscore} points)</p>
 
-      <button
-        className='btn btn-ui'
-        onClick={() => dispatch({ type: 'reset' })}
-      >
+      <button className='btn btn-ui' onClick={resetQuiz}>
         Restart
       </button>
     </>
