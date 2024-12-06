@@ -51,6 +51,7 @@ export type User = {
 export type AuthState = {
   user: User | null
   isAuthenticated: boolean
+  error: string | null
 }
 export type AuthContextState = AuthState & {
   login: (email: string, password: string) => void
@@ -64,4 +65,9 @@ type AuthLoginAction = {
   payload: User
 }
 
-export type AuthAction = AuthLoginAction | AuthLogoutAction
+type AuthFailedAction = {
+  type: 'failed'
+  payload: string
+}
+
+export type AuthAction = AuthLoginAction | AuthLogoutAction | AuthFailedAction
