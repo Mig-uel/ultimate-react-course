@@ -22,8 +22,9 @@ export type CitiesContextState = State & {
 // CITIES REDUCER
 type Type =
   | 'cities/loaded'
-  | 'cities/created'
-  | 'cities/deleted'
+  | 'city/added'
+  | 'city/deleted'
+  | 'city/loaded'
   | 'loading'
   | 'rejected'
 type Payload = CityItem[] | CityItem | string
