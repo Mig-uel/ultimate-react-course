@@ -1,4 +1,4 @@
-import Test from '../test'
+// import Test from '../test'
 import type * as types from '../types'
 
 function List({ posts }: { posts: types.Post[] }) {
@@ -13,7 +13,7 @@ function List({ posts }: { posts: types.Post[] }) {
         ))}
       </ul>
 
-      <Test />
+      {/* <Test /> */}
     </>
   )
 }
