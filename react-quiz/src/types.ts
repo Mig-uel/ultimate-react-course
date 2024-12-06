@@ -35,3 +35,15 @@ export type State = {
   highscore: number
   secondsRemaining: number | null
 }
+
+/* QUIZ CONTEXT */
+export type QuizCTX = State & {
+  numOfQuestions: number
+  maxPoints: number
+  startQuiz: () => void
+  chooseAnswer: (index: number) => void
+  resetQuiz: () => void
+  nextQuestion: () => void
+  finishQuiz: () => void
+  startTimer: () => void
+}
