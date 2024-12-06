@@ -83,6 +83,8 @@ const CitiesProvider = ({ children }: { children: React.ReactNode }) => {
   }, [])
 
   const getCity = async (id: string) => {
+    if (id === currentCity?.id) return
+
     dispatch({ type: 'loading' })
 
     try {
