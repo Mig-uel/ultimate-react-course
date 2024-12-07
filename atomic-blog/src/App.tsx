@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PostProvider } from './context/PostContext'
 import Header from './components/header'
 import Main from './components/main'
@@ -16,14 +16,6 @@ function App() {
     [isFakeDark]
   )
 
-  const archiveOptions = useMemo(
-    () => ({
-      show: false,
-      title: `Post Archive in Addition to Main Posts ${isFakeDark} `,
-    }),
-    [isFakeDark]
-  )
-
   return (
     <section>
       <button
@@ -35,7 +27,7 @@ function App() {
       <PostProvider>
         <Header />
         <Main />
-        <Archive archiveOptions={archiveOptions} />
+        <Archive />
       </PostProvider>
 
       <Footer />
