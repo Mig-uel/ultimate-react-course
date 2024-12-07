@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { PostProvider } from './context/PostContext'
 import Header from './components/header'
 import Main from './components/main'
 import Archive from './components/archive'
 import Footer from './components/footer'
-import { PostProvider } from './context/PostContext'
 
 function App() {
   const [isFakeDark, setIsFakeDark] = useState(false)
@@ -13,6 +13,14 @@ function App() {
     function () {
       document.documentElement.classList.toggle('fake-dark-mode')
     },
+    [isFakeDark]
+  )
+
+  const archiveOptions = useMemo(
+    () => ({
+      show: false,
+      title: `Post Archive in Addition to Main Posts ${isFakeDark} `,
+    }),
     [isFakeDark]
   )
 
@@ -27,7 +35,7 @@ function App() {
       <PostProvider>
         <Header />
         <Main />
-        <Archive />
+        <Archive archiveOptions={archiveOptions} />
       </PostProvider>
 
       <Footer />
