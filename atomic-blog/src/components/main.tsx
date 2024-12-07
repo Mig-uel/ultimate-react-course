@@ -1,13 +1,14 @@
+import { memo } from 'react'
 import Posts from './posts'
 import FormAddPost from './add-post-form'
 
-function Main() {
+const Main = memo(function () {
   return (
     <main>
       <FormAddPost />
       <Posts />
     </main>
   )
-}
+})
 
 export default Main
