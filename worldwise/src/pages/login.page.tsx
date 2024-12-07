@@ -7,8 +7,8 @@ import styles from '../styles/login.module.css'
 export default function Login() {
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('admin@email.com')
+  const [password, setPassword] = useState('qwerty')
 
   const { isAuthenticated, login, error } = useAuthContext()
 
