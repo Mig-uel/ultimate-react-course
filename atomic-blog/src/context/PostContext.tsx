@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useMemo, useState } from 'react'
 import { createRandomPost } from '../utils/createRandomPost'
 import type * as types from '../types'
 
@@ -17,14 +17,17 @@ const PostProvider = ({ children }: { children: React.ReactNode }) => {
   const [searchQuery, setSearchQuery] = useState('')
 
   // Derived state. These are the posts that will actually be displayed
-  const searchedPosts =
-    searchQuery.length > 0
-      ? posts.filter((post) =>
-          `${post.title} ${post.body}`
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase())
-        )
-      : posts
+  const searchedPosts = useMemo(
+    () =>
+      searchQuery.length > 0
+        ? posts.filter((post) =>
+            `${post.title} ${post.body}`
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase())
+          )
+        : posts,
+    [posts, searchQuery]
+  )
 
   function handleAddPost(post: types.Post) {
     setPosts((posts) => [post, ...posts])
@@ -34,13 +37,16 @@ const PostProvider = ({ children }: { children: React.ReactNode }) => {
     setPosts([])
   }
 
-  const value: types.Context = {
-    posts: searchedPosts,
-    onAddPost: handleAddPost,
-    onClearPosts: handleClearPosts,
-    searchQuery,
-    setSearchQuery,
-  }
+  const value: types.Context = useMemo(
+    () => ({
+      posts: searchedPosts,
+      onAddPost: handleAddPost,
+      onClearPosts: handleClearPosts,
+      searchQuery,
+      setSearchQuery,
+    }),
+    [searchQuery, searchedPosts]
+  )
 
   return <PostContext.Provider value={value}>{children}</PostContext.Provider>
 }
