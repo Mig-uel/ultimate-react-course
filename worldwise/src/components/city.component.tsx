@@ -4,7 +4,7 @@ import { useCitiesContext } from '../context/CitiesContext'
 import { BackButton, Spinner } from '../components'
 import styles from '../styles/city.module.css'
 
-const formatDate = (date: string) =>
+const formatDate = (date: Date) =>
   new Intl.DateTimeFormat('en', {
     day: 'numeric',
     month: 'long',
@@ -18,7 +18,7 @@ const City = () => {
 
   useEffect(() => {
     getCity(id as string)
-  }, [id])
+  }, [id, getCity])
 
   if (isLoading) return <Spinner />
   if (!currentCity) return <h1>Something went wrong...</h1>
