@@ -1,10 +1,15 @@
+import { lazy } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import { AuthProvider } from './context/AuthContext'
 import { CitiesList, City, CountriesList, Form } from './components'
 
-import { Home, Login, PageNotFound, Pricing, Product } from './pages'
-import MainLayout from './pages/main-layout.page'
-import AppLayout from './pages/app-layout.component'
+const AppLayout = lazy(() => import('./pages/app-layout.component'))
+const MainLayout = lazy(() => import('./pages/main-layout.page'))
+const Home = lazy(() => import('./pages/home.page'))
+const Login = lazy(() => import('./pages/login.page'))
+const Product = lazy(() => import('./pages/product.page'))
+const Pricing = lazy(() => import('./pages/pricing.page'))
+const PageNotFound = lazy(() => import('./pages/page-not-found'))
 
 function App() {
   return (
