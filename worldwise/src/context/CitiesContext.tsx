@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+} from 'react'
 import type { Action, CitiesContextState, CityItem, State } from '../types'
 
 const BASE_URL = 'http://localhost:3001'
@@ -82,30 +88,33 @@ const CitiesProvider = ({ children }: { children: React.ReactNode }) => {
     fetchCities()
   }, [])
 
-  const getCity = async (id: string) => {
-    if (id === currentCity?.id) return
+  const getCity = useCallback(
+    async (id: string) => {
+      if (id === currentCity?.id) return
 
-    dispatch({ type: 'loading' })
+      dispatch({ type: 'loading' })
 
-    try {
-      const res = await fetch(`${BASE_URL}/cities/${id}`)
+      try {
+        const res = await fetch(`${BASE_URL}/cities/${id}`)
 
-      const data = await res.json()
+        const data = await res.json()
 
-      // set city
-      dispatch({ type: 'city/loaded', payload: data })
-    } catch (error) {
-      console.log(error)
+        // set city
+        dispatch({ type: 'city/loaded', payload: data })
+      } catch (error) {
+        console.log(error)
 
-      if (error instanceof Error)
-        dispatch({ type: 'rejected', payload: error.message })
-      else
-        dispatch({
-          type: 'rejected',
-          payload: 'There was an error loading the city...',
-        })
-    }
-  }
+        if (error instanceof Error)
+          dispatch({ type: 'rejected', payload: error.message })
+        else
+          dispatch({
+            type: 'rejected',
+            payload: 'There was an error loading the city...',
+          })
+      }
+    },
+    [currentCity?.id]
+  )
 
   const addCity = async (city: CityItem) => {
     dispatch({ type: 'loading' })
