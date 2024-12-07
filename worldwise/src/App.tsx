@@ -1,7 +1,13 @@
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import { AuthProvider } from './context/AuthContext'
-import { CitiesList, City, CountriesList, Form } from './components'
+import {
+  CitiesList,
+  City,
+  CountriesList,
+  Form,
+  SpinnerFull,
+} from './components'
 
 const AppLayout = lazy(() => import('./pages/app-layout.component'))
 const MainLayout = lazy(() => import('./pages/main-layout.page'))
@@ -15,25 +21,27 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<MainLayout />}>
-            <Route index element={<Home />} />
-            <Route path='login' element={<Login />} />
-            <Route path='product' element={<Product />} />
-            <Route path='pricing' element={<Pricing />} />
-            <Route path='*' element={<PageNotFound />} />
-          </Route>
+        <Suspense fallback={<SpinnerFull />}>
+          <Routes>
+            <Route path='/' element={<MainLayout />}>
+              <Route index element={<Home />} />
+              <Route path='login' element={<Login />} />
+              <Route path='product' element={<Product />} />
+              <Route path='pricing' element={<Pricing />} />
+              <Route path='*' element={<PageNotFound />} />
+            </Route>
 
-          {/* APP ROUTES */}
-          <Route element={<AppLayout />} path='/app'>
-            <Route index element={<Navigate to='cities' replace />} />
-            <Route path='cities' element={<CitiesList />} />
+            {/* APP ROUTES */}
+            <Route element={<AppLayout />} path='/app'>
+              <Route index element={<Navigate to='cities' replace />} />
+              <Route path='cities' element={<CitiesList />} />
 
-            <Route path='cities/:id' element={<City />} />
-            <Route path='countries' element={<CountriesList />} />
-            <Route path='form' element={<Form />} />
-          </Route>
-        </Routes>
+              <Route path='cities/:id' element={<City />} />
+              <Route path='countries' element={<CountriesList />} />
+              <Route path='form' element={<Form />} />
+            </Route>
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </AuthProvider>
   )
