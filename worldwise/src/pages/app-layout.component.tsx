@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router'
 import { useAuthContext } from '../context/AuthContext'
 import { Map, Sidebar, User } from '../components'
 import styles from '../styles/app-layout.module.css'
+import { CitiesProvider } from '../context/CitiesContext'
 
 const AppLayout = () => {
   const navigate = useNavigate()
@@ -13,11 +14,13 @@ const AppLayout = () => {
   }, [isAuthenticated, navigate])
 
   return (
-    <div className={styles.app}>
-      <User />
-      <Sidebar />
-      <Map />
-    </div>
+    <CitiesProvider>
+      <div className={styles.app}>
+        <User />
+        <Sidebar />
+        <Map />
+      </div>
+    </CitiesProvider>
   )
 }
 export default AppLayout
