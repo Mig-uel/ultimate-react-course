@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import clickSound from '../sounds/toggleSound.m4a'
 import type { Workout } from '../types'
 
@@ -13,8 +13,8 @@ function Calculator({
   const [sets, setSets] = useState(3)
   const [speed, setSpeed] = useState(90)
   const [durationBreak, setDurationBreak] = useState(5)
+  const [duration, setDuration] = useState(0)
 
-  const duration = (number * sets * speed) / 60 + (sets - 1) * durationBreak
   const mins = Math.floor(duration)
   const seconds = (duration - mins) * 60
 
@@ -23,6 +23,16 @@ function Calculator({
     const sound = new Audio(clickSound)
     sound.play()
   }
+
+  const handleIncDec = (val: '+' | '-') => {
+    if (val === '+') setDuration((prev) => Math.floor(prev) + 1)
+    else if (val === '-')
+      setDuration((prev) => (duration > 1 ? Math.ceil(prev) - 1 : 0))
+  }
+
+  useEffect(() => {
+    setDuration((number * sets * speed) / 60 + (sets - 1) * durationBreak)
+  }, [number, sets, speed, durationBreak])
 
   return (
     <>
@@ -44,7 +54,7 @@ function Calculator({
             min='1'
             max='5'
             value={sets}
-            onChange={(e) => setSets(e.target.value)}
+            onChange={(e) => setSets(+e.target.value)}
           />
           <span>{sets}</span>
         </div>
@@ -57,7 +67,7 @@ function Calculator({
             max='180'
             step='30'
             value={speed}
-            onChange={(e) => setSpeed(e.target.value)}
+            onChange={(e) => setSpeed(+e.target.value)}
           />
           <span>{speed} sec/exercise</span>
         </div>
@@ -69,20 +79,20 @@ function Calculator({
             min='1'
             max='10'
             value={durationBreak}
-            onChange={(e) => setDurationBreak(e.target.value)}
+            onChange={(e) => setDurationBreak(+e.target.value)}
           />
           <span>{durationBreak} minutes/break</span>
         </div>
       </form>
 
       <section>
-        <button onClick={() => {}}>–</button>
+        <button onClick={() => handleIncDec('-')}>–</button>
         <p>
           {mins < 10 && '0'}
           {mins}:{seconds < 10 && '0'}
           {seconds}
         </p>
-        <button onClick={() => {}}>+</button>
+        <button onClick={() => handleIncDec('+')}>+</button>
       </section>
     </>
   )
