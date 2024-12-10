@@ -18,12 +18,6 @@ function Calculator({
   const mins = Math.floor(duration)
   const seconds = (duration - mins) * 60
 
-  const playSound = function () {
-    if (!allowSound) return
-    const sound = new Audio(clickSound)
-    sound.play()
-  }
-
   const handleIncDec = (val: '+' | '-') => {
     if (val === '+') setDuration((prev) => Math.floor(prev) + 1)
     else if (val === '-')
@@ -33,6 +27,16 @@ function Calculator({
   useEffect(() => {
     setDuration((number * sets * speed) / 60 + (sets - 1) * durationBreak)
   }, [number, sets, speed, durationBreak])
+
+  useEffect(() => {
+    const playSound = () => {
+      if (!allowSound) return
+      const sound = new Audio(clickSound)
+      sound.play()
+    }
+
+    playSound()
+  }, [duration, allowSound])
 
   return (
     <>
