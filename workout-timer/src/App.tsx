@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Calculator from './components/calculator'
 import ToggleSounds from './toggleSounds'
 import type { Workout } from './types'
@@ -10,28 +10,31 @@ function App() {
   // Will be be AM or PM
   const partOfDay = time.slice(-2)
 
-  const workouts: Workout[] = [
-    {
-      name: 'Full-body workout',
-      numExercises: partOfDay === 'AM' ? 9 : 8,
-    },
-    {
-      name: 'Arms + Legs',
-      numExercises: 6,
-    },
-    {
-      name: 'Arms only',
-      numExercises: 3,
-    },
-    {
-      name: 'Legs only',
-      numExercises: 4,
-    },
-    {
-      name: 'Core only',
-      numExercises: partOfDay === 'AM' ? 5 : 4,
-    },
-  ]
+  const workouts: Workout[] = useMemo(
+    () => [
+      {
+        name: 'Full-body workout',
+        numExercises: partOfDay === 'AM' ? 9 : 8,
+      },
+      {
+        name: 'Arms + Legs',
+        numExercises: 6,
+      },
+      {
+        name: 'Arms only',
+        numExercises: 3,
+      },
+      {
+        name: 'Legs only',
+        numExercises: 4,
+      },
+      {
+        name: 'Core only',
+        numExercises: partOfDay === 'AM' ? 5 : 4,
+      },
+    ],
+    [partOfDay]
+  )
 
   function formatTime(date: Date) {
     return new Intl.DateTimeFormat('en', {
