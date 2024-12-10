@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import clickSound from '../sounds/toggleSound.m4a'
 import type { Workout } from '../types'
 
@@ -18,11 +18,11 @@ function Calculator({
   const mins = Math.floor(duration)
   const seconds = (duration - mins) * 60
 
-  // const playSound = function () {
-  //   if (!allowSound) return
-  //   const sound = new Audio(clickSound)
-  //   sound.play()
-  // }
+  const playSound = function () {
+    if (!allowSound) return
+    const sound = new Audio(clickSound)
+    sound.play()
+  }
 
   return (
     <>
@@ -88,4 +88,4 @@ function Calculator({
   )
 }
 
-export default Calculator
+export default memo(Calculator)
