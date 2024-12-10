@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Calculator from './components/calculator'
 import ToggleSounds from './toggleSounds'
+import type { Workout } from './types'
 
 function App() {
   const [allowSound, setAllowSound] = useState(true)
@@ -9,7 +10,7 @@ function App() {
   // Will be be AM or PM
   const partOfDay = time.slice(-2)
 
-  const workouts = [
+  const workouts: Workout[] = [
     {
       name: 'Full-body workout',
       numExercises: partOfDay === 'AM' ? 9 : 8,
