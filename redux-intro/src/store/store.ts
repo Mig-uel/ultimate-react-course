@@ -1,6 +1,6 @@
 import { createStore } from 'redux'
 
-import type { PayloadAction, Reducer } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
 import type { AccountDispatchTypes, AccountState } from '../types'
 
 const initialState: AccountState = {
