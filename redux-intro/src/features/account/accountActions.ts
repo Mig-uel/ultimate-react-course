@@ -11,10 +11,13 @@ export const deposit = (
       void,
       RootState,
       unknown,
-      {
-        payload: number
-        type: 'account/deposit'
-      }
+      | {
+          payload: number
+          type: 'account/deposit'
+        }
+      | {
+          type: 'account/converting'
+        }
     > => {
   if (currency === 'USD')
     return {
@@ -23,6 +26,8 @@ export const deposit = (
     }
 
   return async (dispatch, getState) => {
+    dispatch({ type: 'account/converting' })
+
     // API CALL
     const res = await fetch(
       `https://api.frankfurter.app/latest?amount=${payload}&from=${currency}&to=USD`
