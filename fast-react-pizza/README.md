@@ -44,3 +44,10 @@ A simple pizza ordering application built with React.
 | Cart     | /cart           | Shows the pizzas added to the cart             |
 | Checkout | /order/new      | Form to enter user details and place the order |
 | Order    | /order/:orderId | Displays order details and status              |
+
+## State Management
+
+- User -> Global UI state (no accounts, so stays in-app)
+- Menu -> Global remote state (fetched from API, stored in global state)
+- Cart -> Global UI state (no need for API, just in-app)
+- Order -> Global remote state (fetched and sent to API, stored in global state)
