@@ -1,58 +1,53 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
-import type { AccountDispatchTypes, AccountState } from '../../types'
+import { createSlice } from '@reduxjs/toolkit'
+import type { AccountState } from '../../types'
 
-const initialStateAccount: AccountState = {
+const initialState: AccountState = {
   balance: 0,
   loan: 0,
   loan_purpose: '',
   isLoading: false,
 }
 
-export function accountReducer(
-  state = initialStateAccount,
-  action: PayloadAction<
-    number | { amount: number; purpose: string } | null,
-    AccountDispatchTypes
-  >
-) {
-  switch (action.type) {
-    case 'account/deposit':
-      if (typeof action.payload === 'number')
-        return {
-          ...state,
-          balance: state.balance + action.payload,
-          isLoading: false,
-        }
-      break
-    case 'account/withdraw':
-      if (typeof action.payload === 'number')
-        return { ...state, balance: state.balance - action.payload! }
-      break
-    case 'account/request_loan': {
-      if (state.loan > 0) return state
+const accountSlice = createSlice({
+  name: 'account',
+  initialState,
 
-      if (action.payload !== null && typeof action.payload === 'object')
-        return {
-          ...state,
-          loan: action.payload.amount,
-          loan_purpose: action.payload.purpose,
-          balance: state.balance + action.payload.amount,
+  reducers: {
+    deposit(state, action: { payload: number }) {
+      state.balance += action.payload
+    },
+
+    withdraw(state, action: { payload: number }) {
+      state.balance -= action.payload
+    },
+
+    request_loan(
+      state,
+      action: {
+        payload: {
+          amount: number
+          purpose: string
         }
-      break
-    }
-    case 'account/pay_loan': {
-      return {
-        ...state,
-        loan: 0,
-        loan_purpose: '',
-        balance: state.balance - state.loan,
       }
-    }
-    case 'account/converting': {
-      return { ...state, isLoading: true }
-    }
-    default: {
-      return state
-    }
-  }
-}
+    ) {
+      if (state.loan > 0) return
+
+      state.loan = action.payload.amount
+      state.loan_purpose = action.payload.purpose
+      state.balance += action.payload.amount
+    },
+
+    pay_loan(state) {
+      state.balance -= state.loan
+      state.loan = 0
+      state.loan_purpose = ''
+    },
+  },
+})
+
+// actions
+export const { deposit, pay_loan, request_loan, withdraw } =
+  accountSlice.actions
+
+// reducer
+export default accountSlice
