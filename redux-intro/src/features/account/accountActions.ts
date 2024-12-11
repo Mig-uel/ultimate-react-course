@@ -25,7 +25,7 @@ export const deposit = (
       type: 'account/deposit',
     }
 
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch({ type: 'account/converting' })
 
     // API CALL
