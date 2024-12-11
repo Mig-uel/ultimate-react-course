@@ -2,6 +2,7 @@ export type AccountState = {
   balance: number
   loan: number
   loan_purpose: string
+  isLoading: boolean
 }
 
 export type AccountDispatchTypes =
@@ -9,6 +10,7 @@ export type AccountDispatchTypes =
   | 'account/withdraw'
   | 'account/request_loan'
   | 'account/pay_loan'
+  | 'account/converting'
 
 export type CustomerState = {
   full_name: string
