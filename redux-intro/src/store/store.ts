@@ -1,28 +1,47 @@
-import { PayloadAction } from '@reduxjs/toolkit'
-import type { BankState } from '../types'
+import { createStore } from 'redux'
 
-const initialState: BankState = {
+import type { PayloadAction, Reducer } from '@reduxjs/toolkit'
+import type { AccountDispatchTypes, AccountState } from '../types'
+
+const initialState: AccountState = {
   balance: 0,
   loan: 0,
-  loan_type: '',
+  loan_purpose: '',
 }
 
-function reducer(state = initialState, action: PayloadAction<number>) {
+function reducer(
+  state = initialState,
+  action: PayloadAction<
+    number | { amount: number; purpose: string } | null,
+    AccountDispatchTypes
+  >
+) {
   switch (action.type) {
     case 'account/deposit':
-      return { ...state, balance: state.balance + action.payload }
+      if (typeof action.payload === 'number')
+        return { ...state, balance: state.balance + action.payload }
+      break
     case 'account/withdraw':
-      return { ...state, balance: state.balance - action.payload }
+      if (typeof action.payload === 'number')
+        return { ...state, balance: state.balance - action.payload! }
+      break
     case 'account/request_loan': {
       if (state.loan > 0) return state
 
-      return { ...state, loan: action.payload }
+      if (action.payload !== null && typeof action.payload === 'object')
+        return {
+          ...state,
+          loan: action.payload.amount,
+          loan_purpose: action.payload.purpose,
+          balance: state.balance + action.payload.amount,
+        }
+      break
     }
     case 'account/pay_loan': {
       return {
         ...state,
         loan: 0,
-        loan_type: '',
+        loan_purpose: '',
         balance: state.balance - state.loan,
       }
     }
@@ -32,3 +51,16 @@ function reducer(state = initialState, action: PayloadAction<number>) {
     }
   }
 }
+
+const store = createStore(reducer)
+store.dispatch({ payload: 500, type: 'account/deposit' })
+console.log(store.getState())
+
+store.dispatch({
+  type: 'account/request_loan',
+  payload: { amount: 1000, purpose: 'Buy a car' },
+})
+console.log(store.getState())
+
+store.dispatch({ type: 'account/pay_loan', payload: null })
+console.log(store.getState())
