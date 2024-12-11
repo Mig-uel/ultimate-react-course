@@ -34,3 +34,13 @@ A simple pizza ordering application built with React.
 - Menu
 - Cart
 - Order
+
+## Pages
+
+| Page     | Route           | Description                                    |
+| -------- | --------------- | ---------------------------------------------- |
+| Home     | /               | Welcome page with a brief introduction         |
+| Menu     | /menu           | Displays the list of available pizzas          |
+| Cart     | /cart           | Shows the pizzas added to the cart             |
+| Checkout | /order/new      | Form to enter user details and place the order |
+| Order    | /order/:orderId | Displays order details and status              |
