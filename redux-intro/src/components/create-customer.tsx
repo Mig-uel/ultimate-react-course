@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAppDispatch } from '../hooks'
-import { createCustomer } from '../features/customer/customerActions'
+import { createCustomer } from '../features/customer/customerSlice'
 
 function CreateCustomer() {
   const dispatch = useAppDispatch()
