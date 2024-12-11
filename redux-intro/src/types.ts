@@ -15,3 +15,7 @@ export type CustomerState = {
   nationalID: string
   createdAt: string
 }
+
+export type CustomerDispatchTypes =
+  | 'customer/createCustomer'
+  | 'customer/updateName'
