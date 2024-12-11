@@ -5,7 +5,7 @@ import {
   pay_loan,
   request_loan,
   withdraw,
-} from '../features/account/accountActions'
+} from '../features/account/accountSlice'
 
 function AccountOperations() {
   const dispatch = useAppDispatch()
@@ -31,7 +31,7 @@ function AccountOperations() {
       return
     }
 
-    dispatch(deposit(depositAmount, currency as 'USD' | 'EUR' | 'GBP'))
+    dispatch(deposit(depositAmount))
 
     setDepositAmount('')
     setCurrency('USD')
