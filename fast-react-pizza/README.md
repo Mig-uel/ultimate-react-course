@@ -47,7 +47,14 @@ A simple pizza ordering application built with React.
 
 ## State Management
 
-- User -> Global UI state (no accounts, so stays in-app)
-- Menu -> Global remote state (fetched from API, stored in global state)
-- Cart -> Global UI state (no need for API, just in-app)
-- Order -> Global remote state (fetched and sent to API, stored in global state)
+- User: Global UI state (no accounts, so stays in-app)
+- Menu: Global remote state (fetched from API, stored in global state)
+- Cart: Global UI state (no need for API, just in-app)
+- Order: Global remote state (fetched and sent to API, stored in global state)
+
+## Technology Stack
+
+- Routing: React Router
+- Styling: Tailwind CSS
+- Remote State Management: React Router v6.4+
+- UI State Management: Redux Toolkit
