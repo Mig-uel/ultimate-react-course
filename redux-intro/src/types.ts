@@ -9,3 +9,9 @@ export type AccountDispatchTypes =
   | 'account/withdraw'
   | 'account/request_loan'
   | 'account/pay_loan'
+
+export type CustomerState = {
+  full_name: string
+  nationalID: string
+  createdAt: string
+}
