@@ -102,5 +102,3 @@ const rootReducer = combineReducers({
 })
 
 const store = createStore(rootReducer)
-
-store.dispatch(createCustomer({ full_name: 'Miguel', nationalID: '099292999' }))
