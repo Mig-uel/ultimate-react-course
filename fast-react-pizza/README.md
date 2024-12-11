@@ -1,50 +1,19 @@
-# React + TypeScript + Vite
+![Fast React Pizza](https://images.unsplash.com/photo-1546724867-3b2dabdbc5b0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Fast React Pizza
 
-Currently, two official plugins are available:
+A simple pizza ordering application built with React.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Application Requirements
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+[ ] Very simple application, where users can order **one or more pizzas** from a menu.
+[ ] Requires **no user account** or **authentication**: users can just input their name before using the app.
+[x] The pizza menu can change, so it should be **loaded from an API**.
+[ ] Users can add multiple pizzas to a **cart** before ordering.
+[ ] Ordering requires the **user's name**, **phone number**, and **address**.
+[ ] If possible, **GPS location** should also be provided, to make delivery easier.
+[ ] User's can **mark their order as 'priority'** for an additional 20% of the cart price
+[ ] Orders are made by **sending a POST request** with the order data (user data + selected pizzas) to the API
+[ ] Payments are made on delivery. so **no payment gateway** is required.
+[ ] Each order will get a **unique ID** that should be displayed, so the **user can later look up their order** based on the ID.
+[ ] Users should be able to mark their order as 'priority' **even after the order has been placed**.
