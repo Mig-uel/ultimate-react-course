@@ -11,7 +11,7 @@ function AccountOperations() {
   const dispatch = useAppDispatch()
 
   const account = useAppSelector((store) => store.account)
-  const isLoading = useAppSelector((store) => store.account?.isLoading)
+  const isLoading = useAppSelector((store) => store.account.isLoading)
 
   const isLoanActive = account?.loan && account?.loan > 0
 
@@ -31,7 +31,7 @@ function AccountOperations() {
       return
     }
 
-    dispatch(deposit(depositAmount))
+    dispatch(deposit({ amount: depositAmount, currency }))
 
     setDepositAmount('')
     setCurrency('USD')
