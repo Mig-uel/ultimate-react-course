@@ -1,4 +1,4 @@
-import { createStore } from 'redux'
+import { combineReducers, createStore } from 'redux'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type {
@@ -7,7 +7,7 @@ import type {
   CustomerDispatchTypes,
   CustomerState,
 } from '../types'
-// import { deposit, pay_loan, request_loan, withdraw } from './action-creators'
+import { createCustomer } from './action-creators'
 
 const initialStateAccount: AccountState = {
   balance: 0,
@@ -96,4 +96,11 @@ function customerReducer(
   }
 }
 
-const store = createStore(accountReducer)
+const rootReducer = combineReducers({
+  account: accountReducer,
+  customer: customerReducer,
+})
+
+const store = createStore(rootReducer)
+
+store.dispatch(createCustomer({ full_name: 'Miguel', nationalID: '099292999' }))
