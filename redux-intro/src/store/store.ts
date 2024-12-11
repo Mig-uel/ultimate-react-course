@@ -1,17 +1,28 @@
 import { createStore } from 'redux'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { AccountDispatchTypes, AccountState } from '../types'
-import { deposit, pay_loan, request_loan, withdraw } from './action-creators'
+import type {
+  AccountDispatchTypes,
+  AccountState,
+  CustomerDispatchTypes,
+  CustomerState,
+} from '../types'
+// import { deposit, pay_loan, request_loan, withdraw } from './action-creators'
 
-const initialState: AccountState = {
+const initialStateAccount: AccountState = {
   balance: 0,
   loan: 0,
   loan_purpose: '',
 }
 
-function reducer(
-  state = initialState,
+const initialStateCustomer: CustomerState = {
+  createdAt: '',
+  full_name: '',
+  nationalID: '',
+}
+
+function accountReducer(
+  state = initialStateAccount,
   action: PayloadAction<
     number | { amount: number; purpose: string } | null,
     AccountDispatchTypes
@@ -53,4 +64,36 @@ function reducer(
   }
 }
 
-const store = createStore(reducer)
+function customerReducer(
+  state = initialStateCustomer,
+  {
+    payload,
+    type,
+  }: PayloadAction<
+    | string
+    | { full_name: string; nationalID: string; createdAt: string }
+    | null,
+    CustomerDispatchTypes
+  >
+) {
+  switch (type) {
+    case 'customer/createCustomer': {
+      if (typeof payload === 'object' && payload !== null)
+        return {
+          ...state,
+          full_name: payload.full_name,
+          nationalID: payload.nationalID,
+          createdAt: payload.createdAt,
+        }
+      break
+    }
+    case 'customer/updateName': {
+      if (typeof payload === 'string') return { ...state, full_name: payload }
+      break
+    }
+    default:
+      return state
+  }
+}
+
+const store = createStore(accountReducer)
