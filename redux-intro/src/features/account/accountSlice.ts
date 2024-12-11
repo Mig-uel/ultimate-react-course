@@ -5,6 +5,7 @@ const initialStateAccount: AccountState = {
   balance: 0,
   loan: 0,
   loan_purpose: '',
+  isLoading: false,
 }
 
 export function accountReducer(
@@ -17,7 +18,11 @@ export function accountReducer(
   switch (action.type) {
     case 'account/deposit':
       if (typeof action.payload === 'number')
-        return { ...state, balance: state.balance + action.payload }
+        return {
+          ...state,
+          balance: state.balance + action.payload,
+          isLoading: false,
+        }
       break
     case 'account/withdraw':
       if (typeof action.payload === 'number')
@@ -43,7 +48,9 @@ export function accountReducer(
         balance: state.balance - state.loan,
       }
     }
-
+    case 'account/converting': {
+      return { ...state, isLoading: true }
+    }
     default: {
       return state
     }
