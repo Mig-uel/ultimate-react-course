@@ -1,6 +1,9 @@
 import { formatCurrency } from '../formatCurrency'
+import { useAppSelector } from '../hooks'
 
 const BalanceDisplay = () => {
-  return <div className='balance'>{formatCurrency(123456)}</div>
+  const balance = useAppSelector((store) => store.account?.balance)
+
+  return <div className='balance'>{formatCurrency(balance!)}</div>
 }
 export default BalanceDisplay
