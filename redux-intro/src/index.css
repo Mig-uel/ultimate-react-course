@@ -37,4 +37,6 @@ button {
   font-size: 32px;
   min-width: 180px;
   text-align: center;
+  /* border-top: 5px solid salmon; */
+  border-top: 5px solid green;
 }
