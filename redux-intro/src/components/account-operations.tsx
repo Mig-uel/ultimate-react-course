@@ -20,7 +20,14 @@ function AccountOperations() {
   const [currency, setCurrency] = useState('USD')
 
   function handleDeposit() {
-    if (!depositAmount || typeof depositAmount === 'string') return
+    if (
+      !depositAmount ||
+      typeof depositAmount === 'string' ||
+      depositAmount < 0
+    ) {
+      setDepositAmount('')
+      return
+    }
 
     dispatch(deposit(depositAmount))
 
@@ -64,6 +71,7 @@ function AccountOperations() {
             type='number'
             value={depositAmount}
             onChange={(e) => setDepositAmount(+e.target.value)}
+            min={0}
           />
           <select
             value={currency}
