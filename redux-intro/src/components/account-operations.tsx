@@ -90,20 +90,25 @@ function AccountOperations() {
 
         {!isLoanActive ? (
           <div>
-            <label htmlFor='loan'>Request loan</label>
-            <input
-              id='loan'
-              type='number'
-              value={loanAmount}
-              onChange={(e) => setLoanAmount(+e.target.value)}
-              placeholder='Loan amount'
-            />
-            <input
-              value={loanPurpose}
-              onChange={(e) => setLoanPurpose(e.target.value)}
-              placeholder='Loan purpose'
-            />
-            <button onClick={handleRequestLoan}>Request Loan</button>
+            <label>Request Loan</label>
+            <div>
+              <label htmlFor='loan'>Loan Amount</label>
+              <input
+                id='loan'
+                type='number'
+                value={loanAmount}
+                onChange={(e) => setLoanAmount(+e.target.value)}
+              />
+
+              <label htmlFor='purpose'>Loan Purpose</label>
+              <input
+                id='purpose'
+                value={loanPurpose}
+                onChange={(e) => setLoanPurpose(e.target.value)}
+                placeholder='Loan purpose'
+              />
+              <button onClick={handleRequestLoan}>Request Loan</button>
+            </div>
           </div>
         ) : (
           <></>
