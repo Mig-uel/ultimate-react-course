@@ -25,13 +25,14 @@ function AccountOperations() {
       typeof depositAmount === 'string' ||
       depositAmount < 0
     ) {
-      setDepositAmount('')
+      setDepositAmount('USD')
       return
     }
 
-    dispatch(deposit(depositAmount))
+    dispatch(deposit(depositAmount, currency as 'USD' | 'EUR' | 'GBP'))
 
     setDepositAmount('')
+    setCurrency('USD')
   }
 
   function handleWithdrawal() {
