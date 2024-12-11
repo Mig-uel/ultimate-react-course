@@ -54,7 +54,7 @@ A simple pizza ordering application built with React.
 
 ## Technology Stack
 
-- Routing: React Router
+- Routing: React Router v6.4+
 - Styling: Tailwind CSS
 - Remote State Management: React Router v6.4+
 - UI State Management: Redux Toolkit
