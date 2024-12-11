@@ -9,7 +9,9 @@ import {
 
 function AccountOperations() {
   const dispatch = useAppDispatch()
+
   const account = useAppSelector((store) => store.account)
+  const isLoading = useAppSelector((store) => store.account?.isLoading)
 
   const isLoanActive = account?.loan && account?.loan > 0
 
@@ -83,7 +85,9 @@ function AccountOperations() {
             <option value='GBP'>British Pound</option>
           </select>
 
-          <button onClick={handleDeposit}>Deposit</button>
+          <button onClick={handleDeposit} disabled={isLoading}>
+            {isLoading ? 'Depositing...' : 'Deposit'}
+          </button>
         </div>
 
         <div>
