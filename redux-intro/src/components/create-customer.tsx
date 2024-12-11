@@ -36,6 +36,7 @@ function CreateCustomer() {
             id='nationalID'
             value={nationalID}
             onChange={(e) => setNationalID(e.target.value)}
+            maxLength={9}
           />
         </div>
         <button onClick={handleClick}>Create new customer</button>
