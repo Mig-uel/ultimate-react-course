@@ -1,4 +1,8 @@
+import { useAppSelector } from '../hooks'
+
 const Customer = () => {
-  return <h2>Welcome, [name]</h2>
+  const name = useAppSelector((store) => store.customer?.full_name)
+
+  return <h2>Welcome, {name}</h2>
 }
 export default Customer
