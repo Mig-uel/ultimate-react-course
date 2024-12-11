@@ -10,3 +10,12 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer)
 
 export default store
+
+// GET THE TYPE OF OUR STORE VARIABLE
+export type AppStore = typeof store
+
+// INFER THE `RootState` AND `AppDispatch` TYPES FROM THE STORE ITSELF
+export type RootState = ReturnType<AppStore['getState']>
+
+// INFERRED TYPES
+export type AppDispatch = AppStore['dispatch']
