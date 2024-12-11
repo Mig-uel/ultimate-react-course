@@ -60,13 +60,12 @@ const accountSlice = createSlice({
       state.isLoading = true
     })
 
-    builder.addCase(deposit.rejected, (state) => {
-      state.isLoading = false
+    builder.addCase(deposit.fulfilled, (state, action) => {
+      state.balance += action.payload
     })
 
-    builder.addCase(deposit.fulfilled, (state, action) => {
+    builder.addMatcher(deposit.settled, (state) => {
       state.isLoading = false
-      state.balance = action.payload
     })
   },
 })
