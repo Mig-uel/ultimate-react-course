@@ -1,12 +1,44 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '../../store'
+import type { PayloadAction, ThunkAction } from '@reduxjs/toolkit'
 
 /* ACCOUNT ACTION CREATORS */
 export const deposit = (
-  payload: number
-): PayloadAction<number, 'account/deposit'> => ({
-  payload,
-  type: 'account/deposit',
-})
+  payload: number,
+  currency: 'USD' | 'GBP' | 'EUR'
+):
+  | PayloadAction<number, 'account/deposit'>
+  | ThunkAction<
+      void,
+      RootState,
+      unknown,
+      {
+        payload: number
+        type: 'account/deposit'
+      }
+    > => {
+  if (currency === 'USD')
+    return {
+      payload,
+      type: 'account/deposit',
+    }
+
+  return async (dispatch, getState) => {
+    // API CALL
+    const res = await fetch(
+      `https://api.frankfurter.app/latest?amount=${payload}&from=${currency}&to=USD`
+    )
+
+    const data = await res.json()
+
+    const convertedRate = data.rates.USD
+
+    // RETURN ACTION
+    dispatch({
+      payload: convertedRate,
+      type: 'account/deposit',
+    })
+  }
+}
 
 export const withdraw = (
   payload: number
