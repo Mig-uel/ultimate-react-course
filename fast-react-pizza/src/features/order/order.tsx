@@ -1,11 +1,10 @@
 // Test ID: IIDSAT
-
 import {
   calcMinutesLeft,
   formatCurrency,
   formatDate,
-} from './utilities/helpers'
-import type { Order } from './types'
+} from '../../utilities/helpers'
+import type { Order } from '../../types'
 
 const order: Order = {
   id: 'ABCDEF',
