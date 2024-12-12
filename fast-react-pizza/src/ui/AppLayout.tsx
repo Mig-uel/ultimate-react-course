@@ -4,7 +4,7 @@ import CartOverview from '../features/cart/cart-overview'
 
 const AppLayout = () => {
   return (
-    <div>
+    <div className='layout'>
       <Header />
 
       <main>
