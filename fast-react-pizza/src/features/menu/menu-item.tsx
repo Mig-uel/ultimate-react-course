@@ -1,8 +1,8 @@
 import { formatCurrency } from '../../utilities/helpers'
-import type { Pizza } from '../../types'
+import type * as types from '../../types'
 
-function MenuItem({ pizza }: { pizza: Pizza }) {
-  const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza
+function MenuItem({ pizza }: { pizza: types.MenuItem }) {
+  const { name, unitPrice, ingredients, soldOut, imageUrl } = pizza
 
   return (
     <li>
