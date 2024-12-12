@@ -5,8 +5,6 @@ import type * as types from '../../types'
 function Menu() {
   const menu: types.MenuItem[] = useLoaderData()
 
-  console.log(menu)
-
   return (
     <ul>
       {menu.map((item) => (
