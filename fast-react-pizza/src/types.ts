@@ -6,7 +6,7 @@ export type CartItem = {
   totalPrice: number
 }
 
-export type Pizza = {
+export type MenuItem = {
   id: string
   name: string
   unitPrice: number
