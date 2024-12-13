@@ -8,7 +8,10 @@ import CreateOrder from './features/order/create-order'
 
 /* Loaders */
 import menuLoader from './features/menu/loader'
-import { orderLoader } from './features/order/loader'
+import orderLoader from './features/order/loader'
+
+/* Actions */
+import orderAction from './features/order/action'
 
 const router = createBrowserRouter([
   {
@@ -35,6 +38,7 @@ const router = createBrowserRouter([
       {
         path: '/order/new',
         element: <CreateOrder />,
+        action: orderAction,
       },
       {
         path: '/order/:orderId',
