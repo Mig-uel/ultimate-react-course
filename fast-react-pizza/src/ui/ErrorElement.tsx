@@ -1,11 +1,7 @@
-import {
-  isRouteErrorResponse,
-  useNavigate,
-  useRouteError,
-} from 'react-router-dom'
+import { isRouteErrorResponse, useRouteError } from 'react-router-dom'
+import LinkButton from './LinkButton'
 
 function ErrorElement() {
-  const navigate = useNavigate()
   const error = useRouteError()
 
   if (isRouteErrorResponse(error))
@@ -15,7 +11,7 @@ function ErrorElement() {
           {error.status} {error.statusText} 👻
         </h1>
         <p>{error.data}</p>
-        <button onClick={() => navigate(-1)}>&larr; Go back</button>
+        <LinkButton to='-1'>&larr; Go back</LinkButton>
       </div>
     )
 
@@ -24,7 +20,7 @@ function ErrorElement() {
       <div>
         <h1>Something went wrong... 😢</h1>
         <p>{error.message}</p>
-        <button onClick={() => navigate(-1)}>&larr; Go back</button>
+        <LinkButton to='-1'>&larr; Go back</LinkButton>
       </div>
     )
 
@@ -32,7 +28,7 @@ function ErrorElement() {
     <div>
       <h1>Something went wrong 😢</h1>
       <p>Try again later...</p>
-      <button onClick={() => navigate(-1)}>&larr; Go back</button>
+      <LinkButton to='-1'>&larr; Go back</LinkButton>
     </div>
   )
 }
