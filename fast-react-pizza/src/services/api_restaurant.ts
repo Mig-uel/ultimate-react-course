@@ -1,3 +1,5 @@
+import type { FormOrderItem } from '../types'
+
 const API_URL = 'https://react-fast-pizza-api.jonas.io/api'
 
 export async function getMenu() {
@@ -21,11 +23,11 @@ export async function getOrderById(id: string) {
   return data
 }
 
-export async function createOrder(newOrder) {
+export async function createOrder(order: FormOrderItem) {
   try {
     const res = await fetch(`${API_URL}/order`, {
       method: 'POST',
-      body: JSON.stringify(newOrder),
+      body: JSON.stringify(order),
       headers: {
         'Content-Type': 'application/json',
       },
