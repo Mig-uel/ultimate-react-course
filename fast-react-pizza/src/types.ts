@@ -20,11 +20,19 @@ export type OrderItem = {
   customer: string
   phone: string
   address: string
-  priority: boolean
+  priority: string | boolean
   estimatedDelivery: Date | string
   cart: CartItem[]
   position: string
   orderPrice: number
   priorityPrice: number
   status: boolean
+}
+
+export type FormOrderItem = {
+  customer: string
+  phone: string
+  address: string
+  priority: string | boolean
+  cart: CartItem[]
 }
