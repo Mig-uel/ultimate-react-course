@@ -15,7 +15,7 @@ export type MenuItem = {
   imageUrl: string
 }
 
-export type Order = {
+export type OrderItem = {
   id: string
   customer: string
   phone: string
@@ -26,4 +26,5 @@ export type Order = {
   position: string
   orderPrice: number
   priorityPrice: number
+  status: boolean
 }
