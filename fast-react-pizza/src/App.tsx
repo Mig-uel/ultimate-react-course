@@ -8,7 +8,7 @@ import CreateOrder from './features/order/create-order'
 
 /* Loaders */
 import menuLoader from './features/menu/loader'
-import { orderLoader } from './features/order/loaders'
+import { orderLoader } from './features/order/loader'
 
 const router = createBrowserRouter([
   {
