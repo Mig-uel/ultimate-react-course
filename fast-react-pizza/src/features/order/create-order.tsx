@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Form, useActionData, useNavigation } from 'react-router-dom'
 import Button from '../../ui/Button'
+import { useAppSelector } from '../../hooks'
 
 const fakeCart = [
   {
@@ -29,6 +30,7 @@ const fakeCart = [
 function CreateOrder() {
   const { state } = useNavigation()
   const isSubmitting = state === 'submitting'
+  const username = useAppSelector((state) => state.user.username)
 
   const formErrors = useActionData()
 
@@ -41,8 +43,14 @@ function CreateOrder() {
 
       <Form method='POST' className='mb-8 mt-6 space-y-6'>
         <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2'>
-          <label className='sm:basis-40'>First Name</label>
-          <input type='text' name='customer' required className='input grow' />
+          <label className='sm:basis-40'>Name</label>
+          <input
+            type='text'
+            name='customer'
+            required
+            className='input grow'
+            defaultValue={username || ''}
+          />
         </div>
 
         <div className='flex flex-col'>
