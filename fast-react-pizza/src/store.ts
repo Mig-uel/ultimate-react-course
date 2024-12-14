@@ -7,8 +7,6 @@ const store = configureStore({
   },
 })
 
-export default store
-
 // Get the type of our store variable
 export type AppStore = typeof store
 
@@ -17,3 +15,5 @@ export type RootState = ReturnType<AppStore['getState']>
 
 // Inferred type
 export type AppDispatch = AppStore['dispatch']
+
+export default store
