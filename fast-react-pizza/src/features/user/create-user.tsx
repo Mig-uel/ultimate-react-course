@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch } from '../../hooks'
 import { updateName } from './userSlice'
 import Button from '../../ui/Button'
 
@@ -8,14 +8,13 @@ function CreateUser() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [username, setUsername] = useState('')
-  const usernameFromStore = useAppSelector((state) => state.user.username)
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    if (!username.trim() && !usernameFromStore) return
+    if (!username.trim()) return
 
-    dispatch(updateName(username || usernameFromStore))
+    dispatch(updateName(username))
 
     navigate('/menu')
   }
@@ -28,21 +27,15 @@ function CreateUser() {
 
       <input
         type='text'
-        placeholder={usernameFromStore ? usernameFromStore : 'John Doe'}
+        placeholder='Johnny Slices'
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         className='input mb-6 mt-2 w-72'
       />
 
-      {usernameFromStore || username ? (
-        <div>
-          <Button buttonType='submit'>Start ordering</Button>
-        </div>
-      ) : !usernameFromStore && username ? (
-        <div>
-          <Button buttonType='submit'>Start ordering</Button>
-        </div>
-      ) : null}
+      <div>
+        {username.trim() && <Button buttonType='submit'>Go to menu</Button>}
+      </div>
     </form>
   )
 }
