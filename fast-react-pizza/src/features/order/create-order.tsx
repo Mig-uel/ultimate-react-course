@@ -36,31 +36,40 @@ function CreateOrder() {
   const cart = fakeCart
 
   return (
-    <div>
-      <h2>Ready to order? Let's go!</h2>
+    <div className='px-4 py-6'>
+      <h2 className='text-xl font-semibold'>Ready to order? Let's go!</h2>
 
-      <Form method='POST'>
-        <div>
-          <label>First Name</label>
-          <input type='text' name='customer' required className='input' />
+      <Form method='POST' className='mb-8 mt-6 space-y-6'>
+        <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2'>
+          <label className='sm:basis-40'>First Name</label>
+          <input type='text' name='customer' required className='input grow' />
         </div>
 
-        <div>
-          <label>Phone number</label>
-          <div>
-            <input type='tel' name='phone' required className='input' />
+        <div className='flex flex-col'>
+          <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2'>
+            <label className='sm:basis-40'>Phone number</label>
+            <input type='tel' name='phone' required className='input grow' />
           </div>
-          {formErrors?.phone && <p>{formErrors.phone}</p>}
+          {formErrors?.phone && (
+            <p className='mt-4 rounded bg-red-100 p-2 text-xs text-red-700'>
+              {formErrors.phone}
+            </p>
+          )}
         </div>
 
-        <div>
-          <label>Address</label>
-          <div>
-            <input type='text' name='address' required className='input' />
+        <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2'>
+          <label className='sm:basis-40'>Address</label>
+          <div className='grow'>
+            <input
+              type='text'
+              name='address'
+              required
+              className='input w-full'
+            />
           </div>
         </div>
 
-        <div>
+        <div className='flex items-center gap-4 font-medium'>
           <input
             className='h-6 w-6 accent-yellow-400 outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2'
             type='checkbox'
@@ -69,10 +78,12 @@ function CreateOrder() {
             checked={withPriority}
             onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor='priority'>Prioritize Order? (Fees apply)</label>
+          <label htmlFor='priority' className=''>
+            Prioritize Order? (Fees apply)
+          </label>
         </div>
 
-        <div>
+        <div className=''>
           <input type='hidden' name='cart' value={JSON.stringify(cart)} />
           <Button disabled={isSubmitting}>
             {isSubmitting ? 'Ordering...' : 'Order Now'}
