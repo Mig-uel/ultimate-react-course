@@ -4,7 +4,7 @@ import CartOverview from '../features/cart/cart-overview'
 
 const AppLayout = () => {
   return (
-    <div className='grid h-screen grid-rows-[auto_1fr_auto]'>
+    <div className='grid h-dvh grid-rows-[auto_1fr_auto]'>
       <Header />
 
       <div className='overflow-y-scroll'>
