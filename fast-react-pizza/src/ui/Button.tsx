@@ -6,12 +6,14 @@ const Button = ({
   to = '',
   onClick = () => {},
   type = 'primary',
+  buttonType = 'button',
 }: {
   children: React.ReactNode
   disabled?: boolean
   to?: string
   onClick?: () => void
   type?: 'primary' | 'small' | 'secondary'
+  buttonType?: HTMLButtonElement['type']
 }) => {
   const base =
     'inline-block rounded-full bg-yellow-400 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-stone-400 text-sm'
@@ -31,7 +33,12 @@ const Button = ({
     )
 
   return (
-    <button disabled={disabled} className={styles[type]} onClick={onClick}>
+    <button
+      disabled={disabled}
+      className={styles[type]}
+      onClick={onClick}
+      type={buttonType}
+    >
       {children}
     </button>
   )
