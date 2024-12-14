@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 const SearchOrder = () => {
   const navigate = useNavigate()
-  const [query, setQuery] = useState('IIDSAT')
+  const [query, setQuery] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setQuery(e.target.value)
@@ -11,7 +11,7 @@ const SearchOrder = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (!query) return
+    if (!query.trim()) return
 
     navigate(`/order/${query}`)
 
