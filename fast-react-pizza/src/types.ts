@@ -36,3 +36,7 @@ export type FormOrderItem = {
   priority: string | boolean
   cart: CartItem[]
 }
+
+export type UserState = {
+  username: string
+}
