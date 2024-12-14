@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Button from '../../ui/Button'
 
 function CreateUser() {
-  const [username, setUsername] = useState('s')
+  const [username, setUsername] = useState('')
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
