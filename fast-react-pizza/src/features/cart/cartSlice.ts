@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import type { RootState } from '../../store'
 import type { CartItem, CartState } from '../../types'
 
 const initialState: CartState = {
@@ -62,4 +63,11 @@ export const {
   deleteItem,
   increaseItemQty,
 } = cartSlice.actions
+
 export default cartSlice
+
+export const getCartQty = (state: RootState) =>
+  state.cart.cart.reduce((acc, item) => item.quantity + acc, 0)
+
+export const getCartTotal = (state: RootState) =>
+  state.cart.cart.reduce((acc: number, item) => item.totalPrice + acc, 0)
