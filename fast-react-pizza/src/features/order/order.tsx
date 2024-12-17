@@ -4,8 +4,8 @@ import {
   formatCurrency,
   formatDate,
 } from '../../utilities/helpers'
-import type * as types from '../../types'
 import OrderItem from './order-item'
+import type * as types from '../../types'
 
 function Order() {
   const order: types.OrderItem = useLoaderData()
@@ -20,6 +20,8 @@ function Order() {
     estimatedDelivery,
     cart,
   } = order
+
+  console.log(priorityPrice)
 
   const deliveryIn = calcMinutesLeft(estimatedDelivery as Date)
 
