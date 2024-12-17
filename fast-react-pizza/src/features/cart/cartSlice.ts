@@ -3,16 +3,7 @@ import type { RootState } from '../../store'
 import type { CartItem, CartState } from '../../types'
 
 const initialState: CartState = {
-  // cart: [],
-  cart: [
-    {
-      name: 'Mediterranean',
-      pizzaId: 12,
-      quantity: 2,
-      totalPrice: 32,
-      unitPrice: 16,
-    },
-  ],
+  cart: [],
 }
 
 const cartSlice = createSlice({
@@ -66,8 +57,11 @@ export const {
 
 export default cartSlice
 
+/* Cart Selectors */
 export const getCartQty = (state: RootState) =>
   state.cart.cart.reduce((acc, item) => item.quantity + acc, 0)
 
 export const getCartTotal = (state: RootState) =>
   state.cart.cart.reduce((acc: number, item) => item.totalPrice + acc, 0)
+
+export const getCartState = (state: RootState) => state.cart.cart
