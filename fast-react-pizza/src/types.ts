@@ -38,6 +38,13 @@ export type FormOrderItem = {
 }
 
 export type UserState = {
+  address: string
+  error: string
+  position: {
+    latitude: string | number
+    longitude: string | number
+  }
+  status: 'idle' | 'loading' | 'error'
   username: string
 }
 
