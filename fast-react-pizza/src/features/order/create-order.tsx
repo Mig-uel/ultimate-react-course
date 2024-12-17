@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Form, useActionData, useNavigation } from 'react-router-dom'
 import { useAppSelector } from '../../hooks'
-import { getCartState } from '../cart/cartSlice'
+import { getCartState, getCartTotal } from '../cart/cartSlice'
+import { formatCurrency } from '../../utilities/helpers'
 import Button from '../../ui/Button'
 import EmptyCart from '../cart/empty-cart'
 import LinkButton from '../../ui/LinkButton'
@@ -16,6 +17,11 @@ function CreateOrder() {
   const formErrors = useActionData()
 
   const cart = useAppSelector(getCartState)
+  const cartTotal = useAppSelector(getCartTotal)
+  const cartTotalWithPriority = withPriority
+    ? cartTotal + cartTotal * 0.2
+    : cartTotal
+
   if (!cart.length) return <EmptyCart />
 
   return (
@@ -77,7 +83,9 @@ function CreateOrder() {
         <div className=''>
           <input type='hidden' name='cart' value={JSON.stringify(cart)} />
           <Button disabled={isSubmitting} buttonType='submit'>
-            {isSubmitting ? 'Ordering...' : 'Order Now'}
+            {isSubmitting
+              ? 'Ordering...'
+              : `${formatCurrency(cartTotalWithPriority)} - Order Now`}
           </Button>
         </div>
       </Form>
