@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const LinkButton = ({
@@ -23,4 +24,4 @@ const LinkButton = ({
     </Link>
   )
 }
-export default LinkButton
+export default memo(LinkButton)
