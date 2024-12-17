@@ -18,4 +18,9 @@ export type RootState = ReturnType<AppStore['getState']>
 // Inferred type
 export type AppDispatch = AppStore['dispatch']
 
+export type ReduxStore = {
+  getState: () => RootState
+  dispatch: AppDispatch
+}
+
 export default store
