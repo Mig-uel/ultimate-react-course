@@ -4,6 +4,7 @@ import { addToCart, getCartState } from '../cart/cartSlice'
 import Button from '../../ui/Button'
 import type * as types from '../../types'
 import RemoveItem from '../cart/remove-item'
+import UpdateItemQty from '../cart/update-item-qty'
 
 function MenuItem({ pizza }: { pizza: types.MenuItem }) {
   const { name, unitPrice, ingredients, soldOut, imageUrl, id } = pizza
@@ -46,8 +47,13 @@ function MenuItem({ pizza }: { pizza: types.MenuItem }) {
             </p>
           )}
 
-          <div className='space-x-2'>
-            {isInCart && <RemoveItem pizzaId={+id} />}
+          <div className='space-x-4'>
+            {isInCart && (
+              <>
+                <UpdateItemQty pizzaId={+id} />
+                <RemoveItem pizzaId={+id} />
+              </>
+            )}
 
             {!soldOut && !isInCart && (
               <Button type='small' onClick={handleAddToCart}>
