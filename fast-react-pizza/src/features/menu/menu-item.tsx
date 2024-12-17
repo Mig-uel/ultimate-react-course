@@ -1,12 +1,16 @@
 import { formatCurrency } from '../../utilities/helpers'
-import { useAppDispatch } from '../../hooks'
-import { addToCart } from '../cart/cartSlice'
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { addToCart, getCartState } from '../cart/cartSlice'
 import Button from '../../ui/Button'
 import type * as types from '../../types'
+import RemoveItem from '../cart/remove-item'
 
 function MenuItem({ pizza }: { pizza: types.MenuItem }) {
-  const dispatch = useAppDispatch()
   const { name, unitPrice, ingredients, soldOut, imageUrl, id } = pizza
+
+  const dispatch = useAppDispatch()
+  const cart = useAppSelector(getCartState)
+  const isInCart = cart.find((item) => item.pizzaId === +id)
 
   const handleAddToCart = () =>
     dispatch(
@@ -42,11 +46,15 @@ function MenuItem({ pizza }: { pizza: types.MenuItem }) {
             </p>
           )}
 
-          {!soldOut && (
-            <Button type='small' onClick={handleAddToCart}>
-              Add to cart
-            </Button>
-          )}
+          <div className='space-x-2'>
+            {isInCart && <RemoveItem pizzaId={+id} />}
+
+            {!soldOut && !isInCart && (
+              <Button type='small' onClick={handleAddToCart}>
+                Add to cart
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </li>
