@@ -1,14 +1,19 @@
 import { type ActionFunctionArgs, redirect } from 'react-router-dom'
 import { createOrder } from '../../services/api_restaurant'
+import { clearCart } from '../cart/cartSlice'
+import type { ReduxStore } from '../../store'
 import type { CartItem, FormOrderItem, OrderItem } from '../../types'
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str: string) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
-    str
+    str,
   )
 
-async function orderAction({ request }: ActionFunctionArgs) {
+async function orderAction(
+  request: ActionFunctionArgs['request'],
+  store: ReduxStore,
+) {
   const errors: Record<string, string> = {}
   const formData: FormData = await request.formData()
 
@@ -33,6 +38,8 @@ async function orderAction({ request }: ActionFunctionArgs) {
   if (Object.keys(errors).length > 0) return errors
 
   const placedOrder = (await createOrder(order)) as OrderItem
+
+  store.dispatch(clearCart())
 
   return redirect(`/order/${placedOrder.id}`)
 }
