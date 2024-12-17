@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import {
+  ActionFunctionArgs,
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom'
 
 import { AppLayout, ErrorElement, Home, Loader } from './ui'
 import Menu from './features/menu/menu'
@@ -12,6 +16,9 @@ import orderLoader from './features/order/loader'
 
 /* Actions */
 import orderAction from './features/order/action'
+
+/* Redux Store */
+import store from './store'
 
 const router = createBrowserRouter([
   {
@@ -38,7 +45,8 @@ const router = createBrowserRouter([
       {
         path: '/order/new',
         element: <CreateOrder />,
-        action: orderAction,
+        action: ({ request }: ActionFunctionArgs) =>
+          orderAction(request, store),
       },
       {
         path: '/order/:orderId',
