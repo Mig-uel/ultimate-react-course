@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import { Form, useActionData, useNavigation } from 'react-router-dom'
-import { useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks'
 import { getCartState, getCartTotal } from '../cart/cartSlice'
 import { formatCurrency } from '../../utilities/helpers'
 import Button from '../../ui/Button'
 import EmptyCart from '../cart/empty-cart'
 import LinkButton from '../../ui/LinkButton'
+import { fetchAddress } from '../user/userSlice'
 
 function CreateOrder() {
   const { state } = useNavigation()
   const isSubmitting = state === 'submitting'
 
+  const dispatch = useAppDispatch()
   const [withPriority, setWithPriority] = useState(false)
 
   const username = useAppSelector((state) => state.user.username)
@@ -29,6 +31,8 @@ function CreateOrder() {
       <LinkButton to='/cart'>&larr; Back to cart</LinkButton>
 
       <h2 className='mt-4 text-xl font-semibold'>Ready to order? Let's go!</h2>
+
+      <button onClick={() => dispatch(fetchAddress())}>locate me</button>
 
       <Form method='POST' className='mb-8 mt-6 space-y-6'>
         <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2'>
