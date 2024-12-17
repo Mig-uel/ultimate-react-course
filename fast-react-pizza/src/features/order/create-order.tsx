@@ -1,45 +1,28 @@
 import { useState } from 'react'
 import { Form, useActionData, useNavigation } from 'react-router-dom'
-import Button from '../../ui/Button'
 import { useAppSelector } from '../../hooks'
-
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: 'Mediterranean',
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: 'Vegetable',
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: 'Spinach and Mushroom',
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-]
+import { getCartState } from '../cart/cartSlice'
+import Button from '../../ui/Button'
+import EmptyCart from '../cart/empty-cart'
+import LinkButton from '../../ui/LinkButton'
 
 function CreateOrder() {
   const { state } = useNavigation()
   const isSubmitting = state === 'submitting'
-  const username = useAppSelector((state) => state.user.username)
-
-  const formErrors = useActionData()
 
   const [withPriority, setWithPriority] = useState(false)
-  const cart = fakeCart
+
+  const username = useAppSelector((state) => state.user.username)
+  const formErrors = useActionData()
+
+  const cart = useAppSelector(getCartState)
+  if (!cart.length) return <EmptyCart />
 
   return (
     <div className='px-4 py-6'>
-      <h2 className='text-xl font-semibold'>Ready to order? Let's go!</h2>
+      <LinkButton to='/cart'>&larr; Back to cart</LinkButton>
+
+      <h2 className='mt-4 text-xl font-semibold'>Ready to order? Let's go!</h2>
 
       <Form method='POST' className='mb-8 mt-6 space-y-6'>
         <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2'>
@@ -93,7 +76,7 @@ function CreateOrder() {
 
         <div className=''>
           <input type='hidden' name='cart' value={JSON.stringify(cart)} />
-          <Button disabled={isSubmitting}>
+          <Button disabled={isSubmitting} buttonType='submit'>
             {isSubmitting ? 'Ordering...' : 'Order Now'}
           </Button>
         </div>
