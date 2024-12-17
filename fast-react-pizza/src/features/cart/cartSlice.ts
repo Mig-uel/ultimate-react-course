@@ -21,7 +21,7 @@ const cartSlice = createSlice({
       state.cart = state.cart.filter((item) => item.pizzaId !== action.payload)
     },
 
-    decreaseItemQty(state, action) {
+    decreaseItemQty(state, action: { payload: number }) {
       // payload = pizzaId
       const item = state.cart.find((item) => item.pizzaId === action.payload)
 
@@ -31,7 +31,7 @@ const cartSlice = createSlice({
       item.totalPrice = item.quantity * item.unitPrice
     },
 
-    increaseItemQty(state, action) {
+    increaseItemQty(state, action: { payload: number }) {
       // payload = pizzaId
       const item = state.cart.find((item) => item.pizzaId === action.payload)
 
@@ -65,3 +65,6 @@ export const getCartTotal = (state: RootState) =>
   state.cart.cart.reduce((acc: number, item) => item.totalPrice + acc, 0)
 
 export const getCartState = (state: RootState) => state.cart.cart
+
+export const getItemQtyById = (state: RootState, pizzaId: number) =>
+  state.cart.cart.find((item) => item.pizzaId === pizzaId)?.quantity || 0
