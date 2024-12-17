@@ -16,7 +16,7 @@ const cartSlice = createSlice({
       state.cart.push(action.payload)
     },
 
-    deleteItem(state, action) {
+    removeFromCart(state, action: { payload: number }) {
       // payload = pizzaId
       state.cart = state.cart.filter((item) => item.pizzaId !== action.payload)
     },
@@ -51,7 +51,7 @@ export const {
   addToCart,
   clearCart,
   decreaseItemQty,
-  deleteItem,
+  removeFromCart,
   increaseItemQty,
 } = cartSlice.actions
 
