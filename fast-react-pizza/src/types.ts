@@ -40,3 +40,7 @@ export type FormOrderItem = {
 export type UserState = {
   username: string
 }
+
+export type CartState = {
+  cart: CartItem[]
+}
