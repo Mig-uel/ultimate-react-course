@@ -1,9 +1,23 @@
 import { formatCurrency } from '../../utilities/helpers'
+import { useAppDispatch } from '../../hooks'
+import { addToCart } from '../cart/cartSlice'
 import Button from '../../ui/Button'
 import type * as types from '../../types'
 
 function MenuItem({ pizza }: { pizza: types.MenuItem }) {
-  const { name, unitPrice, ingredients, soldOut, imageUrl } = pizza
+  const dispatch = useAppDispatch()
+  const { name, unitPrice, ingredients, soldOut, imageUrl, id } = pizza
+
+  const handleAddToCart = () =>
+    dispatch(
+      addToCart({
+        name,
+        pizzaId: +id,
+        quantity: 1,
+        totalPrice: unitPrice * 1,
+        unitPrice,
+      }),
+    )
 
   return (
     <li className='flex gap-4 py-2'>
@@ -28,7 +42,11 @@ function MenuItem({ pizza }: { pizza: types.MenuItem }) {
             </p>
           )}
 
-          <Button type='small'>Add to cart</Button>
+          {!soldOut && (
+            <Button type='small' onClick={handleAddToCart}>
+              Add to cart
+            </Button>
+          )}
         </div>
       </div>
     </li>
