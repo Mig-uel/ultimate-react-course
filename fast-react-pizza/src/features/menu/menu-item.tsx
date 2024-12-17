@@ -2,9 +2,9 @@ import { formatCurrency } from '../../utilities/helpers'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { addToCart, getCartState } from '../cart/cartSlice'
 import Button from '../../ui/Button'
-import type * as types from '../../types'
 import RemoveItem from '../cart/remove-item'
 import UpdateItemQty from '../cart/update-item-qty'
+import type * as types from '../../types'
 
 function MenuItem({ pizza }: { pizza: types.MenuItem }) {
   const { name, unitPrice, ingredients, soldOut, imageUrl, id } = pizza
