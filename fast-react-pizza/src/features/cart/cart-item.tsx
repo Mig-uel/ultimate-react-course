@@ -1,6 +1,7 @@
 import { formatCurrency } from '../../utilities/helpers'
 import type { CartItem } from '../../types'
 import RemoveItem from './remove-item'
+import UpdateItemQty from './update-item-qty'
 
 function CartItem({ item }: { item: CartItem }) {
   const { name, quantity, totalPrice, pizzaId } = item
@@ -15,7 +16,10 @@ function CartItem({ item }: { item: CartItem }) {
         <p className='text-sm font-bold'>{formatCurrency(totalPrice)}</p>
       </div>
 
-      <RemoveItem pizzaId={pizzaId} />
+      <div className='space-x-4'>
+        <UpdateItemQty pizzaId={pizzaId} />
+        <RemoveItem pizzaId={pizzaId} />
+      </div>
     </li>
   )
 }
