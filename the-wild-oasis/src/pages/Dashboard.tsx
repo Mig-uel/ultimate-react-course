@@ -1,4 +1,10 @@
+import { Heading, Row } from '../ui'
+
 const Dashboard = () => {
-  return <div>Dashboard</div>
+  return (
+    <Row type='horizontal'>
+      <Heading as='h1'>Dashboard</Heading>
+    </Row>
+  )
 }
 export default Dashboard
