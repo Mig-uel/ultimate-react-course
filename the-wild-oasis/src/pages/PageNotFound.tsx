@@ -1,4 +1,4 @@
 const PageNotFound = () => {
-  return <div>PageNotFound</div>
+  return <div>Page Not Found</div>
 }
 export default PageNotFound
