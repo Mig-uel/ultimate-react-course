@@ -1,5 +1,9 @@
-import { type ActionFunctionArgs, redirect } from 'react-router-dom'
-import { createOrder } from '../../services/api_restaurant'
+import {
+  ActionFunction,
+  type ActionFunctionArgs,
+  redirect,
+} from 'react-router-dom'
+import { createOrder, updateOrderById } from '../../services/api_restaurant'
 import { clearCart } from '../cart/cartSlice'
 import type { ReduxStore } from '../../store'
 import type { CartItem, FormOrderItem, OrderItem } from '../../types'
@@ -10,7 +14,7 @@ const isValidPhone = (str: string) =>
     str,
   )
 
-async function orderAction(
+export async function orderAction(
   request: ActionFunctionArgs['request'],
   store: ReduxStore,
 ) {
@@ -44,4 +48,11 @@ async function orderAction(
   return redirect(`/order/${placedOrder.id}`)
 }
 
-export default orderAction
+export const updateOrderAction: ActionFunction = async ({ params }) => {
+  const orderId = params.orderId!
+  const data = { priority: true }
+
+  await updateOrderById(orderId, data)
+
+  return null
+}
