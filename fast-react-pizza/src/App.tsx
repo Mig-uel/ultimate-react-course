@@ -15,7 +15,7 @@ import menuLoader from './features/menu/loader'
 import orderLoader from './features/order/loader'
 
 /* Actions */
-import orderAction from './features/order/action'
+import { orderAction, updateOrderAction } from './features/order/actions'
 
 /* Redux Store */
 import store from './store'
@@ -53,6 +53,7 @@ const router = createBrowserRouter([
         element: <Order />,
         loader: orderLoader,
         hydrateFallbackElement: <Loader />,
+        action: updateOrderAction,
       },
     ],
   },
