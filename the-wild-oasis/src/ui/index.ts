@@ -1,4 +1,7 @@
 export * from './Button'
+export { default as Header } from './Header'
 export * from './Heading'
 export * from './Input'
+export * from './Main'
 export * from './Row'
+export { default as Sidebar } from './Sidebar'
