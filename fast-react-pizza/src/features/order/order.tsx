@@ -7,6 +7,7 @@ import {
 import OrderItem from './order-item'
 import type * as types from '../../types'
 import { useEffect } from 'react'
+import UpdateOrder from './update-order'
 
 function Order() {
   const order: types.OrderItem = useLoaderData()
@@ -91,6 +92,8 @@ function Order() {
           Total: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
+
+      {!priority && <UpdateOrder order={order} />}
     </div>
   )
 }
