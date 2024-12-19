@@ -1,4 +1,12 @@
+import { Heading, Row } from '../ui'
+
 const Cabins = () => {
-  return <div>Cabins</div>
+  return (
+    <Row type='horizontal'>
+      <Heading as='h1'>Cabins</Heading>
+
+      <p>test</p>
+    </Row>
+  )
 }
 export default Cabins
