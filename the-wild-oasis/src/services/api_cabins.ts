@@ -1,7 +1,7 @@
 import { supabase } from './supabase'
 
 export const getCabins = async () => {
-  const { data, error } = await supabase.from('bookings').select('*')
+  const { data, error } = await supabase.from('cabins').select('*')
 
   if (error) {
     console.error('Cabins could not be loaded')
