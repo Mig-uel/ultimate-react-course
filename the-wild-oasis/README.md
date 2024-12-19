@@ -33,7 +33,15 @@ The Wild Oasis is a private facing (internal) hotel management application.
   - [ ] services/
   - [ ] store/
 
-## 3. Technologies
+## 3. Database Tables
+
+- [ ] cabins
+- [ ] bookings
+- [ ] guests
+- [ ] settings
+- [ ] users
+
+## 4. Technologies
 
 - [ ] React
 - [ ] React Router
@@ -47,7 +55,7 @@ The Wild Oasis is a private facing (internal) hotel management application.
 - [ ] Date Fns
 - [ ] Supabase
 
-## 4. Project Goals
+## 5. Project Goals
 
 - [ ] Users of the application are hotel staff:
 
