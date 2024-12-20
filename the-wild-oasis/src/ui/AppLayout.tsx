@@ -1,6 +1,6 @@
+import styled from 'styled-components'
 import { Outlet } from 'react-router-dom'
 import { Header, Main, Sidebar } from './'
-import styled from 'styled-components'
 
 const StyledAppLayout = styled.div`
   background-color: var(--color-grey-0);
@@ -10,6 +10,15 @@ const StyledAppLayout = styled.div`
   height: 100vh;
 `
 
+const Container = styled.div`
+  max-width: 120rem;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+`
+
 const AppLayout = () => {
   return (
     <StyledAppLayout>
@@ -17,7 +26,9 @@ const AppLayout = () => {
       <Sidebar />
 
       <Main>
-        <Outlet />
+        <Container>
+          <Outlet />
+        </Container>
       </Main>
     </StyledAppLayout>
   )
