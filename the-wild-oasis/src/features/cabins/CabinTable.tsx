@@ -28,12 +28,8 @@ const TableHeader = styled.header`
   padding: 1.6rem 2.4rem;
 `
 const CabinTable = () => {
-  const {
-    data: cabins,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ['cabin'],
+  const { data: cabins, isLoading } = useQuery({
+    queryKey: ['cabins'],
     queryFn: getCabins,
   })
 
