@@ -41,6 +41,7 @@ function CabinForm() {
           {...register('name', {
             required: 'Cabin name is required',
           })}
+          disabled={isPending}
         />
       </FormRow>
 
@@ -52,6 +53,7 @@ function CabinForm() {
             required: 'Cabin max capacity is required',
             min: { value: 1, message: 'Capacity should be at least 1' },
           })}
+          disabled={isPending}
         />
       </FormRow>
 
@@ -62,6 +64,7 @@ function CabinForm() {
           {...register('regularPrice', {
             required: 'Cabin price is required',
           })}
+          disabled={isPending}
         />
       </FormRow>
 
@@ -73,9 +76,10 @@ function CabinForm() {
           {...register('discount', {
             required: 'Cabin discount is required',
             validate: (value) =>
-              value! <= getValues().regularPrice! ||
+              value! <= +getValues().regularPrice! ||
               'Discount should be less than the regular price',
           })}
+          disabled={isPending}
         />
       </FormRow>
 
@@ -87,11 +91,12 @@ function CabinForm() {
           {...register('description', {
             required: 'Cabin description is required',
           })}
+          disabled={isPending}
         />
       </FormRow>
 
       <FormRow label='Image' errors={errors} id='image'>
-        <FileInput id='image' accept='image/*' />
+        <FileInput id='image' accept='image/*' disabled={isPending} />
       </FormRow>
 
       <FormRow errors={errors}>
