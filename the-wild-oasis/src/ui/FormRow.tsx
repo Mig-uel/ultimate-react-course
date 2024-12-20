@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import type { Tables } from '../supabase_types'
 import type { FieldErrors } from 'react-hook-form'
 
 const StyledFormRow = styled.div`
@@ -37,33 +38,22 @@ const Error = styled.span`
   color: var(--color-red-700);
 `
 
-type FormData = {
-  created_at: string
-  description: string | null
-  discount: number | null
-  id: number
-  image: string | null
-  maxCapacity: number | null
-  name: string | null
-  regularPrice: number | null
-}
-
 const FormRow = ({
   id,
   label,
   errors,
   children,
 }: {
-  id?: keyof FormData
+  id?: keyof Tables<'cabins'>
   label?: string
-  errors: FieldErrors<FormData>
+  errors: FieldErrors<Tables<'cabins'>>
   children: React.ReactNode
 }) => {
   return (
     <StyledFormRow>
       <Label htmlFor={id}>{label}</Label>
       {children}
-      {id && errors[id] && <Error>{errors[id]?.message}</Error>}
+      {id && errors[id] && <Error>{errors[id].message}</Error>}
     </StyledFormRow>
   )
 }
