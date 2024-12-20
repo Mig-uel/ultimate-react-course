@@ -3,6 +3,7 @@ import { getCabins } from '../../services/api_cabins'
 import { Spinner } from '../../ui/'
 import styled from 'styled-components'
 import CabinRow from './CabinRow'
+import { HiTableCells } from 'react-icons/hi2'
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -38,7 +39,9 @@ const CabinTable = () => {
   return (
     <Table role='table'>
       <TableHeader role='row'>
-        <div></div>
+        <div>
+          <HiTableCells />
+        </div>
         <div>Cabin</div>
         <div>Capacity</div>
         <div>Price</div>
