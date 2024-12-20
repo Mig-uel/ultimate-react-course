@@ -1,50 +1,19 @@
 import toast from 'react-hot-toast'
-import styled from 'styled-components'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { createCabin } from '../../services/api_cabins'
-import { Button, FileInput, Form, Input, Textarea } from '../../ui'
+import { Button, FileInput, Form, FormRow, Input, Textarea } from '../../ui'
 import type { Tables } from '../../supabase_types'
-
-const FormRow = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 24rem 1fr 1.2fr;
-  gap: 2.4rem;
-
-  padding: 1.2rem 0;
-
-  &:first-child {
-    padding-top: 0;
-  }
-
-  &:last-child {
-    padding-bottom: 0;
-  }
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.2rem;
-  }
-`
-
-const Label = styled.label`
-  font-weight: 500;
-`
-
-const Error = styled.span`
-  font-size: 1.4rem;
-  color: var(--color-red-700);
-`
 
 function CabinForm() {
   const queryClient = useQueryClient()
-  const { handleSubmit, register, reset } = useForm<Tables<'cabins'>>()
+  const {
+    formState: { errors },
+    getValues,
+    handleSubmit,
+    register,
+    reset,
+  } = useForm<Tables<'cabins'>>()
   const { isPending, mutate } = useMutation({
     mutationFn: createCabin,
 
@@ -65,47 +34,67 @@ function CabinForm() {
 
   return (
     <Form onSubmit={handleSubmit(handleFormSubmit)}>
-      <FormRow>
-        <Label htmlFor='name'>Cabin name</Label>
-        <Input type='text' id='name' {...register('name')} />
+      <FormRow label='Cabin Name' errors={errors} id='name'>
+        <Input
+          type='text'
+          id='name'
+          {...register('name', {
+            required: 'Cabin name is required',
+          })}
+        />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor='maxCapacity'>Maximum capacity</Label>
-        <Input type='number' id='maxCapacity' {...register('maxCapacity')} />
+      <FormRow label='Max Capacity' errors={errors} id='maxCapacity'>
+        <Input
+          type='number'
+          id='maxCapacity'
+          {...register('maxCapacity', {
+            required: 'Cabin max capacity is required',
+            min: { value: 1, message: 'Capacity should be at least 1' },
+          })}
+        />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor='regularPrice'>Regular price</Label>
-        <Input type='number' id='regularPrice' {...register('regularPrice')} />
+      <FormRow label='Price' errors={errors} id='regularPrice'>
+        <Input
+          type='number'
+          id='regularPrice'
+          {...register('regularPrice', {
+            required: 'Cabin price is required',
+          })}
+        />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor='discount'>Discount</Label>
+      <FormRow label='Discount' errors={errors} id='discount'>
         <Input
           type='number'
           id='discount'
           defaultValue={0}
-          {...register('discount')}
+          {...register('discount', {
+            required: 'Cabin discount is required',
+            validate: (value) =>
+              value! <= getValues().regularPrice! ||
+              'Discount should be less than the regular price',
+          })}
         />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor='description'>Description for website</Label>
+      <FormRow label='Description' errors={errors} id='description'>
         <Textarea
           type='number'
           id='description'
           defaultValue=''
-          {...register('description')}
+          {...register('description', {
+            required: 'Cabin description is required',
+          })}
         />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor='image'>Cabin photo</Label>
+      <FormRow label='Image' errors={errors} id='image'>
         <FileInput id='image' accept='image/*' />
       </FormRow>
 
-      <FormRow>
+      <FormRow errors={errors}>
         {/* type is an HTML attribute! */}
         <Button disabled={isPending} $variation='secondary' type='reset'>
           Cancel
