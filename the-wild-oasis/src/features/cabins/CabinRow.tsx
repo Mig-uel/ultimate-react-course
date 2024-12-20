@@ -1,8 +1,9 @@
+import toast from 'react-hot-toast'
 import styled from 'styled-components'
-import { formatCurrency } from '../../utils/helpers'
-import type { Tables } from '../../supabase_types'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteCabin } from '../../services/api_cabins'
+import { formatCurrency } from '../../utils/helpers'
+import type { Tables } from '../../supabase_types'
 
 const TableRow = styled.div`
   display: grid;
@@ -49,14 +50,14 @@ const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
   const { mutate, isPending } = useMutation({
     mutationFn: deleteCabin,
     onSuccess() {
-      alert('Cabin successfully deleted')
+      toast.success('Cabin successfully deleted')
 
       queryClient.invalidateQueries({
         queryKey: ['cabins'],
       })
     },
     onError(error) {
-      alert(error.message)
+      toast.error(error.message)
     },
   })
 
