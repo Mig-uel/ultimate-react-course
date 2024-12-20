@@ -1,6 +1,7 @@
 export * from './Button'
 export { default as FileInput } from './FileInput'
 export { default as Form } from './Form'
+export { default as FormRow } from './FormRow'
 export { default as Header } from './Header'
 export * from './Heading'
 export * from './Input'
