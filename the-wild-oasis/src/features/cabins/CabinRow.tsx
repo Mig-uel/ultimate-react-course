@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import { formatCurrency } from '../../utils/helpers'
 import type { Tables } from '../../supabase_types'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { deleteCabin } from '../../services/api_cabins'
 
 const TableRow = styled.div`
   display: grid;
@@ -41,7 +43,17 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `
 const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
-  const { discount, image, maxCapacity, name, regularPrice } = cabin
+  const queryClient = useQueryClient()
+  const { discount, id, image, maxCapacity, name, regularPrice } = cabin
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: deleteCabin,
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['cabins'],
+      })
+    },
+  })
 
   return (
     <TableRow role='row'>
@@ -53,7 +65,9 @@ const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
       <Price>{formatCurrency(regularPrice!)}</Price>
       <Discount>{formatCurrency(discount!)}</Discount>
 
-      <button>delete</button>
+      <button onClick={() => mutate(id)} disabled={isPending}>
+        Delete
+      </button>
     </TableRow>
   )
 }
