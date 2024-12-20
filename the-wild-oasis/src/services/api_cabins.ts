@@ -1,4 +1,5 @@
 import { supabase } from './supabase'
+import type { Tables } from '../supabase_types'
 
 export const getCabins = async () => {
   const { data, error } = await supabase.from('cabins').select('*')
@@ -6,6 +7,17 @@ export const getCabins = async () => {
   if (error) {
     console.error(error.message)
     throw new Error('Cabins could not be loaded')
+  }
+
+  return data
+}
+
+export const createCabin = async (cabin: Tables<'cabins'>) => {
+  const { data, error } = await supabase.from('cabins').insert([cabin])
+
+  if (error) {
+    console.error(error)
+    throw new Error('Cabin could not be created')
   }
 
   return data
