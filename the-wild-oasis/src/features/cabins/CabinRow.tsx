@@ -49,9 +49,14 @@ const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
   const { mutate, isPending } = useMutation({
     mutationFn: deleteCabin,
     onSuccess() {
+      alert('Cabin successfully deleted')
+
       queryClient.invalidateQueries({
         queryKey: ['cabins'],
       })
+    },
+    onError(error) {
+      alert(error.message)
     },
   })
 
