@@ -15,12 +15,43 @@ export const getCabins = async () => {
 export const createCabin = async (
   cabin: Omit<Tables<'cabins'>, 'image'> & { image: File }
 ) => {
+  if (typeof cabin.image === 'string') {
+    // get image path
+    const imagePath = (cabin.image as string).split('/').pop()
+    const imageExtension = imagePath?.split('.').pop()
+    const copiedImageName = `${Date.now()}.${imageExtension}`
+
+    // copy image
+    const { error: copiedError } = await supabase.storage
+      .from('cabin-images')
+      .copy(imagePath!, copiedImageName)
+
+    if (copiedError) {
+      console.error(copiedError.message)
+
+      throw new Error('Could not copy cabin')
+    }
+
+    // get copied image public url
+    const { data: copiedImageData } = supabase.storage
+      .from('cabin-images')
+      .getPublicUrl(copiedImageName)
+
+    // upload cabin with copied image
+    const { data, error } = await supabase
+      .from('cabins')
+      .insert([{ ...cabin, image: copiedImageData.publicUrl }])
+
+    if (error) {
+      console.error(error)
+      throw new Error('Cabin could not be created')
+    }
+
+    return data
+  }
+
   const imageExtension = cabin.image.name.split('.').pop()
   const imageName = `${Date.now()}.${imageExtension}`
-
-  // const imagePath = `${
-  //   import.meta.env.VITE_SUPABASE_URL
-  // }/storage/v1/object/public/cabin-images/${imageName}`
 
   // upload image
   const { error: bucketError } = await supabase.storage
