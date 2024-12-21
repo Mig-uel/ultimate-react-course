@@ -78,10 +78,13 @@ const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
           <span>&mdash;</span>
         )}
         <div>
-          <button onClick={handleDuplicate}>
+          <button onClick={handleDuplicate} disabled={isLoading}>
             <HiSquare2Stack />
           </button>
-          <button onClick={() => setShowEditForm((prev) => !prev)}>
+          <button
+            onClick={() => setShowEditForm((prev) => !prev)}
+            disabled={isLoading}
+          >
             <HiPencil />
           </button>
           <button onClick={() => mutate(cabin)} disabled={isLoading}>
