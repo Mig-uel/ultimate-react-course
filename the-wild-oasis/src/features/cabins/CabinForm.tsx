@@ -38,7 +38,7 @@ function CabinForm({
         : (data: FormData) => createCabin({ ...data, image: data.image[0] }),
 
     onSuccess: () => {
-      toast.success(edit ? 'Cabin edited' : 'Cabin created')
+      toast.success(edit ? 'Cabin edited!' : 'Cabin created!')
       queryClient.invalidateQueries({ queryKey: ['cabins'] })
       reset()
     },
