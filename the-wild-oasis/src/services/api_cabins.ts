@@ -52,6 +52,87 @@ export const createCabin = async (
   return data
 }
 
+export const editCabin = async (
+  cabin: Omit<Tables<'cabins'>, 'image'> & { image: File },
+  oldImage = ''
+) => {
+  let imageName = ''
+  let publicUrl = ''
+  let oldImagePath = ''
+
+  // if user updated image
+  if (cabin.image) {
+    // construct image name
+    const imageExtension = cabin.image.name.split('.').pop()
+    imageName = `${Date.now()}.${imageExtension}`
+
+    // upload image
+    const { error: bucketError } = await supabase.storage
+      .from('cabin-images')
+      .upload(imageName, cabin.image)
+    if (bucketError) {
+      console.error(bucketError.message)
+      throw new Error(bucketError.message)
+    }
+
+    // get image public url
+    const { data: storageData } = supabase.storage
+      .from('cabin-images')
+      .getPublicUrl(imageName)
+    publicUrl = storageData.publicUrl
+
+    // get old image
+    // const { data, error: selectError } = await supabase
+    //   .from('cabins')
+    //   .select('*')
+    //   .eq('id', cabin.id)
+    //   .single()
+    // if (selectError) {
+    //   console.error(selectError.message)
+    //   throw new Error(selectError.message)
+    // }
+
+    // oldImagePath =
+    //   (data.image && data.image.split('/')[data.image.split('/').length - 1]) ||
+    //   ''
+
+    oldImagePath =
+      oldImage && oldImage.split('/')[oldImage.split('/').length - 1]
+  }
+
+  if (publicUrl) {
+    const { data, error } = await supabase
+      .from('cabins')
+      .update({ ...cabin, image: publicUrl })
+      .eq('id', cabin.id)
+      .select()
+      .single()
+
+    if (error) {
+      console.error(error.message)
+      throw new Error('Cabin could not be updated')
+    }
+
+    await supabase.storage.from('cabin-images').remove([oldImagePath])
+
+    return data
+  }
+
+  const { data, error } = await supabase
+    .from('cabins')
+    .update({ ...cabin, image: undefined })
+    .eq('id', cabin.id)
+    .select()
+    .single()
+
+  if (error) {
+    console.error(error.message)
+    throw new Error('Cabin could not be updated')
+  }
+
+  return data
+}
+
 export const deleteCabin = async (cabin: Tables<'cabins'>) => {
   const { data, error } = await supabase
     .from('cabins')
