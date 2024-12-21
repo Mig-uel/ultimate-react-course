@@ -48,9 +48,7 @@ function CabinForm({
     },
   })
 
-  const handleFormSubmit: SubmitHandler<FormData> = (data) => {
-    mutate(data)
-  }
+  const handleFormSubmit: SubmitHandler<FormData> = (data) => mutate(data)
 
   return (
     <Form onSubmit={handleSubmit(handleFormSubmit)}>
