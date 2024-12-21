@@ -1,8 +1,7 @@
-import toast from 'react-hot-toast'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { createCabin, editCabin } from '../../services/api_cabins'
 import { Button, FileInput, Form, FormRow, Input, Textarea } from '../../ui'
+import { useCreateCabin } from './useCreateCabin'
+import { useUpdateCabin } from './useUpdateCabin'
 import type { Tables } from '../../supabase_types'
 
 type FormData = Omit<Tables<'cabins'>, 'image'> & {
@@ -16,7 +15,6 @@ function CabinForm({
   cabin?: Tables<'cabins'>
   edit?: boolean
 }) {
-  const queryClient = useQueryClient()
   const {
     formState: { errors },
     getValues,
@@ -27,28 +25,13 @@ function CabinForm({
     defaultValues: edit && cabin ? { ...cabin, image: undefined } : {},
   })
 
-  const { isPending, mutate } = useMutation({
-    mutationFn:
-      edit && cabin
-        ? (data: FormData) =>
-            editCabin(
-              { ...data, image: data.image[0] },
-              cabin.image || undefined
-            )
-        : (data: FormData) => createCabin({ ...data, image: data.image[0] }),
+  const { create, isPendingCreating } = useCreateCabin()
+  const { isPendingUpdating, update } = useUpdateCabin(cabin!)
 
-    onSuccess: () => {
-      toast.success(edit ? 'Cabin edited!' : 'Cabin created!')
-      queryClient.invalidateQueries({ queryKey: ['cabins'] })
-      reset()
-    },
+  const handleFormSubmit: SubmitHandler<FormData> = (data) =>
+    edit ? update(data) : create(data)
 
-    onError: (error) => {
-      toast.error(error.message)
-    },
-  })
-
-  const handleFormSubmit: SubmitHandler<FormData> = (data) => mutate(data)
+  const isLoading = isPendingCreating || isPendingUpdating
 
   return (
     <Form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -59,7 +42,7 @@ function CabinForm({
           {...register('name', {
             required: 'Cabin name is required',
           })}
-          disabled={isPending}
+          disabled={isLoading}
         />
       </FormRow>
 
@@ -71,7 +54,7 @@ function CabinForm({
             required: 'Cabin max capacity is required',
             min: { value: 1, message: 'Capacity should be at least 1' },
           })}
-          disabled={isPending}
+          disabled={isLoading}
         />
       </FormRow>
 
@@ -87,7 +70,7 @@ function CabinForm({
             },
             max: { value: 32767, message: 'Price can not exceed 32767' },
           })}
-          disabled={isPending}
+          disabled={isLoading}
           min={1}
           onWheel={(e) => e.cancelable && e.preventDefault()}
         />
@@ -100,15 +83,15 @@ function CabinForm({
           {...register('discount', {
             required: 'Cabin discount is required',
             min: {
-              value: 1,
-              message: 'Cabin discount should be greater than or equal to 1',
+              value: 0,
+              message: 'Cabin discount should be greater than or equal to 0',
             },
             validate: (value) =>
               value! <= +getValues().regularPrice! ||
               'Discount should be less than the regular price',
           })}
-          disabled={isPending}
-          min={1}
+          disabled={isLoading}
+          min={0}
           onWheel={(e) => e.cancelable && e.preventDefault()}
         />
       </FormRow>
@@ -120,7 +103,7 @@ function CabinForm({
           {...register('description', {
             required: 'Cabin description is required',
           })}
-          disabled={isPending}
+          disabled={isLoading}
         />
       </FormRow>
 
@@ -128,7 +111,7 @@ function CabinForm({
         <FileInput
           id='image'
           accept='image/*'
-          disabled={isPending}
+          disabled={isLoading}
           {...register('image', {
             required: edit ? false : 'Cabin image is required',
           })}
@@ -137,10 +120,10 @@ function CabinForm({
 
       <FormRow errors={errors}>
         {/* type is an HTML attribute! */}
-        <Button disabled={isPending} $variation='secondary' type='reset'>
+        <Button disabled={isLoading} $variation='secondary' type='reset'>
           Cancel
         </Button>
-        <Button disabled={isPending}>{edit ? 'Edit' : 'Add'} cabin</Button>
+        <Button disabled={isLoading}>{edit ? 'Edit' : 'Add'} cabin</Button>
       </FormRow>
     </Form>
   )
