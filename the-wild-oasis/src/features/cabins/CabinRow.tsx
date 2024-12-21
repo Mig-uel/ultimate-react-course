@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { useDeleteCabin } from './useDeleteCabin'
-import { formatCurrency } from '../../utils/helpers'
 import styled from 'styled-components'
+import { useDeleteCabin } from './useDeleteCabin'
+import { useCreateCabin } from './useCreateCabin'
+import { formatCurrency } from '../../utils/helpers'
 import CabinForm from './CabinForm'
+import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2'
 import type { Tables } from '../../supabase_types'
 
 const TableRow = styled.div`
@@ -48,7 +50,18 @@ const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
 
   const { discount, image, maxCapacity, name, regularPrice } = cabin
 
-  const { isPending, mutate } = useDeleteCabin()
+  const { isPendingDeleting, mutate } = useDeleteCabin()
+  const { create, isPendingCreating } = useCreateCabin()
+
+  const isLoading = isPendingCreating || isPendingDeleting
+
+  const handleDuplicate = () => {
+    return create({
+      ...cabin,
+      name: `Copy of ${cabin.name}`,
+      id: Date.now(),
+    })
+  }
 
   return (
     <>
@@ -65,9 +78,14 @@ const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
           <span>&mdash;</span>
         )}
         <div>
-          <button onClick={() => setShowEditForm((prev) => !prev)}>Edit</button>
-          <button onClick={() => mutate(cabin)} disabled={isPending}>
-            Delete
+          <button onClick={handleDuplicate}>
+            <HiSquare2Stack />
+          </button>
+          <button onClick={() => setShowEditForm((prev) => !prev)}>
+            <HiPencil />
+          </button>
+          <button onClick={() => mutate(cabin)} disabled={isLoading}>
+            <HiTrash />
           </button>
         </div>
       </TableRow>
