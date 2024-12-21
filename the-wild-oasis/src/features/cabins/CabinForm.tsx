@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { createCabin } from '../../services/api_cabins'
+import { createCabin, editCabin } from '../../services/api_cabins'
 import { Button, FileInput, Form, FormRow, Input, Textarea } from '../../ui'
 import type { Tables } from '../../supabase_types'
 
@@ -9,7 +9,13 @@ type FormData = Omit<Tables<'cabins'>, 'image'> & {
   image: FileList
 }
 
-function CabinForm() {
+function CabinForm({
+  cabin,
+  edit,
+}: {
+  cabin?: Tables<'cabins'>
+  edit?: boolean
+}) {
   const queryClient = useQueryClient()
   const {
     formState: { errors },
@@ -17,12 +23,18 @@ function CabinForm() {
     handleSubmit,
     register,
     reset,
-  } = useForm<FormData>()
+  } = useForm<FormData>({
+    defaultValues: edit && cabin ? { ...cabin, image: undefined } : {},
+  })
+
   const { isPending, mutate } = useMutation({
-    mutationFn: createCabin,
+    mutationFn:
+      edit && cabin
+        ? (data: FormData) => editCabin(data, cabin && cabin.image)
+        : createCabin,
 
     onSuccess: () => {
-      toast.success('New cabin successfully created')
+      toast.success('Edited cabin successfully')
       queryClient.invalidateQueries({ queryKey: ['cabins'] })
       reset()
     },
@@ -76,7 +88,6 @@ function CabinForm() {
         <Input
           type='number'
           id='discount'
-          defaultValue={0}
           {...register('discount', {
             required: 'Cabin discount is required',
             validate: (value) =>
@@ -91,7 +102,6 @@ function CabinForm() {
         <Textarea
           type='number'
           id='description'
-          defaultValue=''
           {...register('description', {
             required: 'Cabin description is required',
           })}
@@ -105,7 +115,7 @@ function CabinForm() {
           accept='image/*'
           disabled={isPending}
           {...register('image', {
-            required: 'Cabin image is required',
+            required: edit ? false : 'Cabin image is required',
           })}
         />
       </FormRow>
@@ -115,7 +125,7 @@ function CabinForm() {
         <Button disabled={isPending} $variation='secondary' type='reset'>
           Cancel
         </Button>
-        <Button disabled={isPending}>Add cabin</Button>
+        <Button disabled={isPending}>{edit ? 'Edit' : 'Add'} cabin</Button>
       </FormRow>
     </Form>
   )
