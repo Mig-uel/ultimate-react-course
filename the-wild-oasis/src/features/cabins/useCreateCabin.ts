@@ -4,15 +4,21 @@ import { createCabin } from '../../services/api_cabins'
 import type { Tables } from '../../supabase_types'
 
 type FormData = Omit<Tables<'cabins'>, 'image'> & {
-  image: FileList
+  image: FileList | string | null
 }
 
 export const useCreateCabin = () => {
   const queryClient = useQueryClient()
 
   const { isPending: isPendingCreating, mutate: create } = useMutation({
-    mutationFn: (data: FormData) =>
-      createCabin({ ...data, image: data.image[0] }),
+    mutationFn: (data: FormData) => {
+      const { image, ...rest } = data
+
+      if (image instanceof FileList)
+        return createCabin({ ...rest, image: image[0] })
+      
+      return createCabin({ ...rest, image })
+    },
 
     onSuccess: () => {
       toast.success('Cabin created!')
