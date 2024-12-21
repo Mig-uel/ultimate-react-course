@@ -81,21 +81,6 @@ export const editCabin = async (
       .getPublicUrl(imageName)
     publicUrl = storageData.publicUrl
 
-    // get old image
-    // const { data, error: selectError } = await supabase
-    //   .from('cabins')
-    //   .select('*')
-    //   .eq('id', cabin.id)
-    //   .single()
-    // if (selectError) {
-    //   console.error(selectError.message)
-    //   throw new Error(selectError.message)
-    // }
-
-    // oldImagePath =
-    //   (data.image && data.image.split('/')[data.image.split('/').length - 1]) ||
-    //   ''
-
     oldImagePath =
       oldImage && oldImage.split('/')[oldImage.split('/').length - 1]
   }
