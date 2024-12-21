@@ -13,11 +13,13 @@ export const getCabins = async () => {
 }
 
 export const createCabin = async (
-  cabin: Omit<Tables<'cabins'>, 'image'> & { image: File }
+  cabin: Omit<Tables<'cabins'>, 'image'> & {
+    image: File | string | null
+  }
 ) => {
   if (typeof cabin.image === 'string') {
     // get image path
-    const imagePath = (cabin.image as string).split('/').pop()
+    const imagePath = cabin.image.split('/').pop()
     const imageExtension = imagePath?.split('.').pop()
     const copiedImageName = `${Date.now()}.${imageExtension}`
 
@@ -48,39 +50,41 @@ export const createCabin = async (
     }
 
     return data
+  } else if (cabin.image instanceof File) {
+    const imageExtension = cabin.image.name.split('.').pop()
+    const imageName = `${Date.now()}.${imageExtension}`
+
+    // upload image
+    const { error: bucketError } = await supabase.storage
+      .from('cabin-images')
+      .upload(imageName, cabin.image)
+
+    if (bucketError) {
+      console.error(bucketError.message)
+      throw new Error(bucketError.message)
+    }
+
+    // get image public url
+    const { data: storageData } = supabase.storage
+      .from('cabin-images')
+      .getPublicUrl(imageName)
+
+    // upload cabin
+    const { data, error } = await supabase
+      .from('cabins')
+      .insert([{ ...cabin, image: storageData.publicUrl }])
+
+    if (error) {
+      await supabase.storage.from('cabin-images').remove([imageName])
+
+      console.error(error)
+      throw new Error('Cabin could not be created')
+    }
+
+    return data
   }
 
-  const imageExtension = cabin.image.name.split('.').pop()
-  const imageName = `${Date.now()}.${imageExtension}`
-
-  // upload image
-  const { error: bucketError } = await supabase.storage
-    .from('cabin-images')
-    .upload(imageName, cabin.image)
-
-  if (bucketError) {
-    console.error(bucketError.message)
-    throw new Error(bucketError.message)
-  }
-
-  // get image public url
-  const { data: storageData } = supabase.storage
-    .from('cabin-images')
-    .getPublicUrl(imageName)
-
-  // upload cabin
-  const { data, error } = await supabase
-    .from('cabins')
-    .insert([{ ...cabin, image: storageData.publicUrl }])
-
-  if (error) {
-    await supabase.storage.from('cabin-images').remove([imageName])
-
-    console.error(error)
-    throw new Error('Cabin could not be created')
-  }
-
-  return data
+  throw new Error('Invalid image format')
 }
 
 export const editCabin = async (
