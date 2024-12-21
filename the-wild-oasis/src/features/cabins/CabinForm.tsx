@@ -81,8 +81,15 @@ function CabinForm({
           id='regularPrice'
           {...register('regularPrice', {
             required: 'Cabin price is required',
+            min: {
+              value: 1,
+              message: 'Cabin price should be greater than or equal to 1',
+            },
+            max: { value: 32767, message: 'Price can not exceed 32767' },
           })}
           disabled={isPending}
+          min={1}
+          onWheel={(e) => e.cancelable && e.preventDefault()}
         />
       </FormRow>
 
@@ -92,11 +99,17 @@ function CabinForm({
           id='discount'
           {...register('discount', {
             required: 'Cabin discount is required',
+            min: {
+              value: 1,
+              message: 'Cabin discount should be greater than or equal to 1',
+            },
             validate: (value) =>
               value! <= +getValues().regularPrice! ||
               'Discount should be less than the regular price',
           })}
           disabled={isPending}
+          min={1}
+          onWheel={(e) => e.cancelable && e.preventDefault()}
         />
       </FormRow>
 
