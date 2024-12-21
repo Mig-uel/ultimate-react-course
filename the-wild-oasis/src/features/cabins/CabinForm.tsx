@@ -30,11 +30,15 @@ function CabinForm({
   const { isPending, mutate } = useMutation({
     mutationFn:
       edit && cabin
-        ? (data: FormData) => editCabin(data, cabin && cabin.image)
-        : createCabin,
+        ? (data: FormData) =>
+            editCabin(
+              { ...data, image: data.image[0] },
+              cabin.image || undefined
+            )
+        : (data: FormData) => createCabin({ ...data, image: data.image[0] }),
 
     onSuccess: () => {
-      toast.success('Edited cabin successfully')
+      toast.success(edit ? 'Cabin edited' : 'Cabin created')
       queryClient.invalidateQueries({ queryKey: ['cabins'] })
       reset()
     },
@@ -45,7 +49,7 @@ function CabinForm({
   })
 
   const handleFormSubmit: SubmitHandler<FormData> = (data) => {
-    mutate({ ...data, image: data.image[0] })
+    mutate(data)
   }
 
   return (
