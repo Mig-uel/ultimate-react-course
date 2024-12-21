@@ -5,6 +5,10 @@ import { createCabin } from '../../services/api_cabins'
 import { Button, FileInput, Form, FormRow, Input, Textarea } from '../../ui'
 import type { Tables } from '../../supabase_types'
 
+type FormData = Omit<Tables<'cabins'>, 'image'> & {
+  image: FileList
+}
+
 function CabinForm() {
   const queryClient = useQueryClient()
   const {
@@ -13,7 +17,7 @@ function CabinForm() {
     handleSubmit,
     register,
     reset,
-  } = useForm<Tables<'cabins'>>()
+  } = useForm<FormData>()
   const { isPending, mutate } = useMutation({
     mutationFn: createCabin,
 
@@ -28,8 +32,8 @@ function CabinForm() {
     },
   })
 
-  const handleFormSubmit: SubmitHandler<Tables<'cabins'>> = (data) => {
-    mutate(data)
+  const handleFormSubmit: SubmitHandler<FormData> = (data) => {
+    mutate({ ...data, image: data.image[0] })
   }
 
   return (
@@ -96,7 +100,14 @@ function CabinForm() {
       </FormRow>
 
       <FormRow label='Image' errors={errors} id='image'>
-        <FileInput id='image' accept='image/*' disabled={isPending} />
+        <FileInput
+          id='image'
+          accept='image/*'
+          disabled={isPending}
+          {...register('image', {
+            required: 'Cabin image is required',
+          })}
+        />
       </FormRow>
 
       <FormRow errors={errors}>
