@@ -52,13 +52,23 @@ export const createCabin = async (
   return data
 }
 
-export const deleteCabin = async (id: number) => {
-  const { data, error } = await supabase.from('cabins').delete().eq('id', id)
+export const deleteCabin = async (cabin: Tables<'cabins'>) => {
+  const { data, error } = await supabase
+    .from('cabins')
+    .delete()
+    .eq('id', +cabin.id)
 
   if (error) {
     console.error(error.message)
     throw new Error('Cabin could not be deleted')
   }
+
+  if (!cabin.image) return data
+
+  const imagePathArray = cabin.image?.split('/')
+  const imagePath = `${imagePathArray[imagePathArray.length - 1]}`
+
+  await supabase.storage.from('cabin-images').remove([imagePath])
 
   return data
 }
