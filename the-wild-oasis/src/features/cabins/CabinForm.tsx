@@ -26,9 +26,7 @@ function CabinForm({
   })
 
   const { create, isPendingCreating } = useCreateCabin()
-  const { isPendingUpdating, update } = useUpdateCabin(
-    cabin || ({} as Tables<'cabins'>)
-  )
+  const { isPendingUpdating, update } = useUpdateCabin(cabin!)
 
   const handleFormSubmit: SubmitHandler<FormData> = (data) =>
     edit
