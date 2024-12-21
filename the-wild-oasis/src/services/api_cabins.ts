@@ -54,7 +54,7 @@ export const createCabin = async (
 
 export const editCabin = async (
   cabin: Omit<Tables<'cabins'>, 'image'> & { image: File },
-  oldImage = ''
+  oldImage: string
 ) => {
   let imageName = ''
   let publicUrl = ''
