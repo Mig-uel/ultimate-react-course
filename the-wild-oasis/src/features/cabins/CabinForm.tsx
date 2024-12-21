@@ -31,7 +31,17 @@ function CabinForm({
   )
 
   const handleFormSubmit: SubmitHandler<FormData> = (data) =>
-    edit ? update(data) : create(data)
+    edit
+      ? update(data, {
+          onSuccess() {
+            reset()
+          },
+        })
+      : create(data, {
+          onSuccess() {
+            reset()
+          },
+        })
 
   const isLoading = isPendingCreating || isPendingUpdating
 
