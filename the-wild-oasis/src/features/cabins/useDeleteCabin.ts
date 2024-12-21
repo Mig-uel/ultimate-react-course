@@ -5,7 +5,7 @@ import { deleteCabin } from '../../services/api_cabins'
 export const useDeleteCabin = () => {
   const queryClient = useQueryClient()
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending: isPendingDeleting } = useMutation({
     mutationFn: deleteCabin,
 
     onSuccess() {
@@ -22,7 +22,7 @@ export const useDeleteCabin = () => {
   })
 
   return {
+    isPendingDeleting,
     mutate,
-    isPending,
   }
 }
