@@ -45,7 +45,7 @@ const Discount = styled.div`
 `
 const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
   const queryClient = useQueryClient()
-  const { discount, id, image, maxCapacity, name, regularPrice } = cabin
+  const { discount, image, maxCapacity, name, regularPrice } = cabin
 
   const { mutate, isPending } = useMutation({
     mutationFn: deleteCabin,
@@ -71,7 +71,7 @@ const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
       <Price>{formatCurrency(regularPrice!)}</Price>
       <Discount>{formatCurrency(discount!)}</Discount>
 
-      <button onClick={() => mutate(id)} disabled={isPending}>
+      <button onClick={() => mutate(cabin)} disabled={isPending}>
         Delete
       </button>
     </TableRow>
