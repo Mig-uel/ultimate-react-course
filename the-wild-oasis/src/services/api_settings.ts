@@ -1,4 +1,5 @@
-import supabase from './supabase'
+import { supabase } from './supabase'
+import type { Tables } from '../supabase_types'
 
 export async function getSettings() {
   const { data, error } = await supabase.from('settings').select('*').single()
@@ -7,11 +8,12 @@ export async function getSettings() {
     console.error(error)
     throw new Error('Settings could not be loaded')
   }
+
   return data
 }
 
 // We expect a newSetting object that looks like {setting: newValue}
-export async function updateSetting(newSetting) {
+export async function updateSetting(newSetting: Tables<'settings'>) {
   const { data, error } = await supabase
     .from('settings')
     .update(newSetting)
@@ -23,5 +25,6 @@ export async function updateSetting(newSetting) {
     console.error(error)
     throw new Error('Settings could not be updated')
   }
+
   return data
 }
