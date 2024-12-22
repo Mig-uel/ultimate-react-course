@@ -44,16 +44,16 @@ const FormRow = ({
   errors,
   children,
 }: {
-  id?: keyof Tables<'cabins'>
+  id?: keyof Tables<'cabins'> | keyof Tables<'settings'>
   label?: string
-  errors: FieldErrors<Tables<'cabins'>>
+  errors?: FieldErrors<Tables<'cabins'> | Tables<'settings'>>
   children: React.ReactNode
 }) => {
   return (
     <StyledFormRow>
       <Label htmlFor={id}>{label}</Label>
       {children}
-      {id && errors[id] && <Error>{errors[id].message}</Error>}
+      {id && errors && errors[id] && <Error>{errors[id].message}</Error>}
     </StyledFormRow>
   )
 }
