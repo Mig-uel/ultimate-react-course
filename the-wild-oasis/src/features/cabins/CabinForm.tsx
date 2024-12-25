@@ -11,9 +11,11 @@ type FormData = Omit<Tables<'cabins'>, 'image'> & {
 function CabinForm({
   cabin,
   edit,
+  onCloseModal,
 }: {
   cabin?: Tables<'cabins'>
   edit?: boolean
+  onCloseModal?: () => void
 }) {
   const {
     formState: { errors },
@@ -37,14 +39,17 @@ function CabinForm({
         })
       : create(data, {
           onSuccess() {
-            reset()
+            onCloseModal?.()
           },
         })
 
   const isLoading = isPendingCreating || isPendingUpdating
 
   return (
-    <Form onSubmit={handleSubmit(handleFormSubmit)}>
+    <Form
+      onSubmit={handleSubmit(handleFormSubmit)}
+      type={onCloseModal ? 'modal' : 'regular'}
+    >
       <FormRow label='Cabin Name' errors={errors} id='name'>
         <Input
           type='text'
@@ -130,7 +135,12 @@ function CabinForm({
 
       <FormRow errors={errors}>
         {/* type is an HTML attribute! */}
-        <Button disabled={isLoading} $variation='secondary' type='reset'>
+        <Button
+          disabled={isLoading}
+          $variation='secondary'
+          type='reset'
+          onClick={() => onCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button disabled={isLoading}>{edit ? 'Edit' : 'Add'} cabin</Button>
