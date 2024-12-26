@@ -4,7 +4,6 @@ import { HiXMark } from 'react-icons/hi2'
 import {
   cloneElement,
   createContext,
-  DOMElement,
   useContext,
   useEffect,
   useRef,
@@ -61,7 +60,7 @@ const Button = styled.button`
 `
 
 export const ModalContext = createContext({
-  open: (windowName: string) => {},
+  open: (_: string) => {},
   close: () => {},
   openName: '',
 })
