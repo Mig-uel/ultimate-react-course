@@ -1,7 +1,8 @@
+import { createContext, useContext } from 'react'
 import styled from 'styled-components'
 
 type CommonRowProps = {
-  columns: number
+  $columns: string
 }
 
 const StyledTable = styled.div`
@@ -15,7 +16,7 @@ const StyledTable = styled.div`
 
 const CommonRow = styled.div<CommonRowProps>`
   display: grid;
-  grid-template-columns: ${(props) => props.columns};
+  grid-template-columns: ${(props) => props.$columns};
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
@@ -55,10 +56,63 @@ const Footer = styled.footer`
     display: none;
   }
 `
-
 const Empty = styled.p`
   font-size: 1.6rem;
   font-weight: 500;
   text-align: center;
   margin: 2.4rem;
 `
+
+const TableContext = createContext({
+  cols: '',
+})
+
+// TABLE COMPOUND COMPONENT
+const Table = ({
+  cols,
+  children,
+}: {
+  cols: string
+  children: React.ReactNode
+}) => {
+  const value = {
+    cols,
+  }
+
+  return (
+    <TableContext.Provider value={value}>
+      <StyledTable role='table'>{children}</StyledTable>
+    </TableContext.Provider>
+  )
+}
+
+const Header = ({ children }: { children: React.ReactNode }) => {
+  const { cols } = useContext(TableContext)
+
+  return (
+    <StyledHeader role='row' $columns={cols} as='header'>
+      {children}
+    </StyledHeader>
+  )
+}
+
+const Row = ({ children }: { children: React.ReactNode }) => {
+  const { cols } = useContext(TableContext)
+
+  return (
+    <StyledRow role='row' $columns={cols}>
+      {children}
+    </StyledRow>
+  )
+}
+
+const Body = ({ children }: { children: React.ReactNode }) => {
+  return <StyledBody></StyledBody>
+}
+
+Table.Header = Header
+Table.Row = Row
+Table.Body = Body
+Table.Footer = Footer
+
+export default Table
