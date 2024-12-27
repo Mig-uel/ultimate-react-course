@@ -4,14 +4,16 @@ import CabinForm from './CabinForm'
 
 const AddCabin = () => {
   return (
-    <Modal>
-      <Modal.Open opens='form'>
-        <Button>Add New Cabin</Button>
-      </Modal.Open>
-      <Modal.Window name='form'>
-        <CabinForm />
-      </Modal.Window>
-    </Modal>
+    <div>
+      <Modal>
+        <Modal.Open opens='form'>
+          <Button>Add New Cabin</Button>
+        </Modal.Open>
+        <Modal.Window name='form'>
+          <CabinForm />
+        </Modal.Window>
+      </Modal>
+    </div>
   )
 }
 
