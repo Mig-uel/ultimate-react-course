@@ -23,10 +23,12 @@ function ConfirmDelete({
   resourceName,
   onConfirm,
   disabled,
+  onCloseModal,
 }: {
   resourceName: string
   onConfirm: () => void
   disabled: boolean
+  onCloseModal: () => void
 }) {
   return (
     <StyledConfirmDelete>
@@ -37,10 +39,14 @@ function ConfirmDelete({
       </p>
 
       <div>
-        <Button variation='secondary' disabled={disabled}>
+        <Button
+          $variation='secondary'
+          disabled={disabled}
+          onClick={onCloseModal}
+        >
           Cancel
         </Button>
-        <Button variation='danger' disabled={disabled}>
+        <Button $variation='danger' disabled={disabled} onClick={onConfirm}>
           Delete
         </Button>
       </div>
