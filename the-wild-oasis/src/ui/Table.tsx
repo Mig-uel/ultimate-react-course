@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react'
 import styled from 'styled-components'
+import { Tables } from '../supabase_types'
 
 type CommonRowProps = {
   $columns: string
@@ -106,8 +107,16 @@ const Row = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-const Body = ({ children }: { children: React.ReactNode }) => {
-  return <StyledBody></StyledBody>
+const Body = ({
+  data,
+  render,
+}: {
+  data: Tables<'cabins'>[]
+  render: (cabin: Tables<'cabins'>) => React.ReactNode
+}) => {
+  if (!data.length) return <Empty>No cabins available at the moment</Empty>
+
+  return <StyledBody>{data.map(render)}</StyledBody>
 }
 
 Table.Header = Header
