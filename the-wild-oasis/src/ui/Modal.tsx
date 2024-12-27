@@ -1,14 +1,8 @@
+import { cloneElement, createContext, useContext, useState } from 'react'
 import { createPortal } from 'react-dom'
-import styled from 'styled-components'
 import { HiXMark } from 'react-icons/hi2'
-import {
-  cloneElement,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import styled from 'styled-components'
+import { useOutsideClick } from '../hooks/useOutsideClick'
 
 const StyledModal = styled.div`
   position: fixed;
@@ -97,18 +91,7 @@ const Window = ({
   name: string
 }) => {
   const { openName, close } = useContext(ModalContext)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        close()
-      }
-    }
-
-    document.addEventListener('click', handleClick, true)
-    return () => document.removeEventListener('click', handleClick, true)
-  }, [close])
+  const ref = useOutsideClick(close)
 
   if (name !== openName) return null
 
