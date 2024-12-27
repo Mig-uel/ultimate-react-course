@@ -3,6 +3,7 @@ import CabinRow from './CabinRow'
 import { Spinner } from '../../ui/'
 import Table from '../../ui/Table'
 import { HiTableCells } from 'react-icons/hi2'
+import { Tables } from '../../supabase_types'
 
 const CabinTable = () => {
   const { cabins, isLoading } = useCabins()
@@ -22,9 +23,10 @@ const CabinTable = () => {
         <div></div>
       </Table.Header>
 
-      {cabins?.map((cabin) => (
-        <CabinRow cabin={cabin} key={cabin.id} />
-      ))}
+      <Table.Body
+        data={cabins as Tables<'cabins'>[]}
+        render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
+      />
     </Table>
   )
 }
