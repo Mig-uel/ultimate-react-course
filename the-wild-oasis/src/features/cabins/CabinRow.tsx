@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2'
 import styled from 'styled-components'
-import { useDeleteCabin } from './useDeleteCabin'
-import { useCreateCabin } from './useCreateCabin'
+import type { Tables } from '../../supabase_types'
+import Modal from '../../ui/Modal'
 import { formatCurrency } from '../../utils/helpers'
 import CabinForm from './CabinForm'
-import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2'
-import type { Tables } from '../../supabase_types'
+import { useCreateCabin } from './useCreateCabin'
+import { useDeleteCabin } from './useDeleteCabin'
+import ConfirmDelete from '../../ui/ConfirmDelete'
 
 const TableRow = styled.div`
   display: grid;
@@ -46,8 +47,6 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `
 const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
-  const [showEditForm, setShowEditForm] = useState(false)
-
   const { discount, image, maxCapacity, name, regularPrice } = cabin
 
   const { isPendingDeleting, mutate } = useDeleteCabin()
@@ -64,36 +63,53 @@ const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
   }
 
   return (
-    <>
-      <TableRow role='row'>
-        <Img src={image!} />
-        <Cabin>{name}</Cabin>
+    <TableRow role='row'>
+      <Img src={image!} />
+      <Cabin>{name}</Cabin>
 
-        <div>{maxCapacity} GUESTS</div>
+      <div>{maxCapacity} GUESTS</div>
 
-        <Price>{formatCurrency(regularPrice!)}</Price>
-        {discount ? (
-          <Discount>{formatCurrency(discount!)}</Discount>
-        ) : (
-          <span>&mdash;</span>
-        )}
-        <div>
-          <button onClick={handleDuplicate} disabled={isLoading}>
-            <HiSquare2Stack />
-          </button>
-          <button
-            onClick={() => setShowEditForm((prev) => !prev)}
-            disabled={isLoading}
-          >
-            <HiPencil />
-          </button>
-          <button onClick={() => mutate(cabin)} disabled={isLoading}>
-            <HiTrash />
-          </button>
-        </div>
-      </TableRow>
-      {showEditForm && <CabinForm cabin={cabin} edit />}
-    </>
+      <Price>{formatCurrency(regularPrice!)}</Price>
+      {discount ? (
+        <Discount>{formatCurrency(discount!)}</Discount>
+      ) : (
+        <span>&mdash;</span>
+      )}
+      <div>
+        <button onClick={handleDuplicate} disabled={isLoading}>
+          <HiSquare2Stack />
+        </button>
+
+        {/* MODAL */}
+        <Modal>
+          {/* EDIT MODAL */}
+          <Modal.Open opens='edit'>
+            <button disabled={isLoading}>
+              <HiPencil />
+            </button>
+          </Modal.Open>
+
+          <Modal.Window name='edit'>
+            <CabinForm cabin={cabin} edit />
+          </Modal.Window>
+
+          {/* DELETE MODAL */}
+          <Modal.Open opens='delete'>
+            <button disabled={isLoading}>
+              <HiTrash />
+            </button>
+          </Modal.Open>
+          <Modal.Window name='delete'>
+            {/* @ts-expect-error props being passed in cloneElement() */}
+            <ConfirmDelete
+              disabled={isLoading}
+              onConfirm={() => mutate(cabin)}
+              resourceName='cabins'
+            />
+          </Modal.Window>
+        </Modal>
+      </div>
+    </TableRow>
   )
 }
 export default CabinRow
