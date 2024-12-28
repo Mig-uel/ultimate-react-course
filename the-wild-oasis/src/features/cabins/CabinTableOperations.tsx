@@ -14,10 +14,10 @@ const CabinTableOperations = () => {
 
       <SortBy
         options={[
-          { label: 'Name (A-Z)', value: 'a-z' },
+          { label: 'Name (A-Z)', value: 'name-asc' },
           {
             label: 'Name (Z-A)',
-            value: 'z-a',
+            value: 'name-desc',
           },
           {
             label: 'Price (low-high)',
