@@ -59,6 +59,7 @@ const Filter = ({
         <FilterButton
           onClick={handleClick.bind(null, option.value)}
           $active={searchParams.get(filterField) === option.value}
+          disabled={searchParams.get(filterField) === option.value}
           key={option.value}
         >
           {option.label}
