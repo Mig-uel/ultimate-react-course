@@ -76,15 +76,27 @@ const MenuContext = createContext<{
   openId: string | number
   close: () => void
   open: React.Dispatch<React.SetStateAction<string>>
+  position: { x: number; y: number } | null
+  setPosition: React.Dispatch<
+    React.SetStateAction<{
+      x: number
+      y: number
+    } | null>
+  >
 }>({
   close: () => {},
   open: () => {},
   openId: '',
+  position: null,
+  setPosition: () => {},
 })
 
 /** MENUS PARENT COMPONENT */
 const Menus = ({ children }: { children: React.ReactNode }) => {
   const [openId, setOpenId] = useState('')
+  const [position, setPosition] = useState<{ x: number; y: number } | null>(
+    null
+  )
 
   const close = () => setOpenId('')
   const open = setOpenId
@@ -93,6 +105,8 @@ const Menus = ({ children }: { children: React.ReactNode }) => {
     openId,
     close,
     open,
+    position,
+    setPosition,
   }
 
   return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>
@@ -100,10 +114,20 @@ const Menus = ({ children }: { children: React.ReactNode }) => {
 
 /** MENUS TOGGLE COMPONENT */
 const Toggle = ({ id }: { id: number }) => {
-  const { openId, close, open } = useContext(MenuContext)
+  const { openId, close, open, setPosition } = useContext(MenuContext)
 
-  const handleClick = () =>
-    openId === '' || +openId !== +id ? open(id.toString()) : close()
+  const handleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    if (e.target instanceof Element) {
+      const rect = e.target.closest('button')?.getBoundingClientRect()
+
+      setPosition({
+        x: window.innerWidth - (rect?.width ?? 0) - (rect?.x ?? 0),
+        y: (rect?.y ?? 0) + (rect?.height ?? 0) + 8,
+      })
+    }
+
+    return openId === '' || +openId !== +id ? open(id.toString()) : close()
+  }
 
   return (
     <StyledToggle onClick={handleClick}>
@@ -113,12 +137,14 @@ const Toggle = ({ id }: { id: number }) => {
 }
 
 const List = ({ id, children }: { id: number; children: React.ReactNode }) => {
-  const { openId } = useContext(MenuContext)
+  const { openId, position } = useContext(MenuContext)
 
   if (+openId !== +id) return null
 
   return createPortal(
-    <StyledList $position={{ x: 20, y: 20 }}>{children}</StyledList>,
+    <StyledList $position={position || { x: 20, y: 20 }}>
+      {children}
+    </StyledList>,
     document.body
   )
 }
