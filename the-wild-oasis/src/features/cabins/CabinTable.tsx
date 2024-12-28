@@ -4,12 +4,15 @@ import { Menus, Spinner, Table } from '../../ui/'
 import { HiTableCells } from 'react-icons/hi2'
 import { Tables } from '../../supabase_types'
 import { useSearchParams } from 'react-router-dom'
+import Empty from '../../ui/Empty'
 
 const CabinTable = () => {
   const { cabins, isLoading } = useCabins()
   const [searchParams] = useSearchParams()
 
   if (isLoading) return <Spinner />
+
+  if (!cabins?.length) return <Empty resource='cabins' />
 
   // FILTER
   const filterValue = searchParams.get('discount') || 'all'
