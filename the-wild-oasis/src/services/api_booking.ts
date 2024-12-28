@@ -1,7 +1,18 @@
 import { getToday } from '../utils/helpers'
-import supabase from './supabase'
+import { supabase } from './supabase'
 
-export async function getBooking(id) {
+export const getBookings = async () => {
+  const { data, error } = await supabase.from('bookings').select('*')
+
+  if (error) {
+    console.error(error.message)
+    throw new Error('Bookings could not be fetched')
+  }
+
+  return data
+}
+
+export async function getBooking(id: number) {
   const { data, error } = await supabase
     .from('bookings')
     .select('*, cabins(*), guests(*)')
