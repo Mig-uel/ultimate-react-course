@@ -1,13 +1,11 @@
 import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2'
 import styled from 'styled-components'
-import type { Tables } from '../../supabase_types'
-import Modal from '../../ui/Modal'
 import { formatCurrency } from '../../utils/helpers'
 import CabinForm from './CabinForm'
 import { useCreateCabin } from './useCreateCabin'
 import { useDeleteCabin } from './useDeleteCabin'
-import ConfirmDelete from '../../ui/ConfirmDelete'
-import Table from '../../ui/Table'
+import { ConfirmDelete, Menus, Modal, Table } from '../../ui'
+import type { Tables } from '../../supabase_types'
 
 const Img = styled.img`
   display: block;
@@ -97,6 +95,16 @@ const CabinRow = ({ cabin }: { cabin: Tables<'cabins'> }) => {
             />
           </Modal.Window>
         </Modal>
+
+        <Menus.Menu>
+          <Menus.Toggle id={cabin.id} />
+
+          <Menus.List id={cabin.id}>
+            <Menus.Button>Dupe</Menus.Button>
+            <Menus.Button>Edit</Menus.Button>
+            <Menus.Button>Delete</Menus.Button>
+          </Menus.List>
+        </Menus.Menu>
       </div>
     </Table.Row>
   )
