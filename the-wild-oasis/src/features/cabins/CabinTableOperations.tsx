@@ -1,4 +1,4 @@
-import { Filter, TableOperations } from '../../ui'
+import { Filter, SortBy, TableOperations } from '../../ui'
 
 const CabinTableOperations = () => {
   return (
@@ -9,6 +9,32 @@ const CabinTableOperations = () => {
           { value: 'all', label: 'All' },
           { value: 'no-discount', label: 'No Discount' },
           { value: 'with-discount', label: 'With Discount' },
+        ]}
+      />
+
+      <SortBy
+        options={[
+          { label: 'Name (A-Z)', value: 'a-z' },
+          {
+            label: 'Name (Z-A)',
+            value: 'z-a',
+          },
+          {
+            label: 'Price (low-high)',
+            value: 'regularPrice-asc',
+          },
+          {
+            label: 'Price (high-low)',
+            value: 'regularPrice-desc',
+          },
+          {
+            label: 'Capacity (low-high)',
+            value: 'maxCapacity-asc',
+          },
+          {
+            label: 'Capacity (high-low)',
+            value: 'maxCapacity-desc',
+          },
         ]}
       />
     </TableOperations>
