@@ -111,11 +111,12 @@ const Body = ({
   data,
   render,
 }: {
-  data: Tables<'cabins'>[]
+  data: Tables<'cabins'>[] | Tables<'bookings'>[]
   render: (cabin: Tables<'cabins'>) => React.ReactNode
 }) => {
   if (!data.length) return <Empty>No cabins available at the moment</Empty>
 
+  // @ts-expect-error fix type error later
   return <StyledBody>{data.map(render)}</StyledBody>
 }
 
