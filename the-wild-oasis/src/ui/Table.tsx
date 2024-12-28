@@ -111,7 +111,7 @@ const Body = ({
   data,
   render,
 }: {
-  data: Tables<'cabins'>[] | Tables<'bookings'>[]
+  data: Tables<'cabins'>[] | Partial<Tables<'bookings'>>[]
   render: (cabin: Tables<'cabins'>) => React.ReactNode
 }) => {
   if (!data.length) return <Empty>No cabins available at the moment</Empty>
