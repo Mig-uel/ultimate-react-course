@@ -102,9 +102,8 @@ const Menus = ({ children }: { children: React.ReactNode }) => {
 const Toggle = ({ id }: { id: number }) => {
   const { openId, close, open } = useContext(MenuContext)
 
-  const handleClick = () => {
-    openId === '' || +openId !== +id ? open(id) : close()
-  }
+  const handleClick = () =>
+    openId === '' || +openId !== +id ? open(id.toString()) : close()
 
   return (
     <StyledToggle onClick={handleClick}>
