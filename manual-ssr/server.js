@@ -74,12 +74,13 @@ const server = createServer((req, res) => {
 
   if (pathName === '/') {
     const renderedHTML = renderToString(<Home />)
+    const html = htmlTemplate.replace('%%CONTENT%%', renderedHTML)
 
     res.writeHead(200, {
       'content-type': 'text/html',
     })
 
-    res.end(renderedHTML)
+    res.end(html)
   } else if (pathName === '/test') res.end('Test')
   else res.end('The URL cannot be found ')
 })
