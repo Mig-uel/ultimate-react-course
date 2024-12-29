@@ -5,9 +5,6 @@ const { readFileSync } = require('fs')
 const { createServer } = require('http')
 const { renderToString } = require('react-dom/server')
 
-const htmlFilePath = path.resolve(__dirname, 'index.html')
-const htmlTemplate = readFileSync(htmlFilePath, 'utf-8')
-
 const pizzas = [
   {
     name: 'Focaccia',
@@ -68,6 +65,12 @@ function MenuItem({ pizza }) {
   )
 }
 
+const htmlFilePath = path.resolve(__dirname, 'index.html')
+const htmlTemplate = readFileSync(htmlFilePath, 'utf-8')
+
+const clientJSPath = path.resolve(__dirname, 'client.js')
+const clientJS = readFileSync(clientJSPath, 'utf-8')
+
 const port = 5000
 const server = createServer((req, res) => {
   const pathName = parse(req.url, true).pathname
@@ -81,8 +84,12 @@ const server = createServer((req, res) => {
     })
 
     res.end(html)
-  } else if (pathName === '/test') res.end('Test')
-  else res.end('The URL cannot be found ')
+  } else if (pathName === '/client.js') {
+    res.writeHead(200, {
+      'content-type': 'application/javascript',
+    })
+    res.end(clientJS)
+  } else res.end('The URL cannot be found ')
 })
 
 server.listen(port, () =>
