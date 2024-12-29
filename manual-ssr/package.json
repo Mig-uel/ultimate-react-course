@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "node --watch server.js"
+    "dev": "node --watch start.js"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
