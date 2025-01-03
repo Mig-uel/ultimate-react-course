@@ -27,7 +27,7 @@ const Navigation = () => {
             href='/account'
             className='hover:text-accent-400 transition-colors'
           >
-            Guest area
+            Account
           </Link>
         </li>
       </ul>
