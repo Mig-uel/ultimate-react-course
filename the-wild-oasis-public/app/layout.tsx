@@ -19,7 +19,8 @@ export const metadata: Metadata = {
     template: '%s - The Wild Oasis',
     default: 'The Wild Oasis',
   },
-  description: 'Explore luxury properties',
+  description:
+    'Explore luxury properties located in the heart of the Italian Dolomites, surrounded by beautiful mountains and dark forests',
 }
 
 export default function RootLayout({
