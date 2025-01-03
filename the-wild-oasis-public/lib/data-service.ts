@@ -1,4 +1,5 @@
 import { eachDayOfInterval } from 'date-fns'
+import { supabase } from './supabase'
 
 /////////////
 // GET
@@ -96,14 +97,15 @@ export async function getBookings(guestId: string) {
 export async function getBookedDatesByCabinId(cabinId: string) {
   let today = new Date()
   today.setUTCHours(0, 0, 0, 0)
-  today = today.toISOString()
+
+  const todayString = today.toISOString()
 
   // Getting all bookings
   const { data, error } = await supabase
     .from('bookings')
     .select('*')
     .eq('cabinId', cabinId)
-    .or(`startDate.gte.${today},status.eq.checked-in`)
+    .or(`startDate.gte.${todayString},status.eq.checked-in`)
 
   if (error) {
     console.error(error)
@@ -147,7 +149,7 @@ export async function getCountries() {
 /////////////
 // CREATE
 
-export async function createGuest(newGuest) {
+export async function createGuest(newGuest: Record<string, string>) {
   const { data, error } = await supabase.from('guests').insert([newGuest])
 
   if (error) {
@@ -158,7 +160,7 @@ export async function createGuest(newGuest) {
   return data
 }
 
-export async function createBooking(newBooking) {
+export async function createBooking(newBooking: Record<string, string>) {
   const { data, error } = await supabase
     .from('bookings')
     .insert([newBooking])
@@ -178,7 +180,10 @@ export async function createBooking(newBooking) {
 // UPDATE
 
 // The updatedFields is an object which should ONLY contain the updated data
-export async function updateGuest(id, updatedFields) {
+export async function updateGuest(
+  id: string,
+  updatedFields: Record<string, string>
+) {
   const { data, error } = await supabase
     .from('guests')
     .update(updatedFields)
@@ -193,7 +198,10 @@ export async function updateGuest(id, updatedFields) {
   return data
 }
 
-export async function updateBooking(id, updatedFields) {
+export async function updateBooking(
+  id: string,
+  updatedFields: Record<string, string>
+) {
   const { data, error } = await supabase
     .from('bookings')
     .update(updatedFields)
@@ -211,7 +219,7 @@ export async function updateBooking(id, updatedFields) {
 /////////////
 // DELETE
 
-export async function deleteBooking(id) {
+export async function deleteBooking(id: string) {
   const { data, error } = await supabase.from('bookings').delete().eq('id', id)
 
   if (error) {
