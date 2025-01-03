@@ -1,5 +1,10 @@
 import { ReservationCard } from '@/components'
+import type { Metadata } from 'next'
 import type { Booking } from '@/app/types'
+
+export const metadata: Metadata = {
+  title: 'My Reservations',
+}
 
 export default function Page() {
   // CHANGE
