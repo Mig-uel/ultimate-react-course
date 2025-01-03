@@ -1,16 +1,10 @@
-import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Josefin_Sans } from 'next/font/google'
+import { Logo, Navigation } from '@/components'
 import './globals.css'
-import Navigation from '@/components/Navigation'
-import Logo from '@/components/Logo'
+import type { Metadata } from 'next'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const josefinSans = Josefin_Sans({
+  display: 'swap',
   subsets: ['latin'],
 })
 
@@ -31,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-primary-950 text-primary-100 min-h-screen`}
+        className={`${josefinSans.className} antialiased bg-primary-950 text-primary-100 min-h-screen`}
       >
         <header>
           <Logo />
