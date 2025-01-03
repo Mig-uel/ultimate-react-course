@@ -2,6 +2,8 @@
 
 # The Wild Oasis (Public Facing App)
 
+The Wild Oasis a public facing app for reserving luxury cabins.
+
 ## Project Requirements
 
 - Users of the app are potential guests and actual guests
