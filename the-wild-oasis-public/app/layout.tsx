@@ -15,7 +15,10 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'The Wild Oasis',
+  title: {
+    template: '%s - The Wild Oasis',
+    default: 'The Wild Oasis',
+  },
   description: 'Explore luxury properties',
 }
 
