@@ -1,4 +1,4 @@
 const Loading = () => {
-  return <div className='spinner'>LOADING DATA...</div>
+  return <div className='spinner'></div>
 }
 export default Loading
