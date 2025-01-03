@@ -1,13 +1,13 @@
 import { CabinCard } from '@/components'
+import { getCabins } from '@/lib/data-service'
 import type { Metadata } from 'next'
-import type { Cabin } from '../types'
 
 export const metadata: Metadata = {
   title: 'Cabins',
 }
 
-const CabinsPage = () => {
-  const cabins = [] as Cabin[]
+const CabinsPage = async () => {
+  const cabins = await getCabins()
 
   return (
     <div>
