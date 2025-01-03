@@ -1,4 +1,9 @@
 import { SelectCountry } from '@/components'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Update Profile',
+}
 
 export default function Page() {
   // CHANGE
