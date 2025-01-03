@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![The Wild Oasis Logo](./public/logo.png)
 
-## Getting Started
+# The Wild Oasis (Public Facing App)
 
-First, run the development server:
+## Project Requirements
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Users of the app are potential guests and actual guests
+- Guest should be able to learn all about the Wild Oasis Hotel
+- Guests should be able to get information about each cabin and see booked dates
+- Guests should be able to filter cabins by their maximum capacity
+- Guests should be to reserve a cabin for a certain date range
+- Reservations are not paid online but upon arrival
+- Guest should be able to view all their past and future reservations
+- Guests should be able to update or delete a reservation
+- Guests need to sign up and log in before they can reserve a cabin and perform any operation
+- On sign up, each guest should get a profile in the database
+- Guests should be able to set and update basic data about their profile to make check-in at the hotel faster
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- About
+- Authentication
+- Cabins
+- Profile
+- Reservations
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Pages/Routes
 
-## Learn More
+- Home Page (/)
+- About Page (/about)
+- Cabins Overview (/cabins)
+- Cabin Detail (/cabins/:id)
+- Login (/login)
+- Reservations (/account/reservations)
+- Edit Reservation (/account/reservations/edit)
+- Update Profile (/account/profile)
 
-To learn more about Next.js, take a look at the following resources:
+### Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js
+- Context API
+- Tailwind CSS
+- Supabase
