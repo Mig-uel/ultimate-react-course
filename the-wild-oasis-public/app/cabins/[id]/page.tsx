@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { getCabin } from '@/lib/data-service'
+import { getCabin, getCabins } from '@/lib/data-service'
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from '@heroicons/react/24/solid'
 import type { Metadata } from 'next'
 
@@ -15,6 +15,17 @@ export const generateMetadata = async ({
   return {
     title: `Cabin ${cabin.name}`,
   }
+}
+
+/** Generate Dynamic Static Pages */
+export const generateStaticParams = async () => {
+  const cabins = await getCabins()
+
+  const ids = cabins.map((cabin) => ({
+    id: String(cabin.id),
+  }))
+
+  return ids
 }
 
 export default async function Page({ params }: Props) {
