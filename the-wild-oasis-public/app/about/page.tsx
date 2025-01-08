@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { getEntryCount } from '@/lib/data-service'
 import about1 from '@/public/about-1.jpg'
 import about2 from '@/public/about-2.jpg'
 import type { Metadata } from 'next'
-import { getCabins } from '@/lib/data-service'
 
 export const revalidate = 86400
 
@@ -12,9 +12,7 @@ export const metadata: Metadata = {
 }
 
 const AboutPage = async () => {
-  const cabins = await getCabins()
-
-  const numOfCabins = cabins.length
+  const numOfCabins = await getEntryCount('cabins')
 
   return (
     <div className='grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center'>
