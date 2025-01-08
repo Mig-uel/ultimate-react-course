@@ -1,12 +1,23 @@
 import Image from 'next/image'
 import { getCabin } from '@/lib/data-service'
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from '@heroicons/react/24/solid'
+import type { Metadata } from 'next'
 
-export default async function Page({
-  params,
-}: {
+type Props = {
   params: Promise<{ id: string }>
-}) {
+}
+
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  const cabin = await getCabin((await params).id)
+
+  return {
+    title: `Cabin ${cabin.name}`,
+  }
+}
+
+export default async function Page({ params }: Props) {
   const cabin = await getCabin((await params).id)
 
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
