@@ -1,6 +1,7 @@
 export { default as CabinCard } from './CabinCard'
 export { default as CabinList } from './CabinList'
 export { default as DeleteReservation } from './DeleteReservation'
+export { default as Filter } from './Filter'
 export { default as Header } from './Header'
 export { default as Logo } from './Logo'
 export { default as MiniSpinner } from './MiniSpinner'
