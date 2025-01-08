@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { CabinList, Spinner } from '@/components'
+import { CabinList, Filter, Spinner } from '@/components'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -26,6 +26,10 @@ const CabinsPage = async ({
         away from home. The perfect spot for a peaceful, calm vacation. Welcome
         to paradise.
       </p>
+
+      <div className='flex justify-end mb-8'>
+        <Filter filter={filter} />
+      </div>
 
       <Suspense fallback={<Spinner />}>
         <CabinList filter={filter} />
