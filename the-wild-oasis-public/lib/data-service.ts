@@ -148,6 +148,19 @@ export async function getCountries() {
   }
 }
 
+export async function getEntryCount(tableName: string) {
+  const { count, error } = await supabase
+    .from(tableName)
+    .select('id', { count: 'exact', head: true })
+
+  if (error) {
+    console.log(error)
+    throw new Error('Could not get entries count')
+  }
+
+  return count
+}
+
 /////////////
 // CREATE
 
