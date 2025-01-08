@@ -2,8 +2,6 @@ import { Suspense } from 'react'
 import { CabinList, Spinner } from '@/components'
 import type { Metadata } from 'next'
 
-export const revalidate = 3600
-
 export const metadata: Metadata = {
   title: 'Cabins',
 }
