@@ -8,7 +8,13 @@ export const metadata: Metadata = {
   title: 'Cabins',
 }
 
-const CabinsPage = async () => {
+const CabinsPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string>>
+}) => {
+  const filter = (await searchParams)?.capacity ?? 'all'
+
   return (
     <div>
       <h1 className='text-4xl mb-5 text-accent-400 font-medium'>
@@ -24,7 +30,7 @@ const CabinsPage = async () => {
       </p>
 
       <Suspense fallback={<Spinner />}>
-        <CabinList />
+        <CabinList filter={filter} />
       </Suspense>
     </div>
   )
