@@ -7,6 +7,7 @@ type Props = {
   params: Promise<{ id: string }>
 }
 
+/** Dynamic Metadata */
 export const generateMetadata = async ({
   params,
 }: Props): Promise<Metadata> => {
