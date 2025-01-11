@@ -1,13 +1,9 @@
-import Image from 'next/image'
-import { DateSelector, ReservationForm, TextExpander } from '@/components'
-import {
-  getBookedDatesByCabinId,
-  getCabin,
-  getCabins,
-  getSettings,
-} from '@/lib/data-service'
+import { Reservation, Spinner, TextExpander } from '@/components'
+import { getCabin, getCabins } from '@/lib/data-service'
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from '@heroicons/react/24/solid'
 import type { Metadata } from 'next'
+import Image from 'next/image'
+import { Suspense } from 'react'
 
 type Props = {
   params: Promise<{ id: string }>
@@ -36,16 +32,7 @@ export const generateStaticParams = async () => {
 }
 
 export default async function Page({ params }: Props) {
-  // const cabin = await getCabin((await params).id)
-
-  // const settings = await getSettings()
-  // const bookedDates = await getBookedDatesByCabinId(id)
-
-  const [cabin, settings, bookedDates] = await Promise.all([
-    getCabin((await params).id),
-    getSettings(),
-    getBookedDatesByCabinId((await params).id),
-  ])
+  const cabin = await getCabin((await params).id)
 
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     cabin
@@ -102,10 +89,9 @@ export default async function Page({ params }: Props) {
           Reserve {name} today. Pay on arrival.
         </h2>
 
-        <div className='grid grid-cols-2 border border-primary-800 min-h-[400px] mt-10'>
-          <DateSelector />
-          <ReservationForm />
-        </div>
+        <Suspense fallback={<Spinner />}>
+          <Reservation cabin={cabin} />
+        </Suspense>
       </div>
     </div>
   )
