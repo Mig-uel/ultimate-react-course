@@ -1,6 +1,11 @@
 import Image from 'next/image'
-import { TextExpander } from '@/components'
-import { getCabin, getCabins } from '@/lib/data-service'
+import { DateSelector, ReservationForm, TextExpander } from '@/components'
+import {
+  getBookedDatesByCabinId,
+  getCabin,
+  getCabins,
+  getSettings,
+} from '@/lib/data-service'
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from '@heroicons/react/24/solid'
 import type { Metadata } from 'next'
 
@@ -93,9 +98,14 @@ export default async function Page({ params }: Props) {
       </div>
 
       <div>
-        <h2 className='text-5xl font-semibold text-center'>
+        <h2 className='text-5xl font-semibold text-center text-accent-400'>
           Reserve {name} today. Pay on arrival.
         </h2>
+
+        <div className='grid grid-cols-2 border border-primary-800 min-h-[400px] mt-10'>
+          <DateSelector />
+          <ReservationForm />
+        </div>
       </div>
     </div>
   )
