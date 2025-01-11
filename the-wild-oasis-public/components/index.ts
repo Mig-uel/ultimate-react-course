@@ -1,3 +1,4 @@
+export { default as Cabin } from './Cabin'
 export { default as CabinCard } from './CabinCard'
 export { default as CabinList } from './CabinList'
 export { default as DateSelector } from './DateSelector'
