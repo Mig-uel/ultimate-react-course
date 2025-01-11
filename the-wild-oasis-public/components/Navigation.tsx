@@ -1,6 +1,9 @@
 import Link from 'next/link'
+import { auth } from '@/lib/auth'
 
-const Navigation = () => {
+const Navigation = async () => {
+  const session = await auth()
+
   return (
     <nav className='z-10 text-xl'>
       <ul className='flex gap-16 items-center'>
@@ -22,14 +25,31 @@ const Navigation = () => {
           </Link>
         </li>
 
-        <li>
-          <Link
-            href='/account'
-            className='hover:text-accent-400 transition-colors'
-          >
-            Account
-          </Link>
-        </li>
+        {session && session.user ? (
+          <li>
+            <Link
+              href='/account'
+              className='hover:text-accent-400 transition-colors flex items-center gap-4'
+            >
+              <img
+                src={session.user.image as string}
+                className='h-8 rounded-full'
+                alt={session.user.name as string}
+                referrerPolicy='no-referrer'
+              />
+              <span className='capitalize'>{session.user.name}</span>
+            </Link>
+          </li>
+        ) : (
+          <li>
+            <Link
+              href='/account'
+              className='hover:text-accent-400 transition-colors'
+            >
+              <span>Account</span>
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   )
