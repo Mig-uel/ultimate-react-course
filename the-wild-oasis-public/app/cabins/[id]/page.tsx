@@ -31,7 +31,16 @@ export const generateStaticParams = async () => {
 }
 
 export default async function Page({ params }: Props) {
-  const cabin = await getCabin((await params).id)
+  // const cabin = await getCabin((await params).id)
+
+  // const settings = await getSettings()
+  // const bookedDates = await getBookedDatesByCabinId(id)
+
+  const [cabin, settings, bookedDates] = await Promise.all([
+    getCabin((await params).id),
+    getSettings(),
+    getBookedDatesByCabinId((await params).id),
+  ])
 
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     cabin
