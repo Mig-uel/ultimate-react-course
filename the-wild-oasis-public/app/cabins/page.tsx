@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { CabinList, Filter, Spinner } from '@/components'
+import { CabinList, Filter, ReservationReminder, Spinner } from '@/components'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -33,6 +33,7 @@ const CabinsPage = async ({
 
       <Suspense fallback={<Spinner />} key={filter}>
         <CabinList filter={filter} />
+        <ReservationReminder />
       </Suspense>
     </div>
   )
