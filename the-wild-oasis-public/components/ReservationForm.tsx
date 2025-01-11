@@ -1,6 +1,10 @@
-function ReservationForm() {
+'use client'
+
+import type { Cabin } from '@/app/types'
+
+function ReservationForm({ cabin }: { cabin: Cabin }) {
   // CHANGE
-  const maxCapacity = 23
+  const { maxCapacity } = cabin
 
   return (
     <div className='scale-[1.01]'>
