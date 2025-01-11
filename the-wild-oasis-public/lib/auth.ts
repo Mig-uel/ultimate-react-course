@@ -32,6 +32,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
     // runs each session req (ex. using auth())
     async session({ session }) {
+      if (session.user.guestID) return session
+
       const guest = await getGuest(session.user.email)
 
       // assign session.user.guestID the guest's id we retrieved
