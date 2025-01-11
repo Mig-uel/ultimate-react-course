@@ -1,9 +1,7 @@
-import { NextMiddleware, NextResponse } from 'next/server'
+import { auth } from '@/lib/auth'
 
 /** Middleware */
-export const middleware: NextMiddleware = (req, event) => {
-  return NextResponse.redirect(new URL('/about', req.url))
-}
+export const middleware = auth
 
 /** Middleware Matcher */
 export const config = {
