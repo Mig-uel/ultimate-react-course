@@ -15,6 +15,7 @@ export {
   ReservationContextProvider,
   useReservationContext,
 } from './ReservationContext'
+export { default as ReservationReminder } from './ReservationReminder'
 export { default as SelectCountry } from './SelectCountry'
 export { default as SideNavigation } from './SideNavigation'
 export { default as SignOutButton } from './SignOutButton'
