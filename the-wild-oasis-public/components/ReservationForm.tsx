@@ -1,9 +1,10 @@
 'use client'
 
 import type { Cabin } from '@/app/types'
+import { useReservationContext } from './ReservationContext'
 
 function ReservationForm({ cabin }: { cabin: Cabin }) {
-  // CHANGE
+  const { range } = useReservationContext()
   const { maxCapacity } = cabin
 
   return (
