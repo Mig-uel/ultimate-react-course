@@ -11,6 +11,10 @@ export { default as Navigation } from './Navigation'
 export { default as Reservation } from './Reservation'
 export { default as ReservationCard } from './ReservationCard'
 export { default as ReservationForm } from './ReservationForm'
+export {
+  ReservationContextProvider,
+  useReservationContext,
+} from './ReservationContext'
 export { default as SelectCountry } from './SelectCountry'
 export { default as SideNavigation } from './SideNavigation'
 export { default as SignOutButton } from './SignOutButton'
