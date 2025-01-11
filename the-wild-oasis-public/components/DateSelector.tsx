@@ -2,9 +2,17 @@
 
 import type { Cabin } from '@/app/types'
 import { isWithinInterval } from 'date-fns'
-import { useState } from 'react'
-import { type DateRange, DayPicker } from 'react-day-picker'
+import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
+import { useReservationContext } from './ReservationContext'
+
+type Settings = {
+  id: string
+  minBookingLength: number
+  maxBookingLength: number
+  maxGuestsPerBooking: number
+  breakfastPrice: number
+}
 
 function isAlreadyBooked(range, datesArr: Date[]) {
   return (
@@ -16,15 +24,7 @@ function isAlreadyBooked(range, datesArr: Date[]) {
   )
 }
 
-type Settings = {
-  id: string
-  minBookingLength: number
-  maxBookingLength: number
-  maxGuestsPerBooking: number
-  breakfastPrice: number
-}
-
-function DateSelector({
+export default function DateSelector({
   settings,
   bookedDates,
   cabin,
@@ -33,10 +33,8 @@ function DateSelector({
   bookedDates: Date[]
   cabin: Cabin
 }) {
-  const [range, setRange] = useState<DateRange>({
-    from: undefined,
-    to: undefined,
-  })
+  /** Reservation Context */
+  const { range, reset, setRange } = useReservationContext()
 
   // CHANGE
   const regularPrice = 23
@@ -67,7 +65,6 @@ function DateSelector({
           setRange(range)
         }}
         selected={range}
-        
       />
 
       <div className='flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]'>
@@ -110,5 +107,3 @@ function DateSelector({
     </div>
   )
 }
-
-export default DateSelector
