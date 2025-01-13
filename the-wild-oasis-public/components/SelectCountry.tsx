@@ -27,6 +27,7 @@ async function SelectCountry({
       // Here we use a trick to encode BOTH the country name and the flag into the value. Then we split them up again later in the server action
       defaultValue={`${defaultCountry}%${flag}`}
       className={className}
+      key={defaultCountry}
     >
       <option value=''>Select country...</option>
       {countries.map((c) => (
