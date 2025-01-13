@@ -2,7 +2,8 @@
 
 import { revalidatePath } from 'next/cache'
 import { auth, signIn, signOut } from './auth'
-import { updateGuest } from './data-service'
+import { deleteBooking, getGuest, updateGuest } from './data-service'
+import { useSessionUser } from './helpers'
 
 /** Server Actions */
 
@@ -39,4 +40,13 @@ export async function updateProfile(formData: FormData) {
   })
 
   return revalidatePath('/account/profile')
+}
+
+export async function deleteReservation(bookingID: number) {
+  const user = await useSessionUser()
+  const dbUser = await getGuest(user.email!)
+
+  await deleteBooking(bookingID, dbUser.id)
+
+  return revalidatePath('/account/reservations')
 }
