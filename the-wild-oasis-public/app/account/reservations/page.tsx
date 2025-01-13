@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { ReservationCard } from '@/components'
+import { getBookings } from '@/lib/data-service'
+import { auth } from '@/lib/auth'
 import type { Metadata } from 'next'
 import type { Booking } from '@/app/types'
 
@@ -7,9 +9,12 @@ export const metadata: Metadata = {
   title: 'My Reservations',
 }
 
-export default function Page() {
-  // CHANGE
-  const bookings = [] as Booking[]
+export default async function Page() {
+  const session = await auth()
+
+  if (!session || !session.user) throw new Error('Invalid Session')
+
+  const bookings = (await getBookings(session.user.guestID)) as Booking[]
 
   return (
     <div>
