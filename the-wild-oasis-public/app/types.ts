@@ -20,3 +20,11 @@ export type Booking = {
   created_at: string
   cabins: Partial<Cabin>
 }
+
+export type Guest = {
+  fullName: string
+  nationality?: string
+  email: string
+  nationalID?: string
+  countryFlag?: string
+}
