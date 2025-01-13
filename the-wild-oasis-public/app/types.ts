@@ -9,16 +9,16 @@ export type Cabin = {
 }
 
 export type Booking = {
-  id: string
-  guestId: string
-  startDate: string
-  endDate: string
-  numNights: number
-  totalPrice: number
-  numGuests: number
-  status: string
-  created_at: string
-  cabins: Partial<Cabin>
+  id: any
+  created_at: any
+  startDate: any
+  endDate: any
+  numNights: any
+  numGuests: any
+  totalPrice: any
+  guestId: any
+  cabinId: any
+  cabins: Cabin[]
 }
 
 export type Guest = {
