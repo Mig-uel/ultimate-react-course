@@ -19,6 +19,7 @@ export type Booking = {
   guestID: any
   cabinID: any
   cabins: Cabin[]
+  status: 'checked-in' | 'checked-out' | 'unconfirmed'
 }
 
 export type Guest = {
