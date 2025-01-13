@@ -18,7 +18,7 @@ export type Booking = {
   totalPrice: any
   guestID: any
   cabinID: any
-  cabins: Cabin[]
+  cabins: Cabin
   status: 'checked-in' | 'checked-out' | 'unconfirmed'
 }
 
