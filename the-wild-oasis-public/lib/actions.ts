@@ -21,23 +21,22 @@ export async function signOutAction() {
 }
 
 export async function updateProfile(formData: FormData) {
-  try {
-    const session = await auth()
+  const session = await auth()
 
-    if (!session || !session.user) throw new Error()
+  if (!session || !session.user) throw new Error()
 
-    const { user } = session
+  const { user } = session
 
-    const data = Object.fromEntries(formData) as Record<string, string>
+  const data = Object.fromEntries(formData) as Record<string, string>
 
-    await updateGuest(user.guestID, {
-      nationality: data.nationality.split('%')[0],
-      nationalID: data.nationalID,
-      countryFlag: data.nationality.split('%')[1],
-    })
+  if (!/^[a-zA-Z0-9]{6,12}$/.test(data.nationalID))
+    throw new Error('National ID is invalid')
 
-    return revalidatePath('/account/profile')
-  } catch (error) {
-    console.log(error)
-  }
+  await updateGuest(user.guestID, {
+    nationality: data.nationality.split('%')[0],
+    nationalID: data.nationalID,
+    countryFlag: data.nationality.split('%')[1],
+  })
+
+  return revalidatePath('/account/profile')
 }
