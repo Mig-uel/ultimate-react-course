@@ -1,8 +1,8 @@
 'use client'
 
+import Image from 'next/image'
 import { updateProfile } from '@/lib/actions'
 import type { Guest } from '@/app/types'
-import Image from 'next/image'
 
 const UpdateProfileForm = ({
   children,
@@ -11,7 +11,7 @@ const UpdateProfileForm = ({
   children: React.ReactNode
   guest: Guest
 }) => {
-  const { countryFlag, email, fullName, nationalID, nationality } = guest
+  const { countryFlag, email, fullName, nationalID } = guest
 
   return (
     <form
