@@ -16,8 +16,8 @@ export type Booking = {
   numNights: any
   numGuests: any
   totalPrice: any
-  guestId: any
-  cabinId: any
+  guestID: any
+  cabinID: any
   cabins: Cabin[]
 }
 
