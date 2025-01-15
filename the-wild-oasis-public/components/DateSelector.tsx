@@ -1,7 +1,7 @@
 'use client'
 
 import type { Cabin } from '@/app/types'
-import { isWithinInterval } from 'date-fns'
+import { differenceInDays, isWithinInterval } from 'date-fns'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 import { useReservationContext } from './ReservationContext'
@@ -36,10 +36,9 @@ export default function DateSelector({
   /** Reservation Context */
   const { range, reset, setRange } = useReservationContext()
 
-  // CHANGE
   const { discount, regularPrice } = cabin
-  const numNights = 23
-  const cabinPrice = 23
+  const numNights = differenceInDays(range.to!, range.from!) + 1
+  const cabinPrice = regularPrice * numNights - discount
 
   // SETTINGS
   const { maxBookingLength, minBookingLength } = settings
