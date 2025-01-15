@@ -1,11 +1,16 @@
 'use client'
 
-import { deleteReservation } from '@/lib/actions'
 import { TrashIcon } from '@heroicons/react/24/solid'
 import Button from './Button'
 
-function DeleteReservation({ bookingId }: { bookingId: number }) {
-  const deleteReservationAction = deleteReservation.bind(null, bookingId)
+function DeleteReservation({
+  bookingId,
+  onDelete,
+}: {
+  bookingId: number
+  onDelete: (bookingID: number) => Promise<void>
+}) {
+  const deleteReservationAction = onDelete.bind(null, bookingId)
 
   return (
     <form action={deleteReservationAction}>
