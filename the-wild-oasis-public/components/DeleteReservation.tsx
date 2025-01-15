@@ -1,15 +1,18 @@
+'use client'
+
 import { deleteReservation } from '@/lib/actions'
 import { TrashIcon } from '@heroicons/react/24/solid'
+import Button from './Button'
 
 function DeleteReservation({ bookingId }: { bookingId: number }) {
   const deleteReservationAction = deleteReservation.bind(null, bookingId)
 
   return (
     <form action={deleteReservationAction}>
-      <button className='group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900'>
+      <Button pendingText='Deleting...' text='Delete'>
+        {/* @ts-ignore */}
         <TrashIcon className='h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors' />
-        <span className='mt-1'>Delete</span>
-      </button>
+      </Button>
     </form>
   )
 }
