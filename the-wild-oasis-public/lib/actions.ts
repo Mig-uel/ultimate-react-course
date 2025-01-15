@@ -7,9 +7,11 @@ import {
   getGuest,
   updateBooking,
   updateGuest,
+  createBooking as newBooking,
 } from './data-service'
 import { useSessionUser } from './helpers'
 import { redirect } from 'next/navigation'
+import { Booking } from '@/app/types'
 
 /** Server Actions */
 
@@ -79,5 +81,31 @@ export async function updateReservation(
   })
 
   revalidatePath('/account')
+  return redirect('/account/reservations')
+}
+
+/** Create Booking */
+export async function createBooking(
+  bookingData: Partial<Booking> & { cabinPrice: number },
+  formData: FormData
+) {
+  const user = await useSessionUser()
+
+  const booking: Partial<Booking> = {
+    ...bookingData,
+    guestID: user.guestID,
+    status: 'unconfirmed',
+    numGuests: +formData.get('numGuests')!,
+    observations: (formData.get('observations') as string).slice(0, 1000) || '',
+    extrasPrice: 0,
+    isPaid: false,
+    hasBreakfast: false,
+    totalPrice: bookingData.cabinPrice,
+  }
+
+  await newBooking(booking)
+
+  revalidatePath('/account')
+
   return redirect('/account/reservations')
 }
