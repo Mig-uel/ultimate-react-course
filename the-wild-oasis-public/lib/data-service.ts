@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { eachDayOfInterval } from 'date-fns'
 import { supabase } from './supabase'
+import { Booking } from '@/app/types'
 
 /////////////
 // GET
@@ -182,7 +183,7 @@ export async function createGuest(newGuest: Record<string, string>) {
   return data
 }
 
-export async function createBooking(newBooking: Record<string, string>) {
+export async function createBooking(newBooking: Partial<Booking>) {
   const { data, error } = await supabase
     .from('bookings')
     .insert([newBooking])
@@ -238,7 +239,7 @@ export async function updateBooking(
     console.error(error)
     throw new Error('Booking could not be updated')
   }
-  
+
   return data
 }
 
