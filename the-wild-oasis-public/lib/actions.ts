@@ -105,7 +105,5 @@ export async function createBooking(
 
   await newBooking(booking)
 
-  revalidatePath('/account')
-
-  return redirect('/account/reservations')
+  return revalidatePath('/cabins')
 }
