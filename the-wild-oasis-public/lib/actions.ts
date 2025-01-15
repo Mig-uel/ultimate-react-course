@@ -13,6 +13,7 @@ import { redirect } from 'next/navigation'
 
 /** Server Actions */
 
+/** Sign In */
 export async function signInAction(redirect: string) {
   console.log(redirect)
 
@@ -21,12 +22,14 @@ export async function signInAction(redirect: string) {
   })
 }
 
+/** Sign Out */
 export async function signOutAction() {
   await signOut({
     redirectTo: '/',
   })
 }
 
+/** Update Profile */
 export async function updateProfile(formData: FormData) {
   const session = await auth()
 
@@ -48,6 +51,7 @@ export async function updateProfile(formData: FormData) {
   return revalidatePath('/account/profile')
 }
 
+/** Delete Reservation */
 export async function deleteReservation(bookingID: number) {
   const user = await useSessionUser()
   const dbUser = await getGuest(user.email!)
