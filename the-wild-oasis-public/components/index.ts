@@ -1,3 +1,4 @@
+export { default as Button } from './Button'
 export { default as Cabin } from './Cabin'
 export { default as CabinCard } from './CabinCard'
 export { default as CabinList } from './CabinList'
