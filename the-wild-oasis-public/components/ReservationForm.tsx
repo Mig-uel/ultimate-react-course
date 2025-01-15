@@ -8,7 +8,7 @@ import { createBooking } from '@/lib/actions'
 import Button from './Button'
 
 function ReservationForm({ cabin, user }: { cabin: Cabin; user: User }) {
-  const { range } = useReservationContext()
+  const { range, reset } = useReservationContext()
   const { discount, maxCapacity, regularPrice, id } = cabin
 
   const startDate = range.from
@@ -43,7 +43,11 @@ function ReservationForm({ cabin, user }: { cabin: Cabin; user: User }) {
       </div>
 
       <form
-        action={createBookingAction}
+        // action={createBookingAction}
+        action={async (formData) => {
+          await createBookingAction(formData)
+          reset()
+        }}
         className='bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col'
       >
         <div className='space-y-2'>
