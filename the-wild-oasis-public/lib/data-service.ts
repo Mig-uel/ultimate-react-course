@@ -221,8 +221,11 @@ export async function updateGuest(
 }
 
 export async function updateBooking(
-  id: string,
-  updatedFields: Record<string, string>
+  id: number,
+  updatedFields: {
+    numGuests?: number
+    observations?: string
+  }
 ) {
   const { data, error } = await supabase
     .from('bookings')
@@ -235,6 +238,7 @@ export async function updateBooking(
     console.error(error)
     throw new Error('Booking could not be updated')
   }
+  
   return data
 }
 
