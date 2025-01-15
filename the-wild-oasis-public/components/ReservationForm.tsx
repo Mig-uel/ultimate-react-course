@@ -1,12 +1,30 @@
 'use client'
 
 import type { Cabin } from '@/app/types'
-import { useReservationContext } from './ReservationContext'
+import { differenceInDays } from 'date-fns'
 import type { User } from 'next-auth'
+import { useReservationContext } from './ReservationContext'
+import { createBooking } from '@/lib/actions'
+import Button from './Button'
 
 function ReservationForm({ cabin, user }: { cabin: Cabin; user: User }) {
   const { range } = useReservationContext()
-  const { maxCapacity } = cabin
+  const { discount, maxCapacity, regularPrice, id } = cabin
+
+  const startDate = range.from
+  const endDate = range.to
+  const numNights = differenceInDays(endDate!, startDate!)
+  const cabinPrice = numNights * (regularPrice - discount)
+
+  const bookingData = {
+    startDate,
+    endDate,
+    numNights,
+    cabinPrice,
+    cabinID: id,
+  }
+
+  const createBookingAction = createBooking.bind(null, bookingData)
 
   return (
     <div className='scale-[1.01]'>
@@ -24,7 +42,10 @@ function ReservationForm({ cabin, user }: { cabin: Cabin; user: User }) {
         </div>
       </div>
 
-      <form className='bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col'>
+      <form
+        action={createBookingAction}
+        className='bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col'
+      >
         <div className='space-y-2'>
           <label htmlFor='numGuests'>How many guests?</label>
           <select
@@ -59,9 +80,7 @@ function ReservationForm({ cabin, user }: { cabin: Cabin; user: User }) {
         <div className='flex justify-end items-center gap-6'>
           <p className='text-primary-300 text-base'>Start by selecting dates</p>
 
-          <button className='bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300'>
-            Reserve now
-          </button>
+          <Button pendingText='Reserving...' text='Reserve now' />
         </div>
       </form>
     </div>
