@@ -17,6 +17,7 @@ export {
   useReservationContext,
 } from './ReservationContext'
 export { default as ReservationForm } from './ReservationForm'
+export { default as ReservationList } from './ReservationList'
 export { default as ReservationReminder } from './ReservationReminder'
 export { default as SelectCountry } from './SelectCountry'
 export { default as SideNavigation } from './SideNavigation'
