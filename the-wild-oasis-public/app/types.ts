@@ -20,6 +20,10 @@ export type Booking = {
   cabinID: any
   cabins: Cabin
   status: 'checked-in' | 'checked-out' | 'unconfirmed'
+  observations: string
+  extrasPrice: number
+  isPaid: boolean
+  hasBreakfast: boolean
 }
 
 export type Guest = {
