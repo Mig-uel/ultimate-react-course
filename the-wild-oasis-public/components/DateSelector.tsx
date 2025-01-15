@@ -1,7 +1,7 @@
 'use client'
 
 import type { Cabin } from '@/app/types'
-import { differenceInDays, isWithinInterval } from 'date-fns'
+import { differenceInDays, isPast, isSameDay, isWithinInterval } from 'date-fns'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 import { useReservationContext } from './ReservationContext'
@@ -14,6 +14,7 @@ type Settings = {
   breakfastPrice: number
 }
 
+// @ts-ignore
 function isAlreadyBooked(range, datesArr: Date[]) {
   return (
     range.from &&
@@ -36,11 +37,15 @@ export default function DateSelector({
   /** Reservation Context */
   const { range, reset, setRange } = useReservationContext()
 
+  const displayedRange = isAlreadyBooked(range, bookedDates)
+    ? { to: undefined, from: undefined }
+    : range
+
   const { discount, regularPrice } = cabin
-  const numNights = differenceInDays(range.to!, range.from!) + 1
+  const numNights = differenceInDays(displayedRange.to!, displayedRange.from!)
   const cabinPrice = regularPrice * numNights - discount
 
-  // SETTINGS
+  // Settings
   const { maxBookingLength, minBookingLength } = settings
 
   return (
@@ -60,7 +65,11 @@ export default function DateSelector({
 
           setRange(range)
         }}
-        selected={range}
+        selected={displayedRange}
+        disabled={(currDate) =>
+          isPast(currDate) ||
+          bookedDates.some((date) => isSameDay(date, currDate))
+        }
       />
 
       <div className='flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]'>
