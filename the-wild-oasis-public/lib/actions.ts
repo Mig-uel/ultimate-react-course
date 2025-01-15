@@ -2,8 +2,14 @@
 
 import { revalidatePath } from 'next/cache'
 import { auth, signIn, signOut } from './auth'
-import { deleteBooking, getGuest, updateGuest } from './data-service'
+import {
+  deleteBooking,
+  getGuest,
+  updateBooking,
+  updateGuest,
+} from './data-service'
 import { useSessionUser } from './helpers'
+import { redirect } from 'next/navigation'
 
 /** Server Actions */
 
@@ -49,4 +55,25 @@ export async function deleteReservation(bookingID: number) {
   await deleteBooking(bookingID, dbUser.id)
 
   return revalidatePath('/account/reservations')
+}
+
+/** Update Reservation */
+export async function updateReservation(
+  info: { guestID: number; bookingID: number },
+  formData: FormData
+) {
+  const user = await useSessionUser()
+
+  if (user.guestID !== info.guestID)
+    throw new Error('Invalid session, please login again.')
+
+  const data = Object.fromEntries(formData) as Record<string, string>
+
+  await updateBooking(info.bookingID, {
+    numGuests: +data.numGuests,
+    observations: data.observations,
+  })
+
+  revalidatePath('/account')
+  return redirect('/account/reservations')
 }
